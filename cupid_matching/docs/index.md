@@ -1,4 +1,4 @@
-# cupid_matching version 2
+# cupid_matching
 
 <!-- [![image](https://img.shields.io/pypi/v/cupid_matching.svg)](https://pypi.python.org/pypi/cupid_matching) -->
 

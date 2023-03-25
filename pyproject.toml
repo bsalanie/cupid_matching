@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "cupid_matching"
-version = "0.1.0"
-description = ""
+version = "1.0.1"
+description = "Solves, simulates, and estimates separable matching TU models"
 authors = ["Bernard Salanie <bsalanie@columbia.edu>"]
 readme = "README.md"
 packages = [{include = "cupid_matching"}]
@@ -10,10 +10,13 @@ packages = [{include = "cupid_matching"}]
 python = "^3.10"
 numpy = "^1.20"
 scipy = "^1.8"
+matplotlib = "^3.6"
+seaborn = "^0.12"
+altair = "^4.2"
 pandas = "^1.4"
 scikit-learn = "^1.1"
-streamlit = "*"
-watchdog = "*"
+streamlit = "^1.20"
+watchdog = "^3.0"
 
 [tool.poetry.dev-dependencies]
 pip = "^23.0"
