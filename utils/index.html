@@ -1,0 +1,2634 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.pages.io/bsalanie/cupid_matching/utils/">
+      
+      
+        <link rel="prev" href="../matching_utils/">
+      
+      
+        <link rel="next" href="../model_classes/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
+    
+    
+      
+        <title>General Utilities - Cupid Matching</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.240905d7.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#utils-module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Cupid Matching" class="md-header__button md-logo" aria-label="Cupid Matching" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cupid Matching
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              General Utilities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/bsalanie/cupid_matching" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../min_distance/" class="md-tabs__link md-tabs__link--active">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Cupid Matching" class="md-nav__button md-logo" aria-label="Cupid Matching" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Cupid Matching
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/bsalanie/cupid_matching" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../min_distance/" class="md-nav__link">
+        Minimum Distance Estimator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../min_distance_utils/" class="md-nav__link">
+        Utilities for MDE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../poisson_glm/" class="md-nav__link">
+        Poisson estimator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../poisson_glm_utils/" class="md-nav__link">
+        Utilities for Poisson
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../entropy/" class="md-nav__link">
+        Entropy utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choo_siow/" class="md-nav__link">
+        Choo-Siow homoskedastic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choo_siow_gender_heteroskedastic/" class="md-nav__link">
+        Choo-Siow Gender-heteroskedastic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choo_siow_heteroskedastic/" class="md-nav__link">
+        Choo-Siow Heteroskedastic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nested_logit/" class="md-nav__link">
+        Nested Logit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipfp_solvers/" class="md-nav__link">
+        IPFP solvers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matching_utils/" class="md-nav__link">
+        Utilities for Matching
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          General Utilities
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        General Utilities
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils" class="md-nav__link">
+    cupid_matching.utils
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.ScalarFunctionAndGradient" class="md-nav__link">
+    ScalarFunctionAndGradient
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.bs_error_abort" class="md-nav__link">
+    bs_error_abort()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.bs_name_func" class="md-nav__link">
+    bs_name_func()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.check_gradient_scalar_function" class="md-nav__link">
+    check_gradient_scalar_function()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.der_nppow" class="md-nav__link">
+    der_nppow()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.describe_array" class="md-nav__link">
+    describe_array()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.npexp" class="md-nav__link">
+    npexp()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nplog" class="md-nav__link">
+    nplog()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.npmaxabs" class="md-nav__link">
+    npmaxabs()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nppow" class="md-nav__link">
+    nppow()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nprepeat_col" class="md-nav__link">
+    nprepeat_col()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nprepeat_row" class="md-nav__link">
+    nprepeat_row()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.print_stars" class="md-nav__link">
+    print_stars()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.test_matrix" class="md-nav__link">
+    test_matrix()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.test_vector" class="md-nav__link">
+    test_vector()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_classes/" class="md-nav__link">
+        Classes used
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit/" class="md-nav__link">
+        Code for a Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils" class="md-nav__link">
+    cupid_matching.utils
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.ScalarFunctionAndGradient" class="md-nav__link">
+    ScalarFunctionAndGradient
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.bs_error_abort" class="md-nav__link">
+    bs_error_abort()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.bs_name_func" class="md-nav__link">
+    bs_name_func()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.check_gradient_scalar_function" class="md-nav__link">
+    check_gradient_scalar_function()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.der_nppow" class="md-nav__link">
+    der_nppow()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.describe_array" class="md-nav__link">
+    describe_array()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.npexp" class="md-nav__link">
+    npexp()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nplog" class="md-nav__link">
+    nplog()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.npmaxabs" class="md-nav__link">
+    npmaxabs()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nppow" class="md-nav__link">
+    nppow()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nprepeat_col" class="md-nav__link">
+    nprepeat_col()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.nprepeat_row" class="md-nav__link">
+    nprepeat_row()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.print_stars" class="md-nav__link">
+    print_stars()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.test_matrix" class="md-nav__link">
+    test_matrix()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.test_vector" class="md-nav__link">
+    test_vector()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="utils-module"><code>utils</code> module<a class="headerlink" href="#utils-module" title="Permanent link">&para;</a></h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="cupid_matching.utils"></a>
+  <div class="doc doc-contents first">
+  
+      <p>This module contains some utility programs used by the package.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h2 id="cupid_matching.utils.ScalarFunctionAndGradient" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">ScalarFunctionAndGradient</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]],</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+<a href="#cupid_matching.utils.ScalarFunctionAndGradient" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Type of f(v, args, gr) that returns a scalar value
+and also a gradient if gr is True</p>
+  </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.bs_error_abort" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">bs_error_abort</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;error, aborting&#39;</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.bs_error_abort" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Report error and exits with code 1</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>msg</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>specifies the error message</p></td>
+          <td>
+                <code>&#39;error, aborting&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>None</code>
+          </td>
+          <td><p>nothing</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bs_error_abort</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;error, aborting&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Report error and exits with code 1</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        msg: specifies the error message</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nothing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bs_name_func</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.bs_name_func" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">bs_name_func</span><span class="p">(</span><span class="n">back</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.bs_name_func" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the name of the current function, or further back in the stack</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>back</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>2 for the current function, 3 for the function that called it, etc</p></td>
+          <td>
+                <code>2</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>the name of the function requested</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bs_name_func</span><span class="p">(</span><span class="n">back</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the name of the current function, or further back in the stack</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        back: 2 for the current function, 3 for the function that called it, etc</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the name of the function requested</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stack</span> <span class="o">=</span> <span class="n">extract_stack</span><span class="p">()</span>
+    <span class="n">func_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="n">back</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">func_name</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.check_gradient_scalar_function" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">check_gradient_scalar_function</span><span class="p">(</span><span class="n">fg</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;central&#39;</span><span class="p">,</span> <span class="n">EPS</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.check_gradient_scalar_function" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Checks the gradient of a scalar function.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>fg</code></td>
+          <td>
+                <code><span title="typing.Any">Any</span></code>
+          </td>
+          <td><p>should return the scalar value, and the gradient if its <code>gr</code> argument is <code>True</code></p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>where we are checking the gradient</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>args</code></td>
+          <td>
+                <code>list[<span title="typing.Any">Any</span>]</code>
+          </td>
+          <td><p>other arguments passed to <code>fg</code></p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>mode</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>"central" or "forward" derivatives</p></td>
+          <td>
+                <code>&#39;central&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>EPS</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>the step for forward or central derivatives</p></td>
+          <td>
+                <code>1e-06</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>tuple[<span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
+          </td>
+          <td><p>the analytic and numeric gradients</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">check_gradient_scalar_function</span><span class="p">(</span>
+    <span class="n">fg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;central&quot;</span><span class="p">,</span>
+    <span class="n">EPS</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks the gradient of a scalar function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fg: should return the scalar value, and the gradient if its `gr` argument is `True`</span>
+<span class="sd">        p: where we are checking the gradient</span>
+<span class="sd">        args: other arguments passed to `fg`</span>
+<span class="sd">        mode: &quot;central&quot; or &quot;forward&quot; derivatives</span>
+<span class="sd">        EPS: the step for forward or central derivatives</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the analytic and numeric gradients</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># if not isinstance(fg, ScalarFunctionAndGradient):</span>
+    <span class="c1">#     bs_error_abort(&quot;wrong type for fg&quot;)</span>
+    <span class="n">f0</span><span class="p">,</span> <span class="n">f_grad</span> <span class="o">=</span> <span class="n">fg</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">print_stars</span><span class="p">(</span><span class="s2">&quot;checking the gradient: analytic, numeric&quot;</span><span class="p">)</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">sp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;central&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sp</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">p1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">EPS</span>
+            <span class="n">f_plus</span> <span class="o">=</span> <span class="n">fg</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">p1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">EPS</span>
+            <span class="n">f_minus</span> <span class="o">=</span> <span class="n">fg</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_plus</span> <span class="o">-</span> <span class="n">f_minus</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">EPS</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">f_grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sp</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">p1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">EPS</span>
+            <span class="n">f_plus</span> <span class="o">=</span> <span class="n">fg</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_plus</span> <span class="o">-</span> <span class="n">f0</span><span class="p">)</span> <span class="o">/</span> <span class="n">EPS</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">f_grad</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="s2">&quot;mode must be &#39;central&#39; or &#39;forward&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f_grad</span><span class="p">,</span> <span class="n">g</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.der_nppow" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">der_nppow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.der_nppow" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>evaluates the derivatives in a and b of element-by-element <span class="arithmatex"><span class="MathJax_Preview">a^b</span><script type="math/tex">a^b</script></span></p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>a</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>input Numpy arrays</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>b</code></td>
+          <td>
+                <code>int | float | <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a Numpy array of the same shape, or a scalar</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="cupid_matching.utils.TwoArrays">TwoArrays</span></code>
+          </td>
+          <td><p>a pair of two arrays of the same shape as <code>a</code></p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">der_nppow</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TwoArrays</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    evaluates the derivatives in a and b of element-by-element $a^b$</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: input Numpy arrays</span>
+<span class="sd">        b: a Numpy array of the same shape, or a scalar</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a pair of two arrays of the same shape as `a`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mina</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mina</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">print_stars</span><span class="p">(</span><span class="s2">&quot;All elements of a must be positive in der_nppow!&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">a_pow_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">a_pow_b</span> <span class="o">/</span> <span class="n">a</span><span class="p">,</span> <span class="n">a_pow_b</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">print_stars</span><span class="p">(</span><span class="s2">&quot;nppow: b is not a number or an array of the same shape as a!&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">avec</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">bvec</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">a_pow_b</span> <span class="o">=</span> <span class="n">avec</span><span class="o">**</span><span class="n">bvec</span>
+        <span class="n">der_wrt_a</span> <span class="o">=</span> <span class="n">a_pow_b</span> <span class="o">*</span> <span class="n">bvec</span> <span class="o">/</span> <span class="n">avec</span>
+        <span class="n">der_wrt_b</span> <span class="o">=</span> <span class="n">a_pow_b</span> <span class="o">*</span> <span class="n">nplog</span><span class="p">(</span><span class="n">avec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">der_wrt_a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">der_wrt_b</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.describe_array" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">describe_array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;The array&#39;</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.describe_array" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Descriptive statistics on an array interpreted as a vector</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>v</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>the array</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>its name</p></td>
+          <td>
+                <code>&#39;The array&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.NamedTuple">NamedTuple</span></code>
+          </td>
+          <td><p>a <code>DescribeResult</code> namedtuple</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">describe_array</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;The array&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NamedTuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Descriptive statistics on an array interpreted as a vector</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        v: the array</span>
+<span class="sd">        name: its name</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a `DescribeResult` namedtuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> has:&quot;</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">sts</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of elements: </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">nobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum: </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">minmax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum: </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">minmax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">mean</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stderr: </span><span class="si">{</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.npexp" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">npexp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bigx</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.npexp" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p><span class="arithmatex"><span class="MathJax_Preview">C^2</span><script type="math/tex">C^2</script></span> extension of  <span class="arithmatex"><span class="MathJax_Preview">\exp(a)</span><script type="math/tex">\exp(a)</script></span> above <code>bigx</code></p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>a</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a Numpy array</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deriv</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>if <code>True</code>, the first derivative is also returned</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>bigx</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>an upper bound</p></td>
+          <td>
+                <code>30.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>verbose</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>whether diagnoses are printed</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bigx</code></td>          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | <span title="cupid_matching.utils.TwoArrays">TwoArrays</span></code>
+          </td>
+          <td><p>upper bound <span class="arithmatex"><span class="MathJax_Preview">\exp(a)</span><script type="math/tex">\exp(a)</script></span>  <span class="arithmatex"><span class="MathJax_Preview">C^2</span><script type="math/tex">C^2</script></span>-extended above <code>bigx</code>,</p></td>
+        </tr>
+        <tr>
+<td></td>          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | <span title="cupid_matching.utils.TwoArrays">TwoArrays</span></code>
+          </td>
+          <td><p>with its derivative if <code>deriv</code> is <code>True</code></p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">npexp</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">deriv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">bigx</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">30.0</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">TwoArrays</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    $C^2$ extension of  $\\exp(a)$ above `bigx`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: a Numpy array</span>
+<span class="sd">        deriv: if `True`, the first derivative is also returned</span>
+<span class="sd">        bigx: an upper bound</span>
+<span class="sd">        verbose: whether diagnoses are printed</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bigx: upper bound $\\exp(a)$  $C^2$-extended above `bigx`,</span>
+<span class="sd">        with its derivative if `deriv` is `True`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">bigx</span><span class="p">:</span>
+        <span class="n">expa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">expa</span><span class="p">,</span> <span class="n">expa</span><span class="p">)</span> <span class="k">if</span> <span class="n">deriv</span> <span class="k">else</span> <span class="n">expa</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">exparr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">bigx</span><span class="p">))</span>
+        <span class="n">ebigx</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">bigx</span><span class="p">)</span>
+        <span class="n">darr</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">bigx</span>
+        <span class="n">exparr_larger</span> <span class="o">=</span> <span class="n">ebigx</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">darr</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">darr</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">n_large_args</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">bigx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">n_large_args</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">finals</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span> <span class="k">if</span> <span class="n">n_large_args</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;npexp: </span><span class="si">{</span><span class="n">n_large_args</span><span class="si">}</span><span class="s2"> argument</span><span class="si">{</span><span class="n">finals</span><span class="si">}</span><span class="s2"> larger than </span><span class="si">{</span><span class="n">bigx</span><span class="si">}</span><span class="s2">: maxi = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="n">expa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">bigx</span><span class="p">,</span> <span class="n">exparr</span><span class="p">,</span> <span class="n">exparr_larger</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">deriv</span><span class="p">:</span>
+            <span class="n">der_exparr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">bigx</span><span class="p">))</span>
+            <span class="n">der_exparr_larger</span> <span class="o">=</span> <span class="n">ebigx</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">darr</span><span class="p">)</span>
+            <span class="n">der_expa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">bigx</span><span class="p">,</span> <span class="n">der_exparr</span><span class="p">,</span> <span class="n">der_exparr_larger</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">expa</span><span class="p">,</span> <span class="n">der_expa</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">expa</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.nplog" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">nplog</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-30</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.nplog" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p><span class="arithmatex"><span class="MathJax_Preview">C^2</span><script type="math/tex">C^2</script></span> extension of  <span class="arithmatex"><span class="MathJax_Preview">\ln(a)</span><script type="math/tex">\ln(a)</script></span> below <code>eps</code></p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>a</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a Numpy array</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deriv</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>if <code>True</code>, the first derivative is also returned</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>eps</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>a lower bound</p></td>
+          <td>
+                <code>1e-30</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>verbose</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>whether diagnoses are printed</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | tuple[<span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
+          </td>
+          <td><p><span class="arithmatex"><span class="MathJax_Preview">\ln(a)</span><script type="math/tex">\ln(a)</script></span> <span class="arithmatex"><span class="MathJax_Preview">C^2</span><script type="math/tex">C^2</script></span>-extended below <code>eps</code>,</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | tuple[<span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
+          </td>
+          <td><p>with its derivative if <code>deriv</code> is <code>True</code></p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">nplog</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">deriv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-30</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;$C^2$ extension of  $\\ln(a)$ below `eps`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: a Numpy array</span>
+<span class="sd">        deriv: if `True`, the first derivative is also returned</span>
+<span class="sd">        eps: a lower bound</span>
+<span class="sd">        verbose: whether diagnoses are printed</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        $\\ln(a)$ $C^2$-extended below `eps`,</span>
+<span class="sd">        with its derivative if `deriv` is `True`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">:</span>
+        <span class="n">loga</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">loga</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span> <span class="k">if</span> <span class="n">deriv</span> <span class="k">else</span> <span class="n">loga</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logarreps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">eps</span><span class="p">))</span>
+        <span class="n">logarr_smaller</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">eps</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">eps</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">eps</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">eps</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">n_small_args</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">n_small_args</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">finals</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span> <span class="k">if</span> <span class="n">n_small_args</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;nplog: </span><span class="si">{</span><span class="n">n_small_args</span><span class="si">}</span><span class="s2"> argument</span><span class="si">{</span><span class="n">finals</span><span class="si">}</span><span class="s2"> smaller than </span><span class="si">{</span><span class="n">eps</span><span class="si">}</span><span class="s2">: mini = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="n">loga</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">,</span> <span class="n">logarreps</span><span class="p">,</span> <span class="n">logarr_smaller</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">deriv</span><span class="p">:</span>
+            <span class="n">der_logarreps</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+            <span class="n">der_logarr_smaller</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">eps</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">eps</span> <span class="o">*</span> <span class="n">eps</span><span class="p">)</span>
+            <span class="n">der_loga</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">,</span> <span class="n">der_logarreps</span><span class="p">,</span> <span class="n">der_logarr_smaller</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">loga</span><span class="p">,</span> <span class="n">der_loga</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">loga</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.npmaxabs" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">npmaxabs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.npmaxabs" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>The maximum absolute value in an array</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>a</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>the array</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p><span class="arithmatex"><span class="MathJax_Preview">\max{\vert a \vert}</span><script type="math/tex">\max{\vert a \vert}</script></span></p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">npmaxabs</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The maximum absolute value in an array</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: the array</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        $\\max{\\vert a \\vert}$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">maxi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">maxi</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.nppow" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">nppow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.nppow" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Evaluates <span class="arithmatex"><span class="MathJax_Preview">a^b</span><script type="math/tex">a^b</script></span> element-by-element</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>a</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a Numpy array</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>b</code></td>
+          <td>
+                <code>int | float | <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>if an array, it should have the same shape as <code>a</code></p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deriv</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>if <code>True</code>, the first derivatives wrt <code>a</code> and <code>b</code>
+are also returned</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | <span title="cupid_matching.utils.ThreeArrays">ThreeArrays</span></code>
+          </td>
+          <td><p>an array of the same shape as <code>a</code>, and if <code>deriv</code> is <code>True</code>,</p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | <span title="cupid_matching.utils.ThreeArrays">ThreeArrays</span></code>
+          </td>
+          <td><p>the derivatives wrt <code>a</code> and <code>b</code></p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">nppow</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">deriv</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">ThreeArrays</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates $a^b$ element-by-element</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a: a Numpy array</span>
+<span class="sd">        b: if an array, it should have the same shape as `a`</span>
+<span class="sd">        deriv: if `True`, the first derivatives wrt `a` and `b`</span>
+<span class="sd">            are also returned</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        an array of the same shape as `a`, and if `deriv` is `True`,</span>
+<span class="sd">        the derivatives wrt `a` and `b`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mina</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mina</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="s2">&quot;All elements of a must be positive!&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="n">a_pow_b</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="n">b</span>
+        <span class="k">if</span> <span class="n">deriv</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span> <span class="o">*</span> <span class="n">a_pow_b</span> <span class="o">/</span> <span class="n">a</span><span class="p">,</span> <span class="n">a_pow_b</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">a_pow_b</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a has shape </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and b has shape </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">avec</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">bvec</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">a_pow_b</span> <span class="o">=</span> <span class="n">avec</span><span class="o">**</span><span class="n">bvec</span>
+        <span class="k">if</span> <span class="n">deriv</span><span class="p">:</span>
+            <span class="n">der_wrt_a</span> <span class="o">=</span> <span class="n">a_pow_b</span> <span class="o">*</span> <span class="n">bvec</span> <span class="o">/</span> <span class="n">avec</span>
+            <span class="n">der_wrt_b</span> <span class="o">=</span> <span class="n">a_pow_b</span> <span class="o">*</span> <span class="n">nplog</span><span class="p">(</span><span class="n">avec</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">a_pow_b</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+                <span class="n">der_wrt_a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+                <span class="n">der_wrt_b</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">a_pow_b</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.nprepeat_col" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">nprepeat_col</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.nprepeat_col" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a matrix with <code>n</code> columns, all equal to <code>v</code></p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>v</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a vector of size <code>m</code></p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>the number of columns requested</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p>:return: a matrix of shape <code>(m, n)</code></p>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">nprepeat_col</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a matrix with `n` columns, all equal to `v`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        v: a vector of size `m`</span>
+<span class="sd">        n: the number of columns requested</span>
+
+<span class="sd">    :return: a matrix of shape `(m, n)`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">test_vector</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;nprepeat_col&quot;</span><span class="p">)</span>
+    <span class="n">w</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">v</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.nprepeat_row" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">nprepeat_row</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.nprepeat_row" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a matrix with <code>m</code> rows, all equal to <code>v</code></p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>v</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a vector of size <code>n</code></p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>m</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>the number of rows requested</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>a matrix of shape <code>(m, n)</code></p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">nprepeat_row</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a matrix with `m` rows, all equal to `v`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        v: a vector of size `n`</span>
+<span class="sd">        m: the number of rows requested</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a matrix of shape `(m, n)`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">test_vector</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">&quot;nprepeat_row&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:],</span> <span class="n">m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.print_stars" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">print_stars</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.print_stars" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Prints a starred line, or two around the title</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>title</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>an optional title</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>the number of stars on the line</p></td>
+          <td>
+                <code>70</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>None</code>
+          </td>
+          <td><p>nothing</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">print_stars</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">70</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prints a starred line, or two around the title</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        title:  an optional title</span>
+<span class="sd">        n: the number of stars on the line</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nothing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_stars</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">line_stars</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line_stars</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.test_matrix" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">test_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fun_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.test_matrix" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Tests that <code>x</code> is a matrix; aborts otherwise</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>x</code></td>
+          <td>
+                <code><span title="typing.Any">Any</span></code>
+          </td>
+          <td><p>a potential matrix</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fun_name</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>the name of the calling function</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>tuple[int, int]</code>
+          </td>
+          <td><p>the shape of <code>x</code> if it is a matrix</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">test_matrix</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">fun_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests that `x` is a matrix; aborts otherwise</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: a potential matrix</span>
+<span class="sd">        fun_name: the name of the calling function</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the shape of `x` if it is a matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fun_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">fun_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fun_name</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x in </span><span class="si">{</span><span class="n">fun_str</span><span class="si">}</span><span class="s2"> should be a Numpy array&quot;</span><span class="p">)</span>
+    <span class="n">ndims_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span>
+    <span class="k">if</span> <span class="n">ndims_x</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x in </span><span class="si">{</span><span class="n">fun_str</span><span class="si">}</span><span class="s2"> should have two dimensions, not </span><span class="si">{</span><span class="n">ndims_x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">shx</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">return</span> <span class="n">shx</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.test_vector" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">test_vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fun_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.test_vector" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Tests that <code>x</code> is a vector; aborts otherwise</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>x</code></td>
+          <td>
+                <code><span title="typing.Any">Any</span></code>
+          </td>
+          <td><p>a potential vector</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>fun_name</code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td><p>the name of the calling function</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>the size of <code>x</code> if it is a vector</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">test_vector</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">fun_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tests that `x` is a vector; aborts otherwise</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x: a potential vector</span>
+<span class="sd">        fun_name: the name of the calling function</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the size of `x` if it is a vector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fun_str</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">fun_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fun_name</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fun_str</span><span class="si">}</span><span class="s2"> x should be a Numpy array&quot;</span><span class="p">)</span>
+    <span class="n">ndims_x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span>
+    <span class="k">if</span> <span class="n">ndims_x</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fun_str</span><span class="si">}</span><span class="s2"> x should have one dimension, not </span><span class="si">{</span><span class="n">ndims_x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">sx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">return</span> <span class="n">sx</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "search.highlight", "navigation.expand", "navigation.tabs"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.19047be9.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>
