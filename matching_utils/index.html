@@ -685,15 +685,7 @@ mux0 and mu0y are generated as the corresponding numbers of singles</p>
 
         <details class="quote">
           <summary>Source code in <code>cupid_matching/matching_utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
@@ -729,7 +721,21 @@ mux0 and mu0y are generated as the corresponding numbers of singles</p>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
-<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Matching</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;stores the numbers of couples and singles of every type;</span>
 
@@ -749,7 +755,9 @@ mux0 and mu0y are generated as the corresponding numbers of singles</p>
         <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">n_couples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="p">)</span>
         <span class="n">n_men</span><span class="p">,</span> <span class="n">n_women</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">repr_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;This is a matching with </span><span class="si">{</span><span class="n">n_men</span><span class="si">}</span><span class="s2">  men, </span><span class="si">{</span><span class="n">n_women</span><span class="si">}</span><span class="s2"> single women.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">repr_str</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;This is a matching with </span><span class="si">{</span><span class="n">n_men</span><span class="si">}</span><span class="s2">  men, </span><span class="si">{</span><span class="n">n_women</span><span class="si">}</span><span class="s2"> single women.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   with </span><span class="si">{</span><span class="n">n_couples</span><span class="si">}</span><span class="s2"> couples,</span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; We have </span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2"> types of men and </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2"> of women.&quot;</span>
         <span class="n">print_stars</span><span class="p">(</span><span class="n">repr_str</span><span class="p">)</span>
@@ -759,9 +767,13 @@ mux0 and mu0y are generated as the corresponding numbers of singles</p>
         <span class="n">Xn</span> <span class="o">=</span> <span class="n">test_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
         <span class="n">Ym</span> <span class="o">=</span> <span class="n">test_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">Xn</span> <span class="o">!=</span> <span class="n">X</span><span class="p">:</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;muxy is a (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2">) matrix but n has </span><span class="si">{</span><span class="n">Xn</span><span class="si">}</span><span class="s2"> elements.&quot;</span><span class="p">)</span>
+            <span class="n">bs_error_abort</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;muxy is a (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2">) matrix but n has </span><span class="si">{</span><span class="n">Xn</span><span class="si">}</span><span class="s2"> elements.&quot;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">Ym</span> <span class="o">!=</span> <span class="n">Y</span><span class="p">:</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;muxy is a (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2">) matrix but m has </span><span class="si">{</span><span class="n">Ym</span><span class="si">}</span><span class="s2"> elements.&quot;</span><span class="p">)</span>
+            <span class="n">bs_error_abort</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;muxy is a (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2">) matrix but m has </span><span class="si">{</span><span class="n">Ym</span><span class="si">}</span><span class="s2"> elements.&quot;</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mux0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu0y</span> <span class="o">=</span> <span class="n">_get_singles</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">unpack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

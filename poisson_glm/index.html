@@ -1009,7 +1009,15 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
 <span class="normal">227</span>
 <span class="normal">228</span>
 <span class="normal">229</span>
-<span class="normal">230</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">choo_siow_poisson_glm</span><span class="p">(</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">choo_siow_poisson_glm</span><span class="p">(</span>
     <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span>
     <span class="n">phi_bases</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">tol</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">,</span>
@@ -1082,7 +1090,9 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
 
     <span class="k">if</span> <span class="n">try_sparse</span><span class="p">:</span>
         <span class="n">w_mat</span> <span class="o">=</span> <span class="n">spr</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">XY</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span> <span class="o">+</span> <span class="n">Y</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">))))</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">XY</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span> <span class="o">+</span> <span class="n">Y</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)))</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># construct the Z matrix</span>
@@ -1119,7 +1129,9 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
         <span class="n">id_Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
         <span class="n">Z_unweighted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">id_X</span><span class="p">,</span> <span class="n">ones_Y</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">ones_X</span><span class="p">,</span> <span class="n">id_Y</span><span class="p">),</span> <span class="n">phi_mat</span><span class="p">]),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                    <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">id_X</span><span class="p">,</span> <span class="n">ones_Y</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">ones_X</span><span class="p">,</span> <span class="n">id_Y</span><span class="p">),</span> <span class="n">phi_mat</span><span class="p">]</span>
+                <span class="p">),</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">id_X</span><span class="p">,</span> <span class="n">zeros_XY</span><span class="p">,</span> <span class="n">zeros_XK</span><span class="p">]),</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">zeros_YX</span><span class="p">,</span> <span class="o">-</span><span class="n">id_Y</span><span class="p">,</span> <span class="n">zeros_YK</span><span class="p">]),</span>
             <span class="p">]</span>
@@ -1183,7 +1195,9 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
         <span class="n">A_inv_x</span> <span class="o">=</span> <span class="n">A_inv</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="p">:]</span>
         <span class="n">var_log_nx</span> <span class="o">=</span> <span class="n">var_munm_norm</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span> <span class="n">ix</span><span class="p">]</span> <span class="o">/</span> <span class="n">n_norm_x</span> <span class="o">/</span> <span class="n">n_norm_x</span>
         <span class="n">slice_x</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">Y</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="p">)</span>
-        <span class="n">covar_term</span> <span class="o">=</span> <span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">ix</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">slice_x</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">covar_term</span> <span class="o">=</span> <span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">ix</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">slice_x</span><span class="p">],</span> <span class="mi">1</span>
+        <span class="p">)</span>
         <span class="n">cov_a_lognx</span> <span class="o">=</span> <span class="p">(</span><span class="n">A_inv_x</span> <span class="o">@</span> <span class="n">z_unweighted_T</span> <span class="o">@</span> <span class="n">covar_term</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_norm_x</span>
         <span class="n">ux_var</span> <span class="o">=</span> <span class="n">varcov_gamma</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="n">var_log_nx</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">cov_a_lognx</span>
         <span class="n">u_std</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ux_var</span><span class="p">)</span>
@@ -1196,7 +1210,9 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
         <span class="n">A_inv_y</span> <span class="o">=</span> <span class="n">A_inv</span><span class="p">[</span><span class="n">iy</span><span class="p">,</span> <span class="p">:]</span>
         <span class="n">var_log_my</span> <span class="o">=</span> <span class="n">var_munm_norm</span><span class="p">[</span><span class="n">jy</span><span class="p">,</span> <span class="n">jy</span><span class="p">]</span> <span class="o">/</span> <span class="n">m_norm_y</span> <span class="o">/</span> <span class="n">m_norm_y</span>
         <span class="n">slice_y</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">XY</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
-        <span class="n">covar_term</span> <span class="o">=</span> <span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">jy</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">slice_y</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">covar_term</span> <span class="o">=</span> <span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">jy</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">var_muhat_norm</span><span class="p">[:,</span> <span class="n">slice_y</span><span class="p">],</span> <span class="mi">1</span>
+        <span class="p">)</span>
         <span class="n">cov_b_logmy</span> <span class="o">=</span> <span class="p">(</span><span class="n">A_inv_y</span> <span class="o">@</span> <span class="n">z_unweighted_T</span> <span class="o">@</span> <span class="n">covar_term</span><span class="p">)</span> <span class="o">/</span> <span class="n">m_norm_y</span>
         <span class="n">vy_var</span> <span class="o">=</span> <span class="n">varcov_gamma</span><span class="p">[</span><span class="n">iy</span><span class="p">,</span> <span class="n">iy</span><span class="p">]</span> <span class="o">+</span> <span class="n">var_log_my</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">cov_b_logmy</span>
         <span class="n">v_std</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">vy_var</span><span class="p">)</span>
