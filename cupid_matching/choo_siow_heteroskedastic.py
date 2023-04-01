@@ -8,8 +8,7 @@ from typing import cast
 
 import numpy as np
 
-from .entropy import (EntropyFunctions, EntropyHessianComponents,
-                      EntropyHessians)
+from .entropy import EntropyFunctions, EntropyHessians
 from .matching_utils import Matching
 from .utils import ThreeArrays, TwoArrays
 
@@ -215,7 +214,9 @@ entropy_choo_siow_heteroskedastic = EntropyFunctions(
     parameter_dependent=True,
     e_fun=e_choo_siow_heteroskedastic,
     hessian="provided",
-    e0_derivative=cast(EntropyHessians, e0_derivative_choo_siow_heteroskedastic),
+    e0_derivative=cast(
+        EntropyHessians, e0_derivative_choo_siow_heteroskedastic
+    ),
     e_derivative=cast(EntropyHessians, e_derivative_choo_siow_heteroskedastic),
     description="Choo and Siow heteroskedastic with analytic Hessian",
 )

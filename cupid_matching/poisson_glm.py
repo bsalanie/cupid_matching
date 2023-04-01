@@ -87,7 +87,9 @@ def choo_siow_poisson_glm(
 
     if try_sparse:
         w_mat = spr.csr_matrix(
-            np.concatenate((2 * np.ones((XY, n_cols)), np.ones((X + Y, n_cols))))
+            np.concatenate(
+                (2 * np.ones((XY, n_cols)), np.ones((X + Y, n_cols)))
+            )
         )
 
         # construct the Z matrix
@@ -124,7 +126,9 @@ def choo_siow_poisson_glm(
         id_Y = np.eye(Y)
         Z_unweighted = np.vstack(
             [
-                np.hstack([-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat]),
+                np.hstack(
+                    [-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat]
+                ),
                 np.hstack([-id_X, zeros_XY, zeros_XK]),
                 np.hstack([zeros_YX, -id_Y, zeros_YK]),
             ]
@@ -188,7 +192,9 @@ def choo_siow_poisson_glm(
         A_inv_x = A_inv[x, :]
         var_log_nx = var_munm_norm[ix, ix] / n_norm_x / n_norm_x
         slice_x = slice(x * Y, (x + 1) * Y)
-        covar_term = var_muhat_norm[:, ix] + np.sum(var_muhat_norm[:, slice_x], 1)
+        covar_term = var_muhat_norm[:, ix] + np.sum(
+            var_muhat_norm[:, slice_x], 1
+        )
         cov_a_lognx = (A_inv_x @ z_unweighted_T @ covar_term) / n_norm_x
         ux_var = varcov_gamma[x, x] + var_log_nx + 2.0 * cov_a_lognx
         u_std[x] = sqrt(ux_var)
@@ -201,7 +207,9 @@ def choo_siow_poisson_glm(
         A_inv_y = A_inv[iy, :]
         var_log_my = var_munm_norm[jy, jy] / m_norm_y / m_norm_y
         slice_y = slice(y, XY, Y)
-        covar_term = var_muhat_norm[:, jy] + np.sum(var_muhat_norm[:, slice_y], 1)
+        covar_term = var_muhat_norm[:, jy] + np.sum(
+            var_muhat_norm[:, slice_y], 1
+        )
         cov_b_logmy = (A_inv_y @ z_unweighted_T @ covar_term) / m_norm_y
         vy_var = varcov_gamma[iy, iy] + var_log_my + 2.0 * cov_b_logmy
         v_std[y] = sqrt(vy_var)

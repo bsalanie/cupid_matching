@@ -10,13 +10,18 @@ from typing import Any, cast
 
 import numpy as np
 
-from .entropy import (EntropyFunctions, EntropyHessianComponents,
-                      EntropyHessiansParam)
-from .matching_utils import Matching, _change_indices
-from .utils import NestsList, ThreeArrays, TwoArrays
+from cupid_matching.entropy import (
+    EntropyFunctions,
+    EntropyHessianComponents,
+    EntropyHessiansParam,
+)
+from cupid_matching.matching_utils import Matching, _change_indices
+from cupid_matching.utils import NestsList, ThreeArrays, TwoArrays
 
 
-def e0_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndarray:
+def e0_nested_logit(
+    muhat: Matching, additional_parameters: list[Any]
+) -> np.ndarray:
     """Returns the values of the parameter-independent part $e_0$
     for the nested logit.
 
@@ -142,7 +147,9 @@ e0_derivative_nested_logit = (
 )
 
 
-def e_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndarray:
+def e_nested_logit(
+    muhat: Matching, additional_parameters: list[Any]
+) -> np.ndarray:
     """Returns the values of the parameter-dependent part  $e$
     for the nested logit.
 
@@ -277,7 +284,9 @@ def setup_standard_nested_logit(
     nest_description += "      each y has the same nests over 0, 1, ..., X:\n"
     for n in nests_for_each_y:
         nest_description += f"      {n}\n"
-    nest_description += "       the parameters rho and delta do not depend on the type."
+    nest_description += (
+        "       the parameters rho and delta do not depend on the type."
+    )
 
     entropy_nested_logit = EntropyFunctions(
         e0_fun=e0_nested_logit,
@@ -287,7 +296,8 @@ def setup_standard_nested_logit(
         hessian="provided",
         e0_derivative=cast(EntropyHessiansParam, e0_derivative_nested_logit),
         e_derivative=cast(EntropyHessiansParam, e_derivative_nested_logit),
-        description="Two-layer nested logit with analytic Hessian\n" + nest_description,
+        description="Two-layer nested logit with analytic Hessian\n"
+        + nest_description,
     )
 
     entropy_nested_logit_numeric = EntropyFunctions(

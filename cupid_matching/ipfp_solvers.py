@@ -23,8 +23,16 @@ import numpy as np
 import scipy.linalg as spla
 
 from .matching_utils import Matching
-from .utils import (bs_error_abort, der_nppow, npexp, npmaxabs, nppow,
-                    nprepeat_col, nprepeat_row, test_vector)
+from .utils import (
+    bs_error_abort,
+    der_nppow,
+    npexp,
+    npmaxabs,
+    nppow,
+    nprepeat_col,
+    nprepeat_row,
+    test_vector,
+)
 
 ThreeArrays = tuple[np.ndarray, np.ndarray, np.ndarray]
 FourArrays = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
@@ -165,7 +173,9 @@ def ipfp_homoskedastic_nosingles_solver(
         ivar1 = X
         ivar2 = 0
         for iwoman in range(Y):
-            rhs[ivar1, ivar2:n_cols_rhs:Y] = -muxy[:, iwoman] * der_ephi2[:, iwoman]
+            rhs[ivar1, ivar2:n_cols_rhs:Y] = (
+                -muxy[:, iwoman] * der_ephi2[:, iwoman]
+            )
             ivar1 += 1
             ivar2 += 1
         # solve for the derivatives of txi and tyi
@@ -177,7 +187,9 @@ def ipfp_homoskedastic_nosingles_solver(
         ivar = 0
         for iman in range(X):
             dt_man = dt[iman, :]
-            dmuxy[ivar : (ivar + Y), :] = np.outer((ephi2[iman, :] * tyi), dt_man)
+            dmuxy[ivar : (ivar + Y), :] = np.outer(
+                (ephi2[iman, :] * tyi), dt_man
+            )
             ivar += Y
         for iwoman in range(Y):
             dT_woman = dT[iwoman, :]
@@ -327,7 +339,9 @@ def ipfp_homoskedastic_solver(
         ivar1 = X
         ivar2 = n_sum_categories
         for iwoman in range(Y):
-            rhs[ivar1, ivar2:n_cols_rhs:Y] = -muxy[:, iwoman] * der_ephi2[:, iwoman]
+            rhs[ivar1, ivar2:n_cols_rhs:Y] = (
+                -muxy[:, iwoman] * der_ephi2[:, iwoman]
+            )
             ivar1 += 1
             ivar2 += 1
         # solve for the derivatives of txi and tyi
@@ -341,7 +355,9 @@ def ipfp_homoskedastic_solver(
         ivar = 0
         for iman in range(X):
             dt_man = dt[iman, :]
-            dmuxy[ivar : (ivar + Y), :] = np.outer((ephi2[iman, :] * tyi), dt_man)
+            dmuxy[ivar : (ivar + Y), :] = np.outer(
+                (ephi2[iman, :] * tyi), dt_man
+            )
             ivar += Y
         for iwoman in range(Y):
             dT_woman = dT[iwoman, :]
@@ -593,12 +609,16 @@ def ipfp_heteroskedastic_solver(
         while err_newton > tol_newton:
             txit = np.power(txin, sig_taumax)
             mux0_in = np.power(txit, 1.0 / sigma_x)
-            out_xy = np.outer(np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y))
+            out_xy = np.outer(
+                np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y)
+            )
             muxy_in = ephi2 * np.power(out_xy, sumxy1)
             errxi = mux0_in + np.sum(muxy_in, 1) - men_margins
             err_newton = npmaxabs(errxi)
             txin -= errxi / (
-                sig_taumax * (mux0_in / sigma_x + np.sum(sumxy1 * muxy_in, 1)) / txin
+                sig_taumax
+                * (mux0_in / sigma_x + np.sum(sumxy1 * muxy_in, 1))
+                / txin
             )
         tx = txin
 
@@ -609,12 +629,16 @@ def ipfp_heteroskedastic_solver(
         while err_newton > tol_newton:
             tyit = np.power(tyin, sigmax_tau)
             mu0y_in = np.power(tyit, 1.0 / tau_y)
-            out_xy = np.outer(np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y))
+            out_xy = np.outer(
+                np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y)
+            )
             muxy_in = ephi2 * np.power(out_xy, sumxy1)
             erryi = mu0y_in + np.sum(muxy_in, 0) - women_margins
             err_newton = npmaxabs(erryi)
             tyin -= erryi / (
-                sigmax_tau * (mu0y_in / tau_y + np.sum(sumxy1 * muxy_in, 0)) / tyin
+                sigmax_tau
+                * (mu0y_in / tau_y + np.sum(sumxy1 * muxy_in, 0))
+                / tyin
             )
 
         ty = tyin
@@ -720,7 +744,9 @@ def ipfp_heteroskedastic_solver(
         der1 = ephi2 * der_axy1 * bxy
         ivar = 0
         for iman in range(X):
-            dmuxy[ivar : (ivar + Y), :] = np.outer(der1[iman, :], dmux0[iman, :])
+            dmuxy[ivar : (ivar + Y), :] = np.outer(
+                der1[iman, :], dmux0[iman, :]
+            )
             ivar += Y
         der2 = ephi2 * der_bxy1 * axy
         for iwoman in range(Y):

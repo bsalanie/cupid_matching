@@ -72,10 +72,14 @@ class MDEResults:
             entropy_str = "     The entropy is parameter-free."
             n_alpha = 0
         model_str = f"The data has {self.number_households} households\n\n"
-        model_str += f"The model has {self.X}x{self.Y} margins\n {entropy_str} \n"
+        model_str += (
+            f"The model has {self.X}x{self.Y} margins\n {entropy_str} \n"
+        )
         model_str += f"We use {self.K} basis functions.\n\n"
         repr_str = line_stars + model_str
-        repr_str += "The estimated coefficients (and their standard errors) are\n\n"
+        repr_str += (
+            "The estimated coefficients (and their standard errors) are\n\n"
+        )
         if self.parameterized_entropy:
             for i, coeff in enumerate(self.estimated_coefficients[:n_alpha]):
                 repr_str += (
@@ -89,12 +93,8 @@ class MDEResults:
                 + f"({self.stderrs_coefficients[n_alpha + i]: .3f})\n"
             )
         repr_str += "\nSpecification test:\n"
-        repr_str += (
-            f"   the value of the test statistic is {self.test_statistic: > 10.3f}\n"
-        )
-        repr_str += (
-            f"     for a chi2({self.ndf}), the p-value is {self.test_pvalue: > 10.3f}\n"
-        )
+        repr_str += f"   the value of the test statistic is {self.test_statistic: > 10.3f}\n"
+        repr_str += f"     for a chi2({self.ndf}), the p-value is {self.test_pvalue: > 10.3f}\n"
         return repr_str + line_stars
 
     def print_results(
@@ -120,10 +120,11 @@ class MDEResults:
                 )
             print_stars(repr_str)
             discrepancy = npmaxabs(true_coeffs - estimates)
-            print_stars(f"The true-estimated discrepancy is {discrepancy}")
+            print_stars(f"The largest difference between true and estimated coefficients is {discrepancy: .2e}")
         else:
             repr_str = (
-                "The estimated coefficients " + "(and their standard errors) are\n\n"
+                "The estimated coefficients "
+                + "(and their standard errors) are\n\n"
             )
             for i, coeff in enumerate(estimates[:n_alpha]):
                 repr_str + f"{coeff: > 10.3f}  ({stderrs[i]: > 10.3f})\n"
@@ -131,8 +132,9 @@ class MDEResults:
             for i, coeff in enumerate(estimates[n_alpha:]):
                 j = n_alpha + i
                 repr_str += f"{coeff: > 10.3f}  ({stderrs[j]: > 10.3f})\n"
+            print_stars(repr_str)
 
-        repr_str += "\nSpecification test:\n"
+        repr_str = "\nSpecification test:\n"
         repr_str += (
             "   the value of the test statistic is "
             + f"{self.test_statistic: > 10.3f}\n"

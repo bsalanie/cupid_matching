@@ -3,8 +3,16 @@
 import sys
 from math import exp, log, sqrt
 from traceback import extract_stack
-from typing import (Any, Callable, Final, Literal, NamedTuple, Optional,
-                    TypeAlias, overload)
+from typing import (
+    Any,
+    Callable,
+    Final,
+    Literal,
+    NamedTuple,
+    Optional,
+    TypeAlias,
+    overload,
+)
 
 import numpy as np
 import scipy.stats as sts
@@ -24,7 +32,7 @@ ScalarFunctionAndGradient: TypeAlias = Callable[
 and also a gradient if gr is True"""
 
 # for numerical derivatives
-_EPS: Final = 1e-4
+_EPS: Final = 1e-6
 _TWO_EPS: Final = 2.0 * _EPS
 
 
@@ -109,7 +117,9 @@ def test_matrix(x: Any, fun_name: Optional[str] = None) -> tuple[int, int]:
         bs_error_abort(f"x in {fun_str} should be a Numpy array")
     ndims_x = x.ndim
     if ndims_x != 2:
-        bs_error_abort(f"x in {fun_str} should have two dimensions, not {ndims_x}")
+        bs_error_abort(
+            f"x in {fun_str} should have two dimensions, not {ndims_x}"
+        )
     shx: tuple[int, int] = x.shape
     return shx
 
@@ -224,7 +234,9 @@ def nplog(
         return (loga, 1.0 / a) if deriv else loga
     else:
         logarreps = np.log(np.maximum(a, eps))
-        logarr_smaller = log(eps) - (eps - a) * (3.0 * eps - a) / (2.0 * eps * eps)
+        logarr_smaller = log(eps) - (eps - a) * (3.0 * eps - a) / (
+            2.0 * eps * eps
+        )
         if verbose:
             n_small_args = np.sum(a < eps)
             if n_small_args > 0:
@@ -415,7 +427,9 @@ def der_nppow(a: np.ndarray, b: int | float | np.ndarray) -> TwoArrays:
         return (b * a_pow_b / a, a_pow_b * log(a))
     else:
         if a.shape != b.shape:
-            print_stars("nppow: b is not a number or an array of the same shape as a!")
+            print_stars(
+                "nppow: b is not a number or an array of the same shape as a!"
+            )
             sys.exit(1)
         avec = a.ravel()
         bvec = b.ravel()

@@ -8,9 +8,9 @@ from typing import cast
 
 import numpy as np
 
-from .entropy import EntropyFunctions, EntropyHessians
-from .matching_utils import Matching
-from .utils import ThreeArrays, TwoArrays
+from cupid_matching.entropy import EntropyFunctions, EntropyHessians
+from cupid_matching.matching_utils import Matching
+from cupid_matching.utils import ThreeArrays, TwoArrays
 
 
 def e0_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
@@ -177,8 +177,12 @@ entropy_choo_siow_gender_heteroskedastic = EntropyFunctions(
     parameter_dependent=True,
     e_fun=e_choo_siow_gender_heteroskedastic,
     hessian="provided",
-    e0_derivative=cast(EntropyHessians, e0_derivative_choo_siow_gender_heteroskedastic),
-    e_derivative=cast(EntropyHessians, e_derivative_choo_siow_gender_heteroskedastic),
+    e0_derivative=cast(
+        EntropyHessians, e0_derivative_choo_siow_gender_heteroskedastic
+    ),
+    e_derivative=cast(
+        EntropyHessians, e_derivative_choo_siow_gender_heteroskedastic
+    ),
     description="Choo and Siow gender-heteroskedastic with analytic Hessian",
 )
 

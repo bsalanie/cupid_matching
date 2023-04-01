@@ -1,18 +1,23 @@
 from math import pow
-from typing import Any
+from typing import Any, Optional
 
 import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
 
-from bs_cupid_try.choo_siow import entropy_choo_siow
-from bs_cupid_try.matching_utils import Matching
-from bs_cupid_try.min_distance import estimate_semilinear_mde
-from bs_cupid_try.model_classes import ChooSiowPrimitives
-from bs_cupid_try.poisson_glm import choo_siow_poisson_glm
-from bs_cupid_try.utils import (bs_error_abort, nprepeat_col, nprepeat_row,
-                                test_matrix, test_vector)
+from cupid_matching.choo_siow import entropy_choo_siow
+from cupid_matching.matching_utils import Matching
+from cupid_matching.min_distance import estimate_semilinear_mde
+from cupid_matching.model_classes import ChooSiowPrimitives
+from cupid_matching.poisson_glm import choo_siow_poisson_glm
+from cupid_matching.utils import (
+    bs_error_abort,
+    nprepeat_col,
+    nprepeat_row,
+    test_matrix,
+    test_vector,
+)
 
 
 def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
@@ -29,7 +34,9 @@ def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
         n_types: the number of individuals of each type
     """
     n1 = n * (lambda_val - 1.0) / (pow(lambda_val, ncat) - 1.0)
-    n_types = n1 * np.logspace(base=lambda_val, start=0, stop=ncat - 1, num=ncat)
+    n_types = n1 * np.logspace(
+        base=lambda_val, start=0, stop=ncat - 1, num=ncat
+    )
     return n_types
 
 
@@ -49,7 +56,7 @@ def _make_margins(n: int, ncat: int, scenario: str = "Constant") -> np.ndarray:
     if scenario == "Constant":
         n_types = np.full(ncat, n_constant)
         return n_types
-    elif scenario == "Increasing": 
+    elif scenario == "Increasing":
         lambda_val = pow(2.0, 1.0 / (ncat - 1))
     elif scenario == "Decreasing":
         lambda_val = pow(2.0, 1.0 / (ncat - 1))
@@ -57,7 +64,7 @@ def _make_margins(n: int, ncat: int, scenario: str = "Constant") -> np.ndarray:
         bs_error_abort(f"Unknown scenario {scenario}")
     n_types = _make_profile(lambda_val, n, ncat)
     return n_types
-    
+
 
 def _table_estimates(
     coeff_names: list[str],
@@ -78,13 +85,17 @@ def _table_estimates(
     """
     st.write("The coefficients are:")
     df_coeffs_estimates = pd.DataFrame(
-        {"True": true_coeffs, "Estimated": estimates, "Standard errors": stderrs},
+        {
+            "True": true_coeffs,
+            "Estimated": estimates,
+            "Standard errors": stderrs,
+        },
         index=coeff_names,
     )
     return st.table(df_coeffs_estimates)
 
 
-def _plot_heatmap(mat: np.ndarray, str_tit: str = None) -> alt.Chart:
+def _plot_heatmap(mat: np.ndarray, str_tit: Optional[str] = None) -> alt.Chart:
     """Plots a heatmap of the matrix
 
     Args:
@@ -109,9 +120,13 @@ def _plot_heatmap(mat: np.ndarray, str_tit: str = None) -> alt.Chart:
     mat_df = mat_df.astype(
         dtype={"Men": int, "Women": int, "Value": float, "Size": float}
     )
-    base = alt.Chart(mat_df).encode(x="Men:O", y=alt.Y("Women:O", sort="descending"))
+    base = alt.Chart(mat_df).encode(
+        x="Men:O", y=alt.Y("Women:O", sort="descending")
+    )
     mat_map = base.mark_circle(opacity=0.4).encode(
-        size=alt.Size("Size:Q", legend=None, scale=alt.Scale(range=[1000, 10000])),
+        size=alt.Size(
+            "Size:Q", legend=None, scale=alt.Scale(range=[1000, 10000])
+        ),
         # color=alt.Color("Value:Q"),
         # tooltip=alt.Tooltip('Value', format=".2f")
     )
@@ -140,9 +155,13 @@ def _gender_singles(xvals: np.ndarray, str_gender: str) -> alt.Chart:
         bs_error_abort(f"{str_gender} is not a valid side")
     str_cat = "x" if str_gender == "men" else "y"
     str_val = f"Single {str_gender}"
-    source = pd.DataFrame({str_cat: np.arange(1, ncat + 1, dtype=int), str_val: xvals})
+    source = pd.DataFrame(
+        {str_cat: np.arange(1, ncat + 1, dtype=int), str_val: xvals}
+    )
 
-    g_bars = alt.Chart(source).mark_bar().encode(y=str_cat + ":O", x=str_val + ":Q")
+    g_bars = (
+        alt.Chart(source).mark_bar().encode(y=str_cat + ":O", x=str_val + ":Q")
+    )
     return g_bars.properties(width=300, height=300)
 
 
@@ -162,11 +181,11 @@ def _plot_bars(mux0: np.ndarray, mu0y: np.ndarray) -> alt.Chart:
 
 
 def _plot_matching(mus: Matching) -> alt.Chart:
-    """ generates the complete plot of matching patterns
-    
+    """generates the complete plot of matching patterns
+
     Args:
         mus: the matching patterns
-    
+
     Returns:
         the plot
     """
@@ -260,7 +279,9 @@ if enough_cells:
     )
 
     list_scenarii = ["Constant", "Increasing", "Decreasing"]
-    scenario_men = st.sidebar.radio("Profile across categories for men", list_scenarii)
+    scenario_men = st.sidebar.radio(
+        "Profile across categories for men", list_scenarii
+    )
     scenario_women = st.sidebar.radio(
         "Profile across categories for women", list_scenarii
     )
@@ -278,8 +299,12 @@ if enough_cells:
     bases[:, :, 4] = np.outer(xvals, yvals)
     bases[:, :, 5] = yvals_mat * yvals_mat
 
-    st.sidebar.write("Finally, choose the coefficients of the 6 basis functions:")
-    st.sidebar.latex(r"\Phi_{xy}=c_0+c_1 x + c_2 y + c_3 x^2 + c_4 x y + c_5 y^2")
+    st.sidebar.write(
+        "Finally, choose the coefficients of the 6 basis functions:"
+    )
+    st.sidebar.latex(
+        r"\Phi_{xy}=c_0+c_1 x + c_2 y + c_3 x^2 + c_4 x y + c_5 y^2"
+    )
     min_c = np.array([-3.0] + [-2.0 / ncat_men] * 5)
     max_c = np.array([3.0] + [2.0 / ncat_women] * 5)
     true_coeffs = np.zeros(6)
@@ -309,11 +334,17 @@ else:
     st.subheader("Choose the numbers of men and women in each category")
     for iman in range(ncat_men):
         nx[iman] = st.slider(
-            f"Number of men in category {iman+1}", min_value=1, max_value=10, step=1
+            f"Number of men in category {iman+1}",
+            min_value=1,
+            max_value=10,
+            step=1,
         )
     for iwoman in range(ncat_women):
         my[iwoman] = st.slider(
-            f"Number of women in category {iwoman+1}", min_value=1, max_value=10, step=1
+            f"Number of women in category {iwoman+1}",
+            min_value=1,
+            max_value=10,
+            step=1,
         )
     Phi = np.zeros((ncat_men, ncat_women))
     for iman in range(ncat_men):
@@ -352,11 +383,15 @@ if enough_cells:
                 "#### Below: the minimum distance estimator in Galichon and Salanié (2023)."
             )
             st.write("It also gives us a specification test.")
-            mde_results = estimate_semilinear_mde(mus_sim, bases, entropy_choo_siow)
+            mde_results = estimate_semilinear_mde(
+                mus_sim, bases, entropy_choo_siow
+            )
             mde_estimates = mde_results.estimated_coefficients
             mde_stderrs = mde_results.stderrs_coefficients
 
-            _table_estimates(coeff_names, true_coeffs, mde_estimates, mde_stderrs)
+            _table_estimates(
+                coeff_names, true_coeffs, mde_estimates, mde_stderrs
+            )
 
             specif_test_stat = round(mde_results.test_statistic, 2)
             specif_test_pval = round(mde_results.test_pvalue, 2)
@@ -384,17 +419,21 @@ if enough_cells:
             pglm_estimates = pglm_results.estimated_beta
             pglm_stderrs = pglm_results.stderrs_beta
 
-            _table_estimates(coeff_names, true_coeffs, pglm_estimates, pglm_stderrs)
+            _table_estimates(
+                coeff_names, true_coeffs, pglm_estimates, pglm_stderrs
+            )
 
             x_names = [str(x) for x in range(ncat_men)]
             y_names = [str(y) for y in range(ncat_women)]
 
             st.write("The expected utilities are:")
             df_u_estimates = pd.DataFrame(
-                {"Estimated": u, "True": -np.log(mux0_sim / n_sim)}, index=x_names
+                {"Estimated": u, "True": -np.log(mux0_sim / n_sim)},
+                index=x_names,
             )
             st.table(df_u_estimates)
             df_v_estimates = pd.DataFrame(
-                {"Estimated": v, "True": -np.log(mu0y_sim / m_sim)}, index=y_names
+                {"Estimated": v, "True": -np.log(mu0y_sim / m_sim)},
+                index=y_names,
             )
             st.table(df_v_estimates)

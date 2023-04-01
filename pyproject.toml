@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cupid_matching"
-version = "1.0.1"
+version = "1.0.3"
 description = "Solves, simulates, and estimates separable matching TU models"
 authors = ["Bernard Salanie <bsalanie@columbia.edu>"]
 readme = "README.md"
@@ -32,6 +32,9 @@ mkdocstrings-python = "^0.8"
 markdown = "*"
 pymdown-extensions = "*"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
 
 [build-system]
 requires = ["poetry-core"]

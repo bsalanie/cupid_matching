@@ -3,11 +3,25 @@ from typing import Optional, cast
 
 import numpy as np
 
-from .ipfp_solvers import IPFPNoGradientResults, ipfp_homoskedastic_solver
-from .matching_utils import (Matching, _change_indices, _compute_margins,
-                             _find_nest_of, _simulate_sample_from_mus)
-from .utils import (Nest, NestsList, bs_error_abort, npexp, npmaxabs, nppow,
-                    print_stars, test_matrix, test_vector)
+from cupid_matching.ipfp_solvers import IPFPNoGradientResults, ipfp_homoskedastic_solver
+from cupid_matching.matching_utils import (
+    Matching,
+    _change_indices,
+    _compute_margins,
+    _find_nest_of,
+    _simulate_sample_from_mus,
+)
+from cupid_matching.utils import (
+    Nest,
+    NestsList,
+    bs_error_abort,
+    npexp,
+    npmaxabs,
+    nppow,
+    print_stars,
+    test_matrix,
+    test_vector,
+)
 
 
 @dataclass
@@ -22,9 +36,13 @@ class ChooSiowPrimitives:
         Xn = test_vector(self.n)
         Ym = test_vector(self.m)
         if Xn != X:
-            bs_error_abort(f"Phi is a ({X}, {Y}) matrix but n has {Xn} elements.")
+            bs_error_abort(
+                f"Phi is a ({X}, {Y}) matrix but n has {Xn} elements."
+            )
         if Ym != Y:
-            bs_error_abort(f"Phi is a ({X}, {Y}) matrix but m has {Ym} elements.")
+            bs_error_abort(
+                f"Phi is a ({X}, {Y}) matrix but m has {Ym} elements."
+            )
 
     def ipfp_solve(self) -> Matching:
         mus, err_x, err_y = cast(
@@ -35,7 +53,9 @@ class ChooSiowPrimitives:
         n, m = _compute_margins(muxy, mux0, mu0y)
         return Matching(muxy, n, m)
 
-    def simulate(self, n_households: int, seed: int = None) -> Matching:
+    def simulate(
+        self, n_households: int, seed: Optional[int] = None
+    ) -> Matching:
         self.n_households = n_households
         self.mus = self.ipfp_solve()
         mus_sim = _simulate_sample_from_mus(self.mus, n_households, seed)
@@ -45,7 +65,7 @@ class ChooSiowPrimitives:
         X, Y = self.Phi.shape
         print_stars("We are working with a Choo and Siow homoskedastic market")
         print(f"\t\t we have {int(X)} types of men and {int(Y)} types of women")
-        print(f"\t\t and a total of {int(self.n_households)} households")
+        print(f"\t\t and a total of {int(self.n_households):,d} households")
 
 
 @dataclass
@@ -95,9 +115,13 @@ class NestedLogitPrimitives:
         self.n_alphas = len(nests_for_each_y) + len(nests_for_each_x)
 
         if Xn != X:
-            bs_error_abort(f"Phi is a ({X}, {Y}) matrix but n has {Xn} elements.")
+            bs_error_abort(
+                f"Phi is a ({X}, {Y}) matrix but n has {Xn} elements."
+            )
         if Ym != Y:
-            bs_error_abort(f"Phi is a ({X}, {Y}) matrix but m has {Ym} elements.")
+            bs_error_abort(
+                f"Phi is a ({X}, {Y}) matrix but m has {Ym} elements."
+            )
 
         if true_alphas is not None:
             alpha_size = test_vector(true_alphas)
@@ -216,7 +240,9 @@ class NestedLogitPrimitives:
         tol_diff = tol * bigc
         tol_newton = tol
         max_newton = 2000
-        MIN_REST = 1e-4 * bigc  # used to bound mus below in the Newton iterations
+        MIN_REST = (
+            1e-4 * bigc
+        )  # used to bound mus below in the Newton iterations
 
         niter = 0
         while (err_diff > tol_diff) and (niter < maxiter):  # IPFP main loop
@@ -244,7 +270,9 @@ class NestedLogitPrimitives:
                             sum_rd = rho_n + delta_x
                             mun_term = nppow(mu_n, (delta_x - 1.0) / sum_rd)
                             mu0_term = nppow(mu0_n, 1.0 / sum_rd)
-                            gbar[x, i_nest_y] = np.sum(mun_term * mu0_term * evec_n)
+                            gbar[x, i_nest_y] = np.sum(
+                                mun_term * mu0_term * evec_n
+                            )
                             gbar_pow[x, i_nest_y] = nppow(
                                 gbar[x, i_nest_y], sum_rd / (delta_x + 1.0)
                             )
@@ -297,7 +325,9 @@ class NestedLogitPrimitives:
                             sum_rd = rho_y + delta_n
                             mun_term = nppow(mu_n, (rho_n - 1.0) / sum_rd)
                             mu0_term = nppow(mu0_n, 1.0 / sum_rd)
-                            gbar[y, i_nest_x] = np.sum(mun_term * mu0_term * evec_n)
+                            gbar[y, i_nest_x] = np.sum(
+                                mun_term * mu0_term * evec_n
+                            )
                             gbar_pow[y, i_nest_x] = nppow(
                                 gbar[y, i_nest_x], sum_rd / (1.0 + rho_y)
                             )
@@ -349,7 +379,9 @@ class NestedLogitPrimitives:
                         * (muxn_xy ** (rho_y - 1.0))
                         * (muny_xy ** (delta_x - 1.0))
                     )
-                    muxy[x, y] = ephi_x[y] * (mu_term ** (1.0 / (delta_x + rho_y)))
+                    muxy[x, y] = ephi_x[y] * (
+                        mu_term ** (1.0 / (delta_x + rho_y))
+                    )
 
             n_sim, m_sim = _compute_margins(muxy, mux0, mu0y)
             marg_err_x, marg_err_y = n_sim - n, m_sim - m
@@ -370,12 +402,13 @@ class NestedLogitPrimitives:
         marg_err_x = n_sim - n
         marg_err_y = m_sim - m
 
-        print(
-            f"Margin error on men is {npmaxabs(marg_err_x)} after {niter} IPFP iterations"
-        )
-        print(
-            f"Margin error on women is {npmaxabs(marg_err_y)} after {niter} IPFP iterations"
-        )
+        if verbose:
+            print(
+                f"Margin error on men is {npmaxabs(marg_err_x)} after {niter} IPFP iterations"
+            )
+            print(
+                f"Margin error on women is {npmaxabs(marg_err_y)} after {niter} IPFP iterations"
+            )
 
         return Matching(muxy, n, m), marg_err_x, marg_err_y
 
@@ -387,7 +420,9 @@ class NestedLogitPrimitives:
         self.mus, err_x, err_y = self.ipfp_nested_logit_solver(verbose=False)
         return self.mus
 
-    def simulate(self, n_households: int, seed: Optional[int] = None) -> Matching:
+    def simulate(
+        self, n_households: int, seed: Optional[int] = None
+    ) -> Matching:
         self.mus = self.ipfp_solve()
         mus_sim = _simulate_sample_from_mus(self.mus, n_households, seed)
         return mus_sim

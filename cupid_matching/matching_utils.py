@@ -4,8 +4,14 @@ from typing import Any, Callable, Optional
 
 import numpy as np
 
-from .utils import (NestsList, TwoArrays, bs_error_abort, print_stars,
-                    test_matrix, test_vector)
+from cupid_matching.utils import (
+    NestsList,
+    TwoArrays,
+    bs_error_abort,
+    print_stars,
+    test_matrix,
+    test_vector,
+)
 
 
 def _get_singles(muxy: np.ndarray, n: np.ndarray, m: np.ndarray) -> TwoArrays:
@@ -15,7 +21,9 @@ def _get_singles(muxy: np.ndarray, n: np.ndarray, m: np.ndarray) -> TwoArrays:
     return mux0, mu0y
 
 
-def _compute_margins(muxy: np.ndarray, mux0: np.ndarray, mu0y: np.ndarray) -> TwoArrays:
+def _compute_margins(
+    muxy: np.ndarray, mux0: np.ndarray, mu0y: np.ndarray
+) -> TwoArrays:
     """Computes the margins from the matches and the singles."""
     n = np.sum(muxy, 1) + mux0
     m = np.sum(muxy, 0) + mu0y
@@ -42,7 +50,9 @@ class Matching:
         X, Y = self.muxy.shape
         n_couples = np.sum(self.muxy)
         n_men, n_women = np.sum(self.n), np.sum(self.m)
-        repr_str = f"This is a matching with {n_men}  men, {n_women} single women.\n"
+        repr_str = (
+            f"This is a matching with {n_men}  men, {n_women} single women.\n"
+        )
         repr_str += f"   with {n_couples} couples,\n \n"
         repr_str += f" We have {X} types of men and {Y} of women."
         print_stars(repr_str)
@@ -52,19 +62,26 @@ class Matching:
         Xn = test_vector(self.n)
         Ym = test_vector(self.m)
         if Xn != X:
-            bs_error_abort(f"muxy is a ({X}, {Y}) matrix but n has {Xn} elements.")
+            bs_error_abort(
+                f"muxy is a ({X}, {Y}) matrix but n has {Xn} elements."
+            )
         if Ym != Y:
-            bs_error_abort(f"muxy is a ({X}, {Y}) matrix but m has {Ym} elements.")
+            bs_error_abort(
+                f"muxy is a ({X}, {Y}) matrix but m has {Ym} elements."
+            )
         self.mux0, self.mu0y = _get_singles(self.muxy, self.n, self.m)
 
     def unpack(self):
         muxy, mux0, mu0y = self.muxy, self.mux0, self.mu0y
         min_xy, min_x0, min_0y = np.min(muxy), np.min(mux0), np.min(mu0y)
         if min_xy < 0.0:
+            breakpoint()
             bs_error_abort(f"The smallest muxy is {min_xy}")
         if min_x0 < 0.0:
+            breakpoint()
             bs_error_abort(f"The smallest mux0 is {min_x0}")
         if min_0y < 0.0:
+            breakpoint()
             bs_error_abort(f"The smallest mux0 is {min_0y}")
         return muxy, mux0, mu0y, self.n, self.m
 
@@ -183,6 +200,29 @@ def _variance_muhat(muhat: Matching) -> TwoArrays:
     var_munm = jac @ var_muhat @ jac.T
 
     return n_households * var_muhat, n_households * var_munm
+
+
+def _variance_diagonal(var_muhat: np.ndarray, X: int, Y: int) -> Matching:
+    """extracts the variances of muxy, mux0,mu0y
+
+    Args:
+        var_muhat: the variance of muhat as returned by _variance_muhat
+        X: the number of types of men
+        Y: the number of types of women
+
+    Returns:
+        a Matching with the three variances,
+        and garbage for the irrelevant last two components
+    """
+    XY = X * Y
+    var_muxy = np.diag(var_muhat[:XY, :XY]).reshape((X, Y))
+    var_mux0 = np.diag(var_muhat[XY : (XY + X), XY : (XY + X)])
+    var_mu0y = np.diag(var_muhat[(XY + X) :, (XY + X) :])
+    # we need to initialize the Matching with the right pseudo-margins
+    pseudo_nx = var_mux0 + np.sum(var_muxy, 1)
+    pseudo_my = var_mu0y + np.sum(var_muxy, 0)
+    var_diag = Matching(var_muxy, pseudo_nx, pseudo_my)
+    return var_diag
 
 
 def _make_XY_K_mat(xyk_array: np.ndarray) -> np.ndarray:

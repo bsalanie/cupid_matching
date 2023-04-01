@@ -56,23 +56,21 @@ class PoissonGLMResults:
         model_str = f"The data has {self.number_households} households\n\n"
         model_str += f"We use {self.K} basis functions.\n\n"
         repr_str = line_stars + model_str
-        repr_str += (
-            "The estimated basis coefficients (and their standard errors) are\n\n"
-        )
+        repr_str += "The estimated basis coefficients (and their standard errors) are\n\n"
         for i in range(self.K):
             repr_str += (
                 f"   base_{i + 1}: {self.estimated_beta[i]: > 10.3f}  "
                 + f"({self.stderrs_beta[i]: .3f})\n"
             )
-        repr_str += "The estimated utilities of men (and their standard errors) are\n\n"
+        repr_str += (
+            "The estimated utilities of men (and their standard errors) are\n\n"
+        )
         for i in range(self.X):
             repr_str += (
                 f"   u_{i + 1}: {self.estimated_u[i]: > 10.3f}  "
                 + f"({self.stderrs_u[i]: .3f})\n"
             )
-        repr_str += (
-            "The estimated utilities of women (and their standard errors) are\n\n"
-        )
+        repr_str += "The estimated utilities of women (and their standard errors) are\n\n"
         for i in range(self.Y):
             repr_str += (
                 f"   v {i + 1}: {self.estimated_v[i]: > 10.3f}  "
@@ -113,7 +111,7 @@ class PoissonGLMResults:
                 repr_str += f" {coeff: > 10.3f}  ({stderrs_u[i]: > 10.3f})\n"
             print_stars(repr_str)
         else:
-            repr_str = "The true and estimated utilities for men"
+            repr_str = "The true and estimated utilities for men "
             repr_str += "(and their standard errors) are:\n\n"
             for i, coeff in enumerate(estimates_u):
                 repr_str += f"   u_{i + 1}: {u_true[i]: > 10.3f} "
@@ -123,13 +121,13 @@ class PoissonGLMResults:
         estimates_v = self.estimated_v
         stderrs_v = self.stderrs_v
         if v_true is None:
-            repr_str = "The estimated utilities for women  "
+            repr_str = "The estimated utilities for women "
             repr_str += "(and their standard errors) are:\n\n"
             for i, coeff in enumerate(estimates_v):
                 repr_str += f" {coeff: > 10.3f}  ({stderrs_v[i]: > 10.3f})\n"
             print_stars(repr_str)
         else:
-            repr_str = "The true and estimated utilities for women"
+            repr_str = "The true and estimated utilities for women "
             repr_str += "(and their standard errors) are:\n\n"
             for i, coeff in enumerate(estimates_v):
                 repr_str += f"   v_{i + 1}: {v_true[i]: > 10.3f} "
@@ -140,7 +138,7 @@ class PoissonGLMResults:
             return None
         else:
             discrepancy = npmaxabs(lambda_true - estimates_beta)
-            print_stars(f"The true-estimated discrepancy is {discrepancy}")
+            print_stars(f"The largest difference between true and estimated coefficients is {discrepancy: .2e}")
             return discrepancy
 
 
