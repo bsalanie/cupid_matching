@@ -8,20 +8,20 @@
       
       
       
-        <link rel="canonical" href="https://github.pages.io/bsalanie/cupid_matching/matching_utils/">
+        <link rel="canonical" href="https://github.pages.io/bsalanie/cupid_matching/example_choosiow/">
       
       
-        <link rel="prev" href="../ipfp_solvers/">
+        <link rel="prev" href="../model_classes/">
       
       
-        <link rel="next" href="../utils/">
+        <link rel="next" href="../example_nestedlogit/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
-        <title>Utilities for Matching - Cupid Matching</title>
+        <title>Example on the Choo and Siow model - Cupid Matching</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#matching_utils-module" class="md-skip">
+        <a href="#example_choosiow-module" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Utilities for Matching
+              Example on the Choo and Siow model
             
           </span>
         </div>
@@ -437,66 +437,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Utilities for Matching
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../matching_utils/" class="md-nav__link">
         Utilities for Matching
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#cupid_matching.matching_utils" class="md-nav__link">
-    cupid_matching.matching_utils
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cupid_matching.matching_utils.MatchingFunctionParam" class="md-nav__link">
-    MatchingFunctionParam
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cupid_matching.matching_utils.Matching" class="md-nav__link">
-    Matching
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -534,11 +479,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../example_choosiow/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Example on the Choo and Siow model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Example on the Choo and Siow model
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.example_choosiow" class="md-nav__link">
+    cupid_matching.example_choosiow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.example_choosiow.create_choosiow_population" class="md-nav__link">
+    create_choosiow_population()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.example_choosiow.mde_estimate" class="md-nav__link">
+    mde_estimate()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -605,22 +605,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cupid_matching.matching_utils" class="md-nav__link">
-    cupid_matching.matching_utils
+  <a href="#cupid_matching.example_choosiow" class="md-nav__link">
+    cupid_matching.example_choosiow
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cupid_matching.matching_utils.MatchingFunctionParam" class="md-nav__link">
-    MatchingFunctionParam
+  <a href="#cupid_matching.example_choosiow.create_choosiow_population" class="md-nav__link">
+    create_choosiow_population()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cupid_matching.matching_utils.Matching" class="md-nav__link">
-    Matching
+  <a href="#cupid_matching.example_choosiow.mde_estimate" class="md-nav__link">
+    mde_estimate()
   </a>
   
 </li>
@@ -643,16 +643,16 @@
   
 
 
-<h1 id="matching_utils-module"><code>matching_utils</code> module<a class="headerlink" href="#matching_utils-module" title="Permanent link">&para;</a></h1>
+<h1 id="example_choosiow-module"><code>example_choosiow</code> module<a class="headerlink" href="#example_choosiow-module" title="Permanent link">&para;</a></h1>
 
 
 <div class="doc doc-object doc-module">
 
 
-<a id="cupid_matching.matching_utils"></a>
+<a id="cupid_matching.example_choosiow"></a>
   <div class="doc doc-contents first">
   
-      <p>matching-related utilities</p>
+      <p>example using the Choo and Siow homoskedastic model</p>
 
   
 
@@ -664,56 +664,58 @@
 
 
 
-<div class="doc doc-object doc-attribute">
+
+
+<div class="doc doc-object doc-function">
 
 
 
-<h2 id="cupid_matching.matching_utils.MatchingFunctionParam" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MatchingFunctionParam</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Matching</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
+<h2 id="cupid_matching.example_choosiow.create_choosiow_population" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">create_choosiow_population</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">std_betas</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span></code>
 
-<a href="#cupid_matching.matching_utils.MatchingFunctionParam" class="headerlink" title="Permanent link">&para;</a></h2>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Same with a list of additional parameters</p>
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h2 id="cupid_matching.matching_utils.Matching" class="doc doc-heading">
-        <code>Matching</code>
-
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
-  </span>
-
-<a href="#cupid_matching.matching_utils.Matching" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#cupid_matching.example_choosiow.create_choosiow_population" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
   <div class="doc doc-contents ">
-
   
-      <p>stores the numbers of couples and singles of every type;</p>
-<p>muxy is an (X,Y)-matrix
-n is an X-vector
-m is an Y-vector
-mux0 and mu0y are generated as the corresponding numbers of singles</p>
+      <p>we simulate a Choo and Siow population
+with equal numbers of men and women of each type
+and random bases dunctions and coefficients</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>Args:
+ X: number of types of men
+ Y: number of types of women
+ K: random basis functions
+ std_betas: the coefficients are drawn from a centered normal
+             with this standard deviation
 
+Returns:
+    a ChooSiowPrimitives instance, the basis functions, and the coefficients
+</code></pre></div></td></tr></table></div>
 
-        <details class="quote">
-          <summary>Source code in <code>cupid_matching/matching_utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/example_choosiow.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
@@ -724,10 +726,136 @@ mux0 and mu0y are generated as the corresponding numbers of singles</p>
 <span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_choosiow_population</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                               <span class="n">std_betas</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> \
+        <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ChooSiowPrimitives</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    we simulate a Choo and Siow population</span>
+<span class="sd">    with equal numbers of men and women of each type</span>
+<span class="sd">    and random bases dunctions and coefficients</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">         X: number of types of men</span>
+<span class="sd">         Y: number of types of women</span>
+<span class="sd">         K: random basis functions</span>
+<span class="sd">         std_betas: the coefficients are drawn from a centered normal</span>
+<span class="sd">                     with this standard deviation</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a ChooSiowPrimitives instance, the basis functions, and the coefficients</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">betas_true</span> <span class="o">=</span> <span class="n">std_betas</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+    <span class="n">phi_bases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+    <span class="n">Phi</span> <span class="o">=</span> <span class="n">phi_bases</span> <span class="o">@</span> <span class="n">betas_true</span>
+    <span class="n">choo_siow_instance</span> <span class="o">=</span> <span class="n">ChooSiowPrimitives</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">choo_siow_instance</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">betas_true</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.example_choosiow.mde_estimate" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">mde_estimate</span><span class="p">(</span><span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">betas_true</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.example_choosiow.mde_estimate" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>we estimate the parameters using the minimum distance estimator</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>mus_sim</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="cupid_matching.model_classes.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
+          </td>
+          <td><p>a Choo and Siow Matching</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>phi_bases</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>the basis functions</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>betas_true</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td><p>their true coefficients</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>entropy</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="cupid_matching.entropy.EntropyFunctions" href="../entropy/#cupid_matching.entropy.EntropyFunctions">EntropyFunctions</a></code>
+          </td>
+          <td><p>the entropy functions we use</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>title</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>the name of the estimator</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>the largest absolute difference between the true and estimated coefficients</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cupid_matching/example_choosiow.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
@@ -749,100 +877,34 @@ mux0 and mu0y are generated as the corresponding numbers of singles</p>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Matching</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;stores the numbers of couples and singles of every type;</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mde_estimate</span><span class="p">(</span><span class="n">mus_sim</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span>
+                 <span class="n">phi_bases</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">betas_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">entropy</span><span class="p">:</span> <span class="n">EntropyFunctions</span><span class="p">,</span>
+                 <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;we estimate the parameters using the minimum distance estimator</span>
 
-<span class="sd">    muxy is an (X,Y)-matrix</span>
-<span class="sd">    n is an X-vector</span>
-<span class="sd">    m is an Y-vector</span>
-<span class="sd">    mux0 and mu0y are generated as the corresponding numbers of singles</span>
+<span class="sd">    Args:</span>
+<span class="sd">        mus_sim: a Choo and Siow Matching</span>
+<span class="sd">        phi_bases: the basis functions</span>
+<span class="sd">        betas_true: their true coefficients</span>
+<span class="sd">        entropy: the entropy functions we use</span>
+<span class="sd">        title: the name of the estimator</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the largest absolute difference between the true and estimated coefficients</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">mux0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">mu0y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">muxy</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-    <span class="n">m</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">n_couples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="p">)</span>
-        <span class="n">n_men</span><span class="p">,</span> <span class="n">n_women</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">repr_str</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;This is a matching with </span><span class="si">{</span><span class="n">n_men</span><span class="si">}</span><span class="s2">  men, </span><span class="si">{</span><span class="n">n_women</span><span class="si">}</span><span class="s2"> single women.</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   with </span><span class="si">{</span><span class="n">n_couples</span><span class="si">}</span><span class="s2"> couples,</span><span class="se">\n</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; We have </span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2"> types of men and </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2"> of women.&quot;</span>
-        <span class="n">print_stars</span><span class="p">(</span><span class="n">repr_str</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">test_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="p">)</span>
-        <span class="n">Xn</span> <span class="o">=</span> <span class="n">test_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
-        <span class="n">Ym</span> <span class="o">=</span> <span class="n">test_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">Xn</span> <span class="o">!=</span> <span class="n">X</span><span class="p">:</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;muxy is a (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2">) matrix but n has </span><span class="si">{</span><span class="n">Xn</span><span class="si">}</span><span class="s2"> elements.&quot;</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">Ym</span> <span class="o">!=</span> <span class="n">Y</span><span class="p">:</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;muxy is a (</span><span class="si">{</span><span class="n">X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span><span class="s2">) matrix but m has </span><span class="si">{</span><span class="n">Ym</span><span class="si">}</span><span class="s2"> elements.&quot;</span>
-            <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mux0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu0y</span> <span class="o">=</span> <span class="n">_get_singles</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">unpack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">muxy</span><span class="p">,</span> <span class="n">mux0</span><span class="p">,</span> <span class="n">mu0y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">muxy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mux0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu0y</span>
-        <span class="n">min_xy</span><span class="p">,</span> <span class="n">min_x0</span><span class="p">,</span> <span class="n">min_0y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">muxy</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">mux0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">mu0y</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">min_xy</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="nb">breakpoint</span><span class="p">()</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The smallest muxy is </span><span class="si">{</span><span class="n">min_xy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">min_x0</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="nb">breakpoint</span><span class="p">()</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The smallest mux0 is </span><span class="si">{</span><span class="n">min_x0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">min_0y</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="nb">breakpoint</span><span class="p">()</span>
-            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The smallest mux0 is </span><span class="si">{</span><span class="n">min_0y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">muxy</span><span class="p">,</span> <span class="n">mux0</span><span class="p">,</span> <span class="n">mu0y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span>
+    <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">mde_results</span> <span class="o">=</span> <span class="n">estimate_semilinear_mde</span><span class="p">(</span>
+        <span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">entropy</span>
+    <span class="p">)</span>
+    <span class="n">mde_discrepancy</span> <span class="o">=</span> <span class="n">mde_results</span><span class="o">.</span><span class="n">print_results</span><span class="p">(</span><span class="n">true_coeffs</span><span class="o">=</span><span class="n">betas_true</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mde_discrepancy</span>
 </code></pre></div></td></tr></table></div>
-        </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
+      </details>
   </div>
 
 </div>
-
 
 
 

@@ -529,6 +529,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../example_choosiow/" class="md-nav__link">
+        Example on the Choo and Siow model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_nestedlogit/" class="md-nav__link">
+        Example on a nested logit model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cupid_streamlit/" class="md-nav__link">
         Code for a Streamlit app
       </a>
@@ -1050,7 +1078,7 @@
                 <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">coeff</span><span class="si">:</span><span class="s2"> &gt; 10.3f</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">stderrs_u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2"> &gt; 10.3f</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="n">print_stars</span><span class="p">(</span><span class="n">repr_str</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;The true and estimated utilities for men&quot;</span>
+            <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;The true and estimated utilities for men &quot;</span>
             <span class="n">repr_str</span> <span class="o">+=</span> <span class="s2">&quot;(and their standard errors) are:</span><span class="se">\n\n</span><span class="s2">&quot;</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">estimates_u</span><span class="p">):</span>
                 <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   u_</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">u_true</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2"> &gt; 10.3f</span><span class="si">}</span><span class="s2"> &quot;</span>
@@ -1060,13 +1088,13 @@
         <span class="n">estimates_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimated_v</span>
         <span class="n">stderrs_v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderrs_v</span>
         <span class="k">if</span> <span class="n">v_true</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;The estimated utilities for women  &quot;</span>
+            <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;The estimated utilities for women &quot;</span>
             <span class="n">repr_str</span> <span class="o">+=</span> <span class="s2">&quot;(and their standard errors) are:</span><span class="se">\n\n</span><span class="s2">&quot;</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">estimates_v</span><span class="p">):</span>
                 <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">coeff</span><span class="si">:</span><span class="s2"> &gt; 10.3f</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">stderrs_v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2"> &gt; 10.3f</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
             <span class="n">print_stars</span><span class="p">(</span><span class="n">repr_str</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;The true and estimated utilities for women&quot;</span>
+            <span class="n">repr_str</span> <span class="o">=</span> <span class="s2">&quot;The true and estimated utilities for women &quot;</span>
             <span class="n">repr_str</span> <span class="o">+=</span> <span class="s2">&quot;(and their standard errors) are:</span><span class="se">\n\n</span><span class="s2">&quot;</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">estimates_v</span><span class="p">):</span>
                 <span class="n">repr_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;   v_</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v_true</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2"> &gt; 10.3f</span><span class="si">}</span><span class="s2"> &quot;</span>
@@ -1077,7 +1105,7 @@
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">discrepancy</span> <span class="o">=</span> <span class="n">npmaxabs</span><span class="p">(</span><span class="n">lambda_true</span> <span class="o">-</span> <span class="n">estimates_beta</span><span class="p">)</span>
-            <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The true-estimated discrepancy is </span><span class="si">{</span><span class="n">discrepancy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The largest difference between true and estimated coefficients is </span><span class="si">{</span><span class="n">discrepancy</span><span class="si">:</span><span class="s2"> .2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">discrepancy</span>
 </code></pre></div></td></tr></table></div>
         </details>
