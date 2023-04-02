@@ -294,16 +294,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#importing-the-functions" class="md-nav__link">
-    Importing the functions
+  <a href="#importing-functions-from-the-package" class="md-nav__link">
+    Importing functions from the package
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-example" class="md-nav__link">
-    An example
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warnings" class="md-nav__link">
+    Warnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-notes" class="md-nav__link">
+    Release notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Release notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-103" class="md-nav__link">
+    version 1.0.3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -610,16 +637,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#importing-the-functions" class="md-nav__link">
-    Importing the functions
+  <a href="#importing-functions-from-the-package" class="md-nav__link">
+    Importing functions from the package
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#an-example" class="md-nav__link">
-    An example
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warnings" class="md-nav__link">
+    Warnings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-notes" class="md-nav__link">
+    Release notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Release notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-103" class="md-nav__link">
+    version 1.0.3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -658,110 +712,27 @@
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pip install [-U] cupid_matching
 </code></pre></div></td></tr></table></div>
-<h2 id="importing-the-functions">Importing the functions<a class="headerlink" href="#importing-the-functions" title="Permanent link">&para;</a></h2>
+<h2 id="importing-functions-from-the-package">Importing functions from the package<a class="headerlink" href="#importing-functions-from-the-package" title="Permanent link">&para;</a></h2>
 <p>For instance:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">cupid_matching.min_distance</span> <span class="kn">import</span> <span class="n">estimate_semilinear_mde</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="an-example">An example<a class="headerlink" href="#an-example" title="Permanent link">&para;</a></h2>
-<p>We create a Choo-Siow market; we solve for the stable matching
-in an infinite ppulation using IPFP; we simulate a sample drawn
-from the stable matching and we estimate the coefficients
-of the basis functions using both minimum distance
-and Poisson GLM estimators.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">cupid_matching.model_classes</span> <span class="kn">import</span> <span class="n">ChooSiowPrimitives</span>
-<span class="kn">from</span> <span class="nn">cupid_matching.choo_siow</span> <span class="kn">import</span> <span class="n">entropy_choo_siow</span>
-<span class="kn">from</span> <span class="nn">cupid_matching.min_distance</span> <span class="kn">import</span> <span class="n">estimate_semilinear_mde</span>
-<span class="kn">from</span> <span class="nn">cupid_matching.poisson_glm</span> <span class="kn">import</span> <span class="n">choo_siow_poisson_glm</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span>
-<span class="c1"># we simulate a Choo and Siow population</span>
-<span class="c1">#  with 10 types of men and 20 types of women</span>
-<span class="c1">#  with equal numbers of men and women of each type</span>
-<span class="c1">#  and two random basis functions</span>
-<span class="n">lambda_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
-<span class="n">phi_bases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
-<span class="n">Phi</span> <span class="o">=</span> <span class="n">phi_bases</span> <span class="o">@</span> <span class="n">lambda_true</span>
-<span class="n">choo_siow_instance</span> <span class="o">=</span> <span class="n">ChooSiowPrimitives</span><span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
-<span class="n">matching_popu</span> <span class="o">=</span> <span class="n">choo_siow_instance</span><span class="o">.</span><span class="n">ipfp_solve</span><span class="p">()</span>
-<span class="n">muxy_popu</span><span class="p">,</span> <span class="n">mux0_popu</span><span class="p">,</span> <span class="n">mu0y_popu</span><span class="p">,</span> <span class="n">n_popu</span><span class="p">,</span> <span class="n">m_popu</span> \
-    <span class="o">=</span> <span class="n">matching_popu</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
-
-<span class="c1"># we simulate the market on a finite population</span>
-<span class="n">n_households</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1e6</span><span class="p">)</span>
-<span class="n">mus_sim</span> <span class="o">=</span> <span class="n">choo_siow_instance</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">n_households</span><span class="p">)</span>
-<span class="n">choo_siow_instance</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-
-<span class="c1"># We estimate the parameters using minimum distance</span>
-<span class="n">mde_results</span> <span class="o">=</span> <span class="n">estimate_semilinear_mde</span><span class="p">(</span>
-            <span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">entropy_choo_siow</span>
-        <span class="p">)</span>
-
-<span class="c1"># we print and check the results</span>
-<span class="n">mde_discrepancy</span> <span class="o">=</span> <span class="n">mde_results</span><span class="o">.</span><span class="n">print_results</span><span class="p">(</span>
-            <span class="n">true_coeffs</span><span class="o">=</span><span class="n">lambda_true</span><span class="p">,</span> <span class="n">n_alpha</span><span class="o">=</span><span class="mi">0</span>
-        <span class="p">)</span>
-
-<span class="c1"># we also estimate using Poisson GLM</span>
-<span class="n">poisson_results</span> <span class="o">=</span> <span class="n">choo_siow_poisson_glm</span><span class="p">(</span><span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">)</span>
-
-<span class="n">muxy_sim</span><span class="p">,</span> <span class="n">mux0_sim</span><span class="p">,</span> <span class="n">mu0y_sim</span><span class="p">,</span> <span class="n">n_sim</span><span class="p">,</span> <span class="n">m_sim</span> \
-    <span class="o">=</span> <span class="n">mus_sim</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
-
-<span class="n">poisson_discrepancy</span> <span class="o">=</span> <span class="n">poisson_results</span><span class="o">.</span><span class="n">print_results</span><span class="p">(</span>
-        <span class="n">lambda_true</span><span class="p">,</span>
-        <span class="n">u_true</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mux0_sim</span><span class="o">/</span> <span class="n">n_sim</span><span class="p">),</span>
-        <span class="n">v_true</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mu0y_sim</span> <span class="o">/</span> <span class="n">m_sim</span><span class="p">)</span>
-    <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>example_choosiow.py</code> shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model. </li>
+<li><code>example_nestedlogit.py</code> shows how to run minimum distance estimators on a two-layer nested logit model. </li>
+</ul>
+<h2 id="warnings">Warnings<a class="headerlink" href="#warnings" title="Permanent link">&para;</a></h2>
+<ul>
+<li>many of these models (including all Cho and Siow variants) rely heaviliy on logarithms and exponentials. It is easy ton generate examples where numeric instability sets in.</li>
+<li>as a consequence,  the <code>numeric</code> versions of the minimum distance estimator (which use numerical derivatives) are not recommended. </li>
+<li>the bias-corrected minimum distance estimator (<code>corrected</code>) may have a larger mean-squared error and/or introduce numerical instabilities.</li>
+</ul>
+<h2 id="release-notes">Release notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h2>
+<h3 id="version-103">version 1.0.3<a class="headerlink" href="#version-103" title="Permanent link">&para;</a></h3>
+<ul>
+<li>added an optional bias-correction for the minimum distance estimator in the Choo and Siow homoskedastic model, to help with cases when the matching patterns vary a lot across cells.</li>
+<li>added two complete examples: <a href="example_choosiow/">example_choosiow.py</a> and <a href="example_nestedlogit/">example_nestedlogit.py</a>.</li>
+</ul>
 
 
 
