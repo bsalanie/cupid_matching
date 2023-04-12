@@ -5,7 +5,11 @@ from typing import Any, Callable, Literal, Optional, cast
 
 import numpy as np
 
-from cupid_matching.matching_utils import Matching, MatchingFunction, MatchingFunctionParam
+from cupid_matching.matching_utils import (
+    Matching,
+    MatchingFunction,
+    MatchingFunctionParam,
+)
 from cupid_matching.utils import _EPS, _TWO_EPS, ThreeArrays, TwoArrays, bs_error_abort
 
 EntropyHessianMuMu = Callable[[Matching], ThreeArrays]

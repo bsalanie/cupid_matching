@@ -8,9 +8,9 @@ from typing import cast
 
 import numpy as np
 
-from .entropy import EntropyFunctions, EntropyHessians
-from .matching_utils import Matching
-from .utils import ThreeArrays, TwoArrays
+from cupid_matching.entropy import EntropyFunctions, EntropyHessians
+from cupid_matching.matching_utils import Matching
+from cupid_matching.utils import ThreeArrays, TwoArrays
 
 
 def e0_choo_siow_heteroskedastic(muhat: Matching) -> np.ndarray:

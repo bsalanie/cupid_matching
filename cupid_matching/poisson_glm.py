@@ -10,8 +10,8 @@ import scipy.linalg as spla
 import scipy.sparse as spr
 from sklearn import linear_model
 
-from .matching_utils import Matching, _make_XY_K_mat, _variance_muhat
-from .poisson_glm_utils import PoissonGLMResults, _prepare_data
+from cupid_matching.matching_utils import Matching, _make_XY_K_mat, _variance_muhat
+from cupid_matching.poisson_glm_utils import PoissonGLMResults, _prepare_data
 
 
 def choo_siow_poisson_glm(

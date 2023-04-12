@@ -33,11 +33,13 @@ from cupid_matching.min_distance import estimate_semilinear_mde
 
 
 ## Warnings
-* many of these models (including all Cho and Siow variants) rely heaviliy on logarithms and exponentials. It is easy ton generate examples where numeric instability sets in.
+* many of these models (including all variants of Choo and Siow) rely heavily on logarithms and exponentials. It is easy to generate examples where numeric instability sets in.
 * as a consequence,  the `numeric` versions of the minimum distance estimator (which use numerical derivatives) are not recommended. 
 * the bias-corrected minimum distance estimator (`corrected`) may have a larger mean-squared error and/or introduce numerical instabilities.
 ## Release notes
-### version 1.0.3
+### version 1.0.4
 * added an optional bias-correction for the minimum distance estimator in the Choo and Siow homoskedastic model, to help with cases when the matching patterns vary a lot across cells.
 * added two complete examples: [example_choosiow.py](example_choosiow.md) and [example_nestedlogit.py](example_nestedlogit.md).
 
+### version 1,0.5
+* simplified the bias-correction for the minimum distance estimator in the Choo and Siow homoskedastic model.

@@ -6,22 +6,30 @@ and the other with types 2 and 4.
 On each side, the nests are the same for each type, with the same parameters.
 """
 
-import numpy as np
 from typing import Optional, Tuple
 
-from cupid_matching.model_classes import Matching, NestedLogitPrimitives
-from cupid_matching.entropy import EntropyFunctions
-from cupid_matching.nested_logit import setup_standard_nested_logit
+import numpy as np
 
+from cupid_matching.entropy import EntropyFunctions
 from cupid_matching.min_distance import estimate_semilinear_mde
-from cupid_matching.matching_utils import _variance_muhat, _variance_diagonal
+from cupid_matching.model_classes import Matching, NestedLogitPrimitives
+from cupid_matching.nested_logit import setup_standard_nested_logit
 from cupid_matching.utils import print_stars
 
 
-def create_nestedlogit_population(X: int, Y: int, K: int,
-                                  std_alphas: Optional[float] = 0.5,
-                                  std_betas: Optional[float] = 1.0) \
-        -> Tuple[NestedLogitPrimitives, np.ndarray, np.ndarray, EntropyFunctions, EntropyFunctions]:
+def create_nestedlogit_population(
+    X: int,
+    Y: int,
+    K: int,
+    std_alphas: Optional[float] = 0.5,
+    std_betas: Optional[float] = 1.0,
+) -> Tuple[
+    NestedLogitPrimitives,
+    np.ndarray,
+    np.ndarray,
+    EntropyFunctions,
+    EntropyFunctions,
+]:
     """
     we simulate a nested logit population
     with equal numbers of men and women of each type
@@ -53,8 +61,10 @@ def create_nestedlogit_population(X: int, Y: int, K: int,
     m = np.ones(Y)
     phi_bases = np.random.randn(X, Y, K)
 
-    entropy_nested_logit, entropy_nested_logit_numeric = setup_standard_nested_logit(nests_for_each_x,
-                                                                                     nests_for_each_y)
+    (
+        entropy_nested_logit,
+        entropy_nested_logit_numeric,
+    ) = setup_standard_nested_logit(nests_for_each_x, nests_for_each_y)
     n_rhos, n_deltas = len(nests_for_each_x), len(nests_for_each_y)
     n_alphas = n_rhos + n_deltas
 
@@ -66,14 +76,22 @@ def create_nestedlogit_population(X: int, Y: int, K: int,
         Phi, n, m, nests_for_each_x, nests_for_each_y, alphas_true
     )
     true_coeffs = np.concatenate((alphas_true, betas_true))
-    return nested_logit_instance, phi_bases, true_coeffs, entropy_nested_logit, entropy_nested_logit_numeric
+    return (
+        nested_logit_instance,
+        phi_bases,
+        true_coeffs,
+        entropy_nested_logit,
+        entropy_nested_logit_numeric,
+    )
 
 
-def mde_estimate(mus_sim: Matching,
-                 phi_bases: np.ndarray,
-                 true_coeffs: np.ndarray,
-                 entropy: EntropyFunctions,
-                 title: str) -> float:
+def mde_estimate(
+    mus_sim: Matching,
+    phi_bases: np.ndarray,
+    true_coeffs: np.ndarray,
+    entropy: EntropyFunctions,
+    title: str,
+) -> float:
     """we estimate the parameters using the minimum distance estimator
 
     Args:
@@ -88,19 +106,36 @@ def mde_estimate(mus_sim: Matching,
     """
     print_stars(f"    {title}")
     mde_results = estimate_semilinear_mde(
-        mus_sim, phi_bases, entropy,
+        mus_sim,
+        phi_bases,
+        entropy,
         additional_parameters=entropy.additional_parameters,
     )
     mde_discrepancy = mde_results.print_results(true_coeffs=true_coeffs)
     return mde_discrepancy
 
 
-nested_logit_instance, phi_bases, true_coeffs, entropy_nested_logit, entropy_nested_logit_numeric \
-    = create_nestedlogit_population(20, 18, 6)
+(
+    nested_logit_instance,
+    phi_bases,
+    true_coeffs,
+    entropy_nested_logit,
+    entropy_nested_logit_numeric,
+) = create_nestedlogit_population(20, 18, 6)
 seed = 6475788
 n_households = 1e6
 mus_sim = nested_logit_instance.simulate(n_households, seed)
-mde_discrepancy = mde_estimate(mus_sim, phi_bases, true_coeffs, entropy_nested_logit,
-                               "RESULTS FOR MDE WITH ANALYTICAL GRADIENT")
-mde_discrepancy_numeric = mde_estimate(mus_sim, phi_bases, true_coeffs, entropy_nested_logit_numeric,
-                                       "RESULTS FOR MDE WITH NUMERICAL GRADIENT")
+mde_discrepancy = mde_estimate(
+    mus_sim,
+    phi_bases,
+    true_coeffs,
+    entropy_nested_logit,
+    "RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
+)
+mde_discrepancy_numeric = mde_estimate(
+    mus_sim,
+    phi_bases,
+    true_coeffs,
+    entropy_nested_logit_numeric,
+    "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
+)

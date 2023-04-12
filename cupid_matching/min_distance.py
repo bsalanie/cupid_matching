@@ -7,7 +7,7 @@ import numpy as np
 import scipy.linalg as spla
 import scipy.stats as sts
 
-from .entropy import (
+from cupid_matching.entropy import (
     EntropyFunctions,
     EntropyHessianMuMu,
     EntropyHessianMuMuParam,
@@ -19,15 +19,15 @@ from .entropy import (
     _fill_hessianMuR_from_components,
     _numeric_hessian,
 )
-from .matching_utils import (
+from cupid_matching.matching_utils import (
     Matching,
     MatchingFunction,
     MatchingFunctionParam,
     _make_XY_K_mat,
     _variance_muhat,
 )
-from .min_distance_utils import MDEResults, _compute_estimates
-from .utils import bs_error_abort, print_stars
+from cupid_matching.min_distance_utils import MDEResults, _compute_estimates
+from cupid_matching.utils import bs_error_abort, print_stars
 
 
 def estimate_semilinear_mde(

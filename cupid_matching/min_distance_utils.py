@@ -6,7 +6,7 @@ from typing import Optional
 import numpy as np
 import scipy.linalg as spla
 
-from .utils import npmaxabs, print_stars
+from cupid_matching.utils import npmaxabs, print_stars
 
 
 def _compute_estimates(
@@ -120,7 +120,9 @@ class MDEResults:
                 )
             print_stars(repr_str)
             discrepancy = npmaxabs(true_coeffs - estimates)
-            print_stars(f"The largest difference between true and estimated coefficients is {discrepancy: .2e}")
+            print_stars(
+                f"The largest difference between true and estimated coefficients is {discrepancy: .2e}"
+            )
         else:
             repr_str = (
                 "The estimated coefficients "

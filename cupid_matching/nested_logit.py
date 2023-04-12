@@ -10,11 +10,7 @@ from typing import Any, cast
 
 import numpy as np
 
-from cupid_matching.entropy import (
-    EntropyFunctions,
-    EntropyHessianComponents,
-    EntropyHessiansParam,
-)
+from cupid_matching.entropy import EntropyFunctions, EntropyHessiansParam
 from cupid_matching.matching_utils import Matching, _change_indices
 from cupid_matching.utils import NestsList, ThreeArrays, TwoArrays
 

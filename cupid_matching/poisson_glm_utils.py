@@ -6,8 +6,8 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-from .matching_utils import Matching
-from .utils import npmaxabs, print_stars
+from cupid_matching.matching_utils import Matching
+from cupid_matching.utils import npmaxabs, print_stars
 
 
 @dataclass
@@ -138,7 +138,9 @@ class PoissonGLMResults:
             return None
         else:
             discrepancy = npmaxabs(lambda_true - estimates_beta)
-            print_stars(f"The largest difference between true and estimated coefficients is {discrepancy: .2e}")
+            print_stars(
+                f"The largest difference between true and estimated coefficients is {discrepancy: .2e}"
+            )
             return discrepancy
 
 

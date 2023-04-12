@@ -1,25 +1,25 @@
 """ example using the Choo and Siow homoskedastic model"""
 
-import numpy as np
 from typing import Optional, Tuple
 
-from cupid_matching.model_classes import ChooSiowPrimitives, Matching
-from cupid_matching.entropy import EntropyFunctions
+import numpy as np
+
 from cupid_matching.choo_siow import (
     entropy_choo_siow,
     entropy_choo_siow_corrected,
-    entropy_choo_siow_numeric,
     entropy_choo_siow_corrected_numeric,
+    entropy_choo_siow_numeric,
 )
+from cupid_matching.entropy import EntropyFunctions
 from cupid_matching.min_distance import estimate_semilinear_mde
+from cupid_matching.model_classes import ChooSiowPrimitives, Matching
 from cupid_matching.poisson_glm import choo_siow_poisson_glm
-from cupid_matching.matching_utils import _variance_muhat, _variance_diagonal
 from cupid_matching.utils import print_stars
 
 
-def create_choosiow_population(X: int, Y: int, K: int,
-                               std_betas: Optional[float] = 1.0) \
-        -> Tuple[ChooSiowPrimitives, np.ndarray, np.ndarray]:
+def create_choosiow_population(
+    X: int, Y: int, K: int, std_betas: Optional[float] = 1.0
+) -> Tuple[ChooSiowPrimitives, np.ndarray, np.ndarray]:
     """
     we simulate a Choo and Siow population
     with equal numbers of men and women of each type
@@ -44,11 +44,13 @@ def create_choosiow_population(X: int, Y: int, K: int,
     return choo_siow_instance, phi_bases, betas_true
 
 
-def mde_estimate(mus_sim: Matching,
-                 phi_bases: np.ndarray,
-                 betas_true: np.ndarray,
-                 entropy: EntropyFunctions,
-                 title: str) -> float:
+def mde_estimate(
+    mus_sim: Matching,
+    phi_bases: np.ndarray,
+    betas_true: np.ndarray,
+    entropy: EntropyFunctions,
+    title: str,
+) -> float:
     """we estimate the parameters using the minimum distance estimator
 
     Args:
@@ -62,9 +64,7 @@ def mde_estimate(mus_sim: Matching,
         the largest absolute difference between the true and estimated coefficients
     """
     print_stars(f"    {title}")
-    mde_results = estimate_semilinear_mde(
-        mus_sim, phi_bases, entropy
-    )
+    mde_results = estimate_semilinear_mde(mus_sim, phi_bases, entropy)
     mde_discrepancy = mde_results.print_results(true_coeffs=betas_true)
     return mde_discrepancy
 
@@ -73,15 +73,34 @@ choo_siow_instance, phi_bases, betas_true = create_choosiow_population(10, 8, 5)
 mus_sim = choo_siow_instance.simulate(1e5)
 
 # we estimate using forur variants of the minimum distance estimator
-mde_discrepancy = mde_estimate(mus_sim, phi_bases, betas_true, entropy_choo_siow,
-                               "RESULTS FOR MDE WITH ANALYTICAL GRADIENT")
-mde_discrepancy_numeric = mde_estimate(mus_sim, phi_bases, betas_true, entropy_choo_siow_numeric,
-                                       "RESULTS FOR MDE WITH NUMERICAL GRADIENT")
-mde_discrepancy_corrected = mde_estimate(mus_sim, phi_bases, betas_true, entropy_choo_siow_corrected,
-                                         "RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT")
-mde_discrepancy_corrected_numeric = mde_estimate(mus_sim, phi_bases, betas_true,
-                                                 entropy_choo_siow_corrected_numeric,
-                                                 "RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT")
+mde_discrepancy = mde_estimate(
+    mus_sim,
+    phi_bases,
+    betas_true,
+    entropy_choo_siow,
+    "RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
+)
+mde_discrepancy_numeric = mde_estimate(
+    mus_sim,
+    phi_bases,
+    betas_true,
+    entropy_choo_siow_numeric,
+    "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
+)
+mde_discrepancy_corrected = mde_estimate(
+    mus_sim,
+    phi_bases,
+    betas_true,
+    entropy_choo_siow_corrected,
+    "RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT",
+)
+mde_discrepancy_corrected_numeric = mde_estimate(
+    mus_sim,
+    phi_bases,
+    betas_true,
+    entropy_choo_siow_corrected_numeric,
+    "RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
+)
 
 # we also estimate using Poisson GLM
 print_stars("    RESULTS FOR POISSON   ")

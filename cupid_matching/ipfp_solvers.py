@@ -22,8 +22,8 @@ from typing import Literal, overload
 import numpy as np
 import scipy.linalg as spla
 
-from .matching_utils import Matching
-from .utils import (
+from cupid_matching.matching_utils import Matching
+from cupid_matching.utils import (
     bs_error_abort,
     der_nppow,
     npexp,
