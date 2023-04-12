@@ -924,7 +924,9 @@
 <span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
-<span class="normal">149</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">MDEResults</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The results from minimum-distance estimation and testing.</span>
@@ -1014,7 +1016,9 @@
                 <span class="p">)</span>
             <span class="n">print_stars</span><span class="p">(</span><span class="n">repr_str</span><span class="p">)</span>
             <span class="n">discrepancy</span> <span class="o">=</span> <span class="n">npmaxabs</span><span class="p">(</span><span class="n">true_coeffs</span> <span class="o">-</span> <span class="n">estimates</span><span class="p">)</span>
-            <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The largest difference between true and estimated coefficients is </span><span class="si">{</span><span class="n">discrepancy</span><span class="si">:</span><span class="s2"> .2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">print_stars</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The largest difference between true and estimated coefficients is </span><span class="si">{</span><span class="n">discrepancy</span><span class="si">:</span><span class="s2"> .2e</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">repr_str</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="s2">&quot;The estimated coefficients &quot;</span>

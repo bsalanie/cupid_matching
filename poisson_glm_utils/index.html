@@ -977,7 +977,9 @@
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span>
-<span class="normal">142</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">PoissonGLMResults</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Stores and formats the estimation results.</span>
 
@@ -1105,7 +1107,9 @@
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">discrepancy</span> <span class="o">=</span> <span class="n">npmaxabs</span><span class="p">(</span><span class="n">lambda_true</span> <span class="o">-</span> <span class="n">estimates_beta</span><span class="p">)</span>
-            <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The largest difference between true and estimated coefficients is </span><span class="si">{</span><span class="n">discrepancy</span><span class="si">:</span><span class="s2"> .2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">print_stars</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The largest difference between true and estimated coefficients is </span><span class="si">{</span><span class="n">discrepancy</span><span class="si">:</span><span class="s2"> .2e</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
             <span class="k">return</span> <span class="n">discrepancy</span>
 </code></pre></div></td></tr></table></div>
         </details>
