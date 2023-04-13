@@ -203,7 +203,7 @@ def _variance_muhat(muhat: Matching) -> TwoArrays:
 
 
 def _variance_diagonal(var_muhat: np.ndarray, X: int, Y: int) -> Matching:
-    """extracts the variances of muxy, mux0,mu0y
+    """extracts the variances of muxy, mux0, mu0y
 
     Args:
         var_muhat: the variance of muhat as returned by _variance_muhat
