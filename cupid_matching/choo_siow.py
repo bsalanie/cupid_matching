@@ -124,7 +124,6 @@ def _der_entropy_choo_siow_corrected(
     else:  # we compute the Hessians
         X, Y = muxy.shape
         f_corr = 1.0-1.0/n_households/2.0
-        print(f"{f_corr=}")
         derlogxy = f_corr / muxy_corr
         derlogx0 = f_corr / mux0_corr
         derlog0y = f_corr / mu0y_corr

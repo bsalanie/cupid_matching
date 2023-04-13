@@ -49,3 +49,6 @@ from cupid_matching.min_distance import estimate_semilinear_mde
 
 ### version 1.0.7
 * fixed error in bias-correction term.
+
+### version 1.0.8
+* deleted spurious print statement.
