@@ -43,3 +43,6 @@ from cupid_matching.min_distance import estimate_semilinear_mde
 
 ### version 1,0.5
 * simplified the bias-correction for the minimum distance estimator in the Choo and Siow homoskedastic model.
+
+### version 1.0.6
+* corrected typo.

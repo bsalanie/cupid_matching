@@ -107,7 +107,7 @@ def _der_entropy_choo_siow_corrected(
           and the (X,Y,X+Y) second derivatives
             wrt $(\\mu,(n,m))$
     """
-    muxy, mux0, mu0y, n, m = muhat.unpack()
+    muxy, mux0, mu0y, *_ = muhat.unpack()
     n_households = np.sum(muxy) + np.sum(mux0) + np.sum(mu0y)
 
     muxy_corr = muxy + (1.0-muxy/n_households)/2.0

@@ -69,8 +69,9 @@ def mde_estimate(
     return mde_discrepancy
 
 
+n_households = 1e3
 choo_siow_instance, phi_bases, betas_true = create_choosiow_population(10, 8, 5)
-mus_sim = choo_siow_instance.simulate(1e5)
+mus_sim = choo_siow_instance.simulate(n_households)
 
 # we estimate using forur variants of the minimum distance estimator
 mde_discrepancy = mde_estimate(
