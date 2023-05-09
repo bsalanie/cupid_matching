@@ -1,16 +1,18 @@
 """Entropies and their derivatives. """
 from dataclasses import dataclass
 from functools import partial
-from typing import Any, Callable, Literal, Optional, cast
+from typing import Any, Callable, Literal, cast
 
 import numpy as np
+from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
+from bs_python_utils.bsutils import bs_error_abort
 
 from cupid_matching.matching_utils import (
     Matching,
     MatchingFunction,
     MatchingFunctionParam,
 )
-from cupid_matching.utils import _EPS, _TWO_EPS, ThreeArrays, TwoArrays, bs_error_abort
+from cupid_matching.utils import _EPS, _TWO_EPS
 
 EntropyHessianMuMu = Callable[[Matching], ThreeArrays]
 """The type of a function that takes in a Matching
@@ -63,7 +65,7 @@ class EntropyFunctions:
             Defaults to `None`
         hessian: defaults to `"numeric"`
             * if `"provided"`, we provide the hessian of the entropy.
-            * if `"numerical"`, it is computed by central differences.
+            * if `"numerical"`, it is compute_d by central differences.
         e0_derivative: the derivative of `e0_fun`, if available.
             Defaults to `None`
         e_derivative: the derivative of `e_fun`, if available.
@@ -79,22 +81,25 @@ class EntropyFunctions:
     """
 
     e0_fun: MatchingFunction | MatchingFunctionParam
-    e0_derivative: Optional[EntropyHessians | EntropyHessiansParam] = None
-    additional_parameters: Optional[list] = None
-    description: Optional[str] = None
-    e_fun: Optional[MatchingFunction | MatchingFunctionParam] = None
-    e_derivative: Optional[EntropyHessians | EntropyHessiansParam] = None
-    hessian: Optional[str] = "numerical"
+    e0_derivative: EntropyHessians | EntropyHessiansParam | None = None
+    additional_parameters: list | None = None
+    description: str | None = None
+    e_fun: MatchingFunction | MatchingFunctionParam | None = None
+    e_derivative: EntropyHessians | EntropyHessiansParam | None = None
+    hessian: str | None = "numerical"
     parameter_dependent: bool = False
 
     def __post_init__(self):
-        if not self.parameter_dependent:
-            if self.hessian == "provided" and self.e0_derivative is None:
-                bs_error_abort(
-                    "You claim to provide the hessian "
-                    + "but you did not provide the e0_derivative."
-                )
-        else:
+        if (
+            (not self.parameter_dependent)
+            and self.hessian == "provided"
+            and self.e0_derivative is None
+        ):
+            bs_error_abort(
+                "You claim to provide the hessian "
+                + "but you did not provide the e0_derivative."
+            )
+        if self.parameter_dependent:
             if self.e_fun is None:
                 bs_error_abort(
                     "Your entropy is parameter dependent "
@@ -111,8 +116,8 @@ class EntropyFunctions:
 def entropy_gradient(
     entropy: EntropyFunctions,
     muhat: Matching,
-    alpha: Optional[np.ndarray] = None,
-    additional_parameters: Optional[list] = None,
+    alpha: np.ndarray | None = None,
+    additional_parameters: list | None = None,
 ) -> np.ndarray:
     """Computes the derivative of the entropy wrt $\\mu$
      at $(\\mu, n, m, \\alpha, p)$
@@ -148,7 +153,7 @@ def entropy_gradient(
             else:
                 e_fun = cast(MatchingFunction, e_fun)
                 e_vals = e_fun(muhat)
-        return e0_vals + e_vals @ alpha
+        return cast(np.ndarray, e0_vals + e_vals @ alpha)
     else:
         return e0_vals
 
@@ -209,14 +214,14 @@ def _numeric_component(
         bs_error_abort("Wrong direction parameter.")
     der_entropy_minus = entropy_deriv(mus)
     deriv_value = (der_entropy_plus[x, y] - der_entropy_minus[x, y]) / _TWO_EPS
-    return deriv_value
+    return cast(float, deriv_value)
 
 
 def _numeric_hessian(
     entropy: EntropyFunctions,
     muhat: Matching,
-    alpha: Optional[np.ndarray] = None,
-    additional_parameters: Optional[list] = None,
+    alpha: np.ndarray | None = None,
+    additional_parameters: list | None = None,
 ) -> EntropyHessianComponents:
     """Evaluates numerically the components of the hessians of the entropy
     wrt $(\\mu,\\mu)$ and $(\\mu,(n,m))$

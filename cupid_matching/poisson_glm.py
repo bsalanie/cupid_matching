@@ -3,23 +3,23 @@ using Poisson GLM.
 """
 
 from math import sqrt
-from typing import Optional
 
 import numpy as np
 import scipy.linalg as spla
 import scipy.sparse as spr
 from sklearn import linear_model
 
-from cupid_matching.matching_utils import Matching, _make_XY_K_mat, _variance_muhat
+from cupid_matching.matching_utils import Matching, variance_muhat
 from cupid_matching.poisson_glm_utils import PoissonGLMResults, _prepare_data
+from cupid_matching.utils import _make_XY_K_mat
 
 
 def choo_siow_poisson_glm(
     muhat: Matching,
     phi_bases: np.ndarray,
-    tol: Optional[float] = 1e-12,
-    max_iter: Optional[int] = 10000,
-    verbose: Optional[int] = 1,
+    tol: float | None = 1e-12,
+    max_iter: int | None = 10000,
+    verbose: int | None = 1,
 ) -> PoissonGLMResults:
     """Estimates the semilinear Choo and Siow homoskedastic (2006) model
         using Poisson GLM.
@@ -87,9 +87,7 @@ def choo_siow_poisson_glm(
 
     if try_sparse:
         w_mat = spr.csr_matrix(
-            np.concatenate(
-                (2 * np.ones((XY, n_cols)), np.ones((X + Y, n_cols)))
-            )
+            np.concatenate((2 * np.ones((XY, n_cols)), np.ones((X + Y, n_cols))))
         )
 
         # construct the Z matrix
@@ -126,9 +124,7 @@ def choo_siow_poisson_glm(
         id_Y = np.eye(Y)
         Z_unweighted = np.vstack(
             [
-                np.hstack(
-                    [-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat]
-                ),
+                np.hstack([-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat]),
                 np.hstack([-id_X, zeros_XY, zeros_XK]),
                 np.hstack([zeros_YX, -id_Y, zeros_YK]),
             ]
@@ -136,14 +132,13 @@ def choo_siow_poisson_glm(
         Z = Z_unweighted / w.reshape((-1, 1))
 
     _, _, _, n, m = muhat.unpack()
-    var_muhat, var_munm = _variance_muhat(muhat)
+    var_muhat = variance_muhat(muhat)
     (
         muxyhat_norm,
         var_muhat_norm,
-        var_munm_norm,
         n_households,
         n_individuals,
-    ) = _prepare_data(muhat, var_muhat, var_munm)
+    ) = _prepare_data(muhat, var_muhat)
 
     clf = linear_model.PoissonRegressor(
         fit_intercept=False,
@@ -155,7 +150,8 @@ def choo_siow_poisson_glm(
     clf.fit(Z, muxyhat_norm, sample_weight=w)
     gamma_est = clf.coef_
 
-    # we compute the variance-covariance of the estimator
+    # we compute_ the variance-covariance of the estimator
+    var_allmus_norm = var_muhat_norm.var_allmus
     nr, nc = Z.shape
     exp_Zg = np.exp(Z @ gamma_est).reshape(n_rows)
     A_hat = np.zeros((nc, nc))
@@ -166,7 +162,7 @@ def choo_siow_poisson_glm(
         A_hat += wi * exp_Zg[i] * np.outer(Zi, Zi)
         for j in range(nr):
             Zj = Z[j, :]
-            B_hat += wi * w[j] * var_muhat_norm[i, j] * np.outer(Zi, Zj)
+            B_hat += wi * w[j] * var_allmus_norm[i, j] * np.outer(Zi, Zj)
 
     A_inv = spla.inv(A_hat)
     varcov_gamma = A_inv @ B_hat @ A_inv
@@ -184,18 +180,19 @@ def choo_siow_poisson_glm(
     v_est = gamma_est[X:-K] + np.log(m_norm)
 
     # since u = a + log(n_norm) we also need to adjust the estimated variance
-    z_unweighted_T = Z_unweighted.T
+    var_munm_norm = var_muhat_norm.var_munm
+    var_n_norm = var_munm_norm[XY : (XY + X), XY : (XY + X)]
+    var_m_norm = var_munm_norm[(XY + X) :, (XY + X) :]
+    Z_unweighted_T = Z_unweighted.T
     u_std = np.zeros(X)
     ix = XY
     for x in range(X):
         n_norm_x = n_norm[x]
         A_inv_x = A_inv[x, :]
-        var_log_nx = var_munm_norm[ix, ix] / n_norm_x / n_norm_x
+        var_log_nx = var_n_norm[x, x] / n_norm_x / n_norm_x
         slice_x = slice(x * Y, (x + 1) * Y)
-        covar_term = var_muhat_norm[:, ix] + np.sum(
-            var_muhat_norm[:, slice_x], 1
-        )
-        cov_a_lognx = (A_inv_x @ z_unweighted_T @ covar_term) / n_norm_x
+        covar_term = var_allmus_norm[:, ix] + np.sum(var_allmus_norm[:, slice_x], 1)
+        cov_a_lognx = (A_inv_x @ Z_unweighted_T @ covar_term) / n_norm_x
         ux_var = varcov_gamma[x, x] + var_log_nx + 2.0 * cov_a_lognx
         u_std[x] = sqrt(ux_var)
         ix += 1
@@ -205,12 +202,10 @@ def choo_siow_poisson_glm(
     for y in range(Y):
         m_norm_y = m_norm[y]
         A_inv_y = A_inv[iy, :]
-        var_log_my = var_munm_norm[jy, jy] / m_norm_y / m_norm_y
+        var_log_my = var_m_norm[y, y] / m_norm_y / m_norm_y
         slice_y = slice(y, XY, Y)
-        covar_term = var_muhat_norm[:, jy] + np.sum(
-            var_muhat_norm[:, slice_y], 1
-        )
-        cov_b_logmy = (A_inv_y @ z_unweighted_T @ covar_term) / m_norm_y
+        covar_term = var_allmus_norm[:, jy] + np.sum(var_allmus_norm[:, slice_y], 1)
+        cov_b_logmy = (A_inv_y @ Z_unweighted_T @ covar_term) / m_norm_y
         vy_var = varcov_gamma[iy, iy] + var_log_my + 2.0 * cov_b_logmy
         v_std[y] = sqrt(vy_var)
         iy += 1

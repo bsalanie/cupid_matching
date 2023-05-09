@@ -7,10 +7,10 @@ for all other types on the X side and for all types on the Y side.
 from typing import cast
 
 import numpy as np
+from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 
 from cupid_matching.entropy import EntropyFunctions, EntropyHessians
 from cupid_matching.matching_utils import Matching
-from cupid_matching.utils import ThreeArrays, TwoArrays
 
 
 def e0_choo_siow_heteroskedastic(muhat: Matching) -> np.ndarray:
@@ -30,7 +30,7 @@ def e0_choo_siow_heteroskedastic(muhat: Matching) -> np.ndarray:
     mu10 = mux0[0]
     e0_vals = np.zeros_like(muxy)
     e0_vals[0, :] = -np.log(mu1y / mu10)
-    return e0_vals
+    return cast(np.ndarray, e0_vals)
 
 
 def e0_derivative_mu_heteroskedastic(
@@ -214,9 +214,7 @@ entropy_choo_siow_heteroskedastic = EntropyFunctions(
     parameter_dependent=True,
     e_fun=e_choo_siow_heteroskedastic,
     hessian="provided",
-    e0_derivative=cast(
-        EntropyHessians, e0_derivative_choo_siow_heteroskedastic
-    ),
+    e0_derivative=cast(EntropyHessians, e0_derivative_choo_siow_heteroskedastic),
     e_derivative=cast(EntropyHessians, e_derivative_choo_siow_heteroskedastic),
     description="Choo and Siow heteroskedastic with analytic Hessian",
 )

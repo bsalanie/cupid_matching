@@ -21,21 +21,19 @@ from typing import Literal, overload
 
 import numpy as np
 import scipy.linalg as spla
-
-from cupid_matching.matching_utils import Matching
-from cupid_matching.utils import (
-    bs_error_abort,
-    der_nppow,
+from bs_python_utils.bsnputils import (
+    FourArrays,
+    ThreeArrays,
+    check_vector,
     npexp,
     npmaxabs,
     nppow,
     nprepeat_col,
     nprepeat_row,
-    test_vector,
 )
+from bs_python_utils.bsutils import bs_error_abort
 
-ThreeArrays = tuple[np.ndarray, np.ndarray, np.ndarray]
-FourArrays = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+from cupid_matching.matching_utils import Matching
 
 IPFPNoGradientResults = tuple[Matching, np.ndarray, np.ndarray]
 IPFPGradientResults = tuple[
@@ -47,8 +45,8 @@ def _ipfp_check_sizes(
     men_margins: np.ndarray, women_margins: np.ndarray, Phi: np.ndarray
 ) -> tuple[int, int]:
     """checks that the margins and surplus have the correct shapes and sizes"""
-    X = test_vector(men_margins)
-    Y = test_vector(women_margins)
+    X = check_vector(men_margins)
+    Y = check_vector(women_margins)
     if Phi.shape != (X, Y):
         bs_error_abort(f"The shape of Phi should be ({X}, {Y}")
     return X, Y
@@ -113,7 +111,7 @@ def ipfp_homoskedastic_nosingles_solver(
     if np.abs(np.sum(women_margins) - n_couples) > n_couples * tol:
         bs_error_abort("There should be as many men as women")
 
-    ephi2, der_ephi2 = npexp(Phi / 2.0, deriv=True)
+    ephi2, der_ephi2 = npexp(Phi / 2.0, deriv=1)
     ephi2T = ephi2.T
 
     #############################################################################
@@ -164,7 +162,7 @@ def ipfp_homoskedastic_nosingles_solver(
         n_cols_rhs = n_prod_categories
         rhs = np.zeros((n_sum_categories, n_cols_rhs))
 
-        #  to compute derivatives of (txi, tyi) wrt Phi
+        #  to compute_ derivatives of (txi, tyi) wrt Phi
         der_ephi2 /= 2.0 * ephi2  # 1/2 with safeguards
         ivar = 0
         for iman in range(X):
@@ -173,9 +171,7 @@ def ipfp_homoskedastic_nosingles_solver(
         ivar1 = X
         ivar2 = 0
         for iwoman in range(Y):
-            rhs[ivar1, ivar2:n_cols_rhs:Y] = (
-                -muxy[:, iwoman] * der_ephi2[:, iwoman]
-            )
+            rhs[ivar1, ivar2:n_cols_rhs:Y] = -muxy[:, iwoman] * der_ephi2[:, iwoman]
             ivar1 += 1
             ivar2 += 1
         # solve for the derivatives of txi and tyi
@@ -187,9 +183,7 @@ def ipfp_homoskedastic_nosingles_solver(
         ivar = 0
         for iman in range(X):
             dt_man = dt[iman, :]
-            dmuxy[ivar : (ivar + Y), :] = np.outer(
-                (ephi2[iman, :] * tyi), dt_man
-            )
+            dmuxy[ivar : (ivar + Y), :] = np.outer((ephi2[iman, :] * tyi), dt_man)
             ivar += Y
         for iwoman in range(Y):
             dT_woman = dT[iwoman, :]
@@ -268,7 +262,7 @@ def ipfp_homoskedastic_solver(
     """
     X, Y = _ipfp_check_sizes(men_margins, women_margins, Phi)
 
-    ephi2, der_ephi2 = npexp(Phi / 2.0, deriv=True)
+    ephi2, der_ephi2 = npexp(Phi / 2.0, deriv=1)
 
     #############################################################################
     # we solve the equilibrium equations muxy = ephi2 * tx * ty
@@ -312,7 +306,7 @@ def ipfp_homoskedastic_solver(
             marg_err_x,
             marg_err_y,
         )
-    else:  # we compute the derivatives
+    else:  # we compute_ the derivatives
         sxi = ephi2 @ tyi
         syi = ephi2T @ txi
         n_sum_categories = X + Y
@@ -326,11 +320,11 @@ def ipfp_homoskedastic_solver(
         # now fill the RHS
         n_cols_rhs = n_sum_categories + n_prod_categories
         rhs = np.zeros((n_sum_categories, n_cols_rhs))
-        #  to compute derivatives of (txi, tyi) wrt men_margins
+        #  to compute_ derivatives of (txi, tyi) wrt men_margins
         rhs[:X, :X] = np.eye(X)
-        #  to compute derivatives of (txi, tyi) wrt women_margins
+        #  to compute_ derivatives of (txi, tyi) wrt women_margins
         rhs[X:n_sum_categories, X:n_sum_categories] = np.eye(Y)
-        #  to compute derivatives of (txi, tyi) wrt Phi
+        #  to compute_ derivatives of (txi, tyi) wrt Phi
         der_ephi2 /= 2.0 * ephi2  # 1/2 with safeguards
         ivar = n_sum_categories
         for iman in range(X):
@@ -339,9 +333,7 @@ def ipfp_homoskedastic_solver(
         ivar1 = X
         ivar2 = n_sum_categories
         for iwoman in range(Y):
-            rhs[ivar1, ivar2:n_cols_rhs:Y] = (
-                -muxy[:, iwoman] * der_ephi2[:, iwoman]
-            )
+            rhs[ivar1, ivar2:n_cols_rhs:Y] = -muxy[:, iwoman] * der_ephi2[:, iwoman]
             ivar1 += 1
             ivar2 += 1
         # solve for the derivatives of txi and tyi
@@ -355,9 +347,7 @@ def ipfp_homoskedastic_solver(
         ivar = 0
         for iman in range(X):
             dt_man = dt[iman, :]
-            dmuxy[ivar : (ivar + Y), :] = np.outer(
-                (ephi2[iman, :] * tyi), dt_man
-            )
+            dmuxy[ivar : (ivar + Y), :] = np.outer((ephi2[iman, :] * tyi), dt_man)
             ivar += Y
         for iwoman in range(Y):
             dT_woman = dT[iwoman, :]
@@ -574,7 +564,7 @@ def ipfp_heteroskedastic_solver(
         bs_error_abort("All elements of tau_y must be positive")
 
     sumxy1 = 1.0 / np.add.outer(sigma_x, tau_y)
-    ephi2, der_ephi2 = npexp(Phi * sumxy1, deriv=True)
+    ephi2, der_ephi2 = npexp(Phi * sumxy1, deriv=1)
 
     #############################################################################
     # we solve the equilibrium equations muxy = ephi2 * tx * ty
@@ -609,16 +599,12 @@ def ipfp_heteroskedastic_solver(
         while err_newton > tol_newton:
             txit = np.power(txin, sig_taumax)
             mux0_in = np.power(txit, 1.0 / sigma_x)
-            out_xy = np.outer(
-                np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y)
-            )
+            out_xy = np.outer(np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y))
             muxy_in = ephi2 * np.power(out_xy, sumxy1)
             errxi = mux0_in + np.sum(muxy_in, 1) - men_margins
             err_newton = npmaxabs(errxi)
             txin -= errxi / (
-                sig_taumax
-                * (mux0_in / sigma_x + np.sum(sumxy1 * muxy_in, 1))
-                / txin
+                sig_taumax * (mux0_in / sigma_x + np.sum(sumxy1 * muxy_in, 1)) / txin
             )
         tx = txin
 
@@ -629,16 +615,12 @@ def ipfp_heteroskedastic_solver(
         while err_newton > tol_newton:
             tyit = np.power(tyin, sigmax_tau)
             mu0y_in = np.power(tyit, 1.0 / tau_y)
-            out_xy = np.outer(
-                np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y)
-            )
+            out_xy = np.outer(np.power(mux0_in, sigma_x), np.power(mu0y_in, tau_y))
             muxy_in = ephi2 * np.power(out_xy, sumxy1)
             erryi = mu0y_in + np.sum(muxy_in, 0) - women_margins
             err_newton = npmaxabs(erryi)
             tyin -= erryi / (
-                sigmax_tau
-                * (mu0y_in / tau_y + np.sum(sumxy1 * muxy_in, 0))
-                / tyin
+                sigmax_tau * (mu0y_in / tau_y + np.sum(sumxy1 * muxy_in, 0)) / tyin
             )
 
         ty = tyin
@@ -668,7 +650,7 @@ def ipfp_heteroskedastic_solver(
             marg_err_x,
             marg_err_y,
         )
-    else:  # we compute the derivatives
+    else:  # we compute_ the derivatives
         n_sum_categories = X + Y
         n_prod_categories = X * Y
         # we work directly with (mux0, mu0y)
@@ -679,8 +661,8 @@ def ipfp_heteroskedastic_solver(
         # muxy = axy * bxy * ephi2
         axy = nppow(mux0_mat, sigrat_xy)
         bxy = nppow(mu0y_mat, taurat_xy)
-        der_axy1, der_axy2 = der_nppow(mux0_mat, sigrat_xy)
-        der_bxy1, der_bxy2 = der_nppow(mu0y_mat, taurat_xy)
+        der_axy1, der_axy2 = nppow(mux0_mat, sigrat_xy, deriv=1)
+        der_bxy1, der_bxy2 = nppow(mu0y_mat, taurat_xy, deriv=1)
         der_axy1_rat, der_axy2_rat = der_axy1 / axy, der_axy2 / axy
         der_bxy1_rat, der_bxy2_rat = der_bxy1 / bxy, der_bxy2 / bxy
 
@@ -696,9 +678,9 @@ def ipfp_heteroskedastic_solver(
         n_cols_rhs = n_sum_categories + n_prod_categories + X + Y
         rhs = np.zeros((n_sum_categories, n_cols_rhs))
 
-        #  to compute derivatives of (mux0, mu0y) wrt men_margins
+        #  to compute_ derivatives of (mux0, mu0y) wrt men_margins
         rhs[:X, :X] = np.eye(X)
-        #  to compute derivatives of (mux0, mu0y) wrt women_margins
+        #  to compute_ derivatives of (mux0, mu0y) wrt women_margins
         rhs[X:, X:n_sum_categories] = np.eye(Y)
 
         #   the next line is sumxy1 with safeguards
@@ -711,7 +693,7 @@ def ipfp_heteroskedastic_solver(
         big_c = sumxy1 * (a_phi - b_mu_s * tau_y)
         big_d = sumxy1 * (a_phi + b_mu_s * sigma_x.reshape((-1, 1)))
 
-        #  to compute derivatives of (mux0, mu0y) wrt Phi
+        #  to compute_ derivatives of (mux0, mu0y) wrt Phi
         ivar = n_sum_categories
         for iman in range(X):
             rhs[iman, ivar : (ivar + Y)] = -big_a[iman, :]
@@ -724,12 +706,12 @@ def ipfp_heteroskedastic_solver(
             ivar1 += 1
             ivar2 += 1
 
-        #  to compute derivatives of (mux0, mu0y) wrt sigma_x
+        #  to compute_ derivatives of (mux0, mu0y) wrt sigma_x
         iend_sig = iend_phi + X
         der_sigx = np.sum(big_c, 1)
         rhs[:X, iend_phi:iend_sig] = np.diag(der_sigx)
         rhs[X:, iend_phi:iend_sig] = big_c.T
-        #  to compute derivatives of (mux0, mu0y) wrt tau_y
+        #  to compute_ derivatives of (mux0, mu0y) wrt tau_y
         der_tauy = np.sum(big_d, 0)
         rhs[X:, iend_sig:] = np.diag(der_tauy)
         rhs[:X, iend_sig:] = big_d
@@ -744,9 +726,7 @@ def ipfp_heteroskedastic_solver(
         der1 = ephi2 * der_axy1 * bxy
         ivar = 0
         for iman in range(X):
-            dmuxy[ivar : (ivar + Y), :] = np.outer(
-                der1[iman, :], dmux0[iman, :]
-            )
+            dmuxy[ivar : (ivar + Y), :] = np.outer(der1[iman, :], dmux0[iman, :])
             ivar += Y
         der2 = ephi2 * der_bxy1 * axy
         for iwoman in range(Y):

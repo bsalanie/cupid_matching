@@ -7,10 +7,10 @@ and we estimate the standard error on the Y side.
 from typing import cast
 
 import numpy as np
+from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 
 from cupid_matching.entropy import EntropyFunctions, EntropyHessians
 from cupid_matching.matching_utils import Matching
-from cupid_matching.utils import ThreeArrays, TwoArrays
 
 
 def e0_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
@@ -26,7 +26,7 @@ def e0_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
     """
     muxy, mux0, *_ = muhat.unpack()
     e0_vals = -np.log(muxy / mux0.reshape((-1, 1)))
-    return e0_vals
+    return cast(np.ndarray, e0_vals)
 
 
 def e0_derivative_mu_gender_heteroskedastic(
@@ -177,12 +177,8 @@ entropy_choo_siow_gender_heteroskedastic = EntropyFunctions(
     parameter_dependent=True,
     e_fun=e_choo_siow_gender_heteroskedastic,
     hessian="provided",
-    e0_derivative=cast(
-        EntropyHessians, e0_derivative_choo_siow_gender_heteroskedastic
-    ),
-    e_derivative=cast(
-        EntropyHessians, e_derivative_choo_siow_gender_heteroskedastic
-    ),
+    e0_derivative=cast(EntropyHessians, e0_derivative_choo_siow_gender_heteroskedastic),
+    e_derivative=cast(EntropyHessians, e_derivative_choo_siow_gender_heteroskedastic),
     description="Choo and Siow gender-heteroskedastic with analytic Hessian",
 )
 

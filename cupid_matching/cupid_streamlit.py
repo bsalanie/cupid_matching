@@ -1,23 +1,23 @@
 from math import pow
-from typing import Any, Optional
+from typing import Any, cast
 
 import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
+from bs_python_utils.bsnputils import (
+    check_matrix,
+    check_vector,
+    nprepeat_col,
+    nprepeat_row,
+)
+from bs_python_utils.bsutils import bs_error_abort
 
 from cupid_matching.choo_siow import entropy_choo_siow
 from cupid_matching.matching_utils import Matching
 from cupid_matching.min_distance import estimate_semilinear_mde
 from cupid_matching.model_classes import ChooSiowPrimitives
 from cupid_matching.poisson_glm import choo_siow_poisson_glm
-from cupid_matching.utils import (
-    bs_error_abort,
-    nprepeat_col,
-    nprepeat_row,
-    test_matrix,
-    test_vector,
-)
 
 
 def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
@@ -34,9 +34,7 @@ def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
         n_types: the number of individuals of each type
     """
     n1 = n * (lambda_val - 1.0) / (pow(lambda_val, ncat) - 1.0)
-    n_types = n1 * np.logspace(
-        base=lambda_val, start=0, stop=ncat - 1, num=ncat
-    )
+    n_types = n1 * np.logspace(base=lambda_val, start=0, stop=ncat - 1, num=ncat)
     return n_types
 
 
@@ -95,7 +93,7 @@ def _table_estimates(
     return st.table(df_coeffs_estimates)
 
 
-def _plot_heatmap(mat: np.ndarray, str_tit: Optional[str] = None) -> alt.Chart:
+def _plot_heatmap(mat: np.ndarray, str_tit: str | None = None) -> alt.Chart:
     """Plots a heatmap of the matrix
 
     Args:
@@ -105,7 +103,7 @@ def _plot_heatmap(mat: np.ndarray, str_tit: Optional[str] = None) -> alt.Chart:
     Returns:
         the heatmap
     """
-    ncat_men, ncat_women = test_matrix(mat)
+    ncat_men, ncat_women = check_matrix(mat)
     mat_arr = np.empty((mat.size, 4))
     mat_min = np.min(mat)
     i = 0
@@ -120,13 +118,9 @@ def _plot_heatmap(mat: np.ndarray, str_tit: Optional[str] = None) -> alt.Chart:
     mat_df = mat_df.astype(
         dtype={"Men": int, "Women": int, "Value": float, "Size": float}
     )
-    base = alt.Chart(mat_df).encode(
-        x="Men:O", y=alt.Y("Women:O", sort="descending")
-    )
+    base = alt.Chart(mat_df).encode(x="Men:O", y=alt.Y("Women:O", sort="descending"))
     mat_map = base.mark_circle(opacity=0.4).encode(
-        size=alt.Size(
-            "Size:Q", legend=None, scale=alt.Scale(range=[1000, 10000])
-        ),
+        size=alt.Size("Size:Q", legend=None, scale=alt.Scale(range=[1000, 10000])),
         # color=alt.Color("Value:Q"),
         # tooltip=alt.Tooltip('Value', format=".2f")
     )
@@ -150,18 +144,14 @@ def _gender_singles(xvals: np.ndarray, str_gender: str) -> alt.Chart:
     Returns:
         the histogram
     """
-    ncat = test_vector(xvals)
+    ncat = check_vector(xvals)
     if str_gender not in ["men", "women"]:
         bs_error_abort(f"{str_gender} is not a valid side")
     str_cat = "x" if str_gender == "men" else "y"
     str_val = f"Single {str_gender}"
-    source = pd.DataFrame(
-        {str_cat: np.arange(1, ncat + 1, dtype=int), str_val: xvals}
-    )
+    source = pd.DataFrame({str_cat: np.arange(1, ncat + 1, dtype=int), str_val: xvals})
 
-    g_bars = (
-        alt.Chart(source).mark_bar().encode(y=str_cat + ":O", x=str_val + ":Q")
-    )
+    g_bars = alt.Chart(source).mark_bar().encode(y=str_cat + ":O", x=str_val + ":Q")
     return g_bars.properties(width=300, height=300)
 
 
@@ -248,12 +238,12 @@ a minimum distance estimator and a Poisson GLM estimator.
 
 list_nhh = [10_000, 100_000, 1_000_000]
 st.sidebar.subheader("First, choose the total number of households")
-n_households = st.sidebar.radio("Number of households", list_nhh)
+n_households = cast(int, st.sidebar.radio("Number of households", list_nhh))
 
 list_ncat = [2, 3, 5, 10]
 st.sidebar.subheader("Now choose the numbers of types of each gender")
-ncat_men = st.sidebar.radio("Number of categories of men", list_ncat)
-ncat_women = st.sidebar.radio("Number of categories of women", list_ncat)
+ncat_men = cast(int, st.sidebar.radio("Number of categories of men", list_ncat))
+ncat_women = cast(int, st.sidebar.radio("Number of categories of women", list_ncat))
 
 enough_cells = (ncat_men - 1) * (ncat_women - 1) > 6
 
@@ -279,11 +269,11 @@ if enough_cells:
     )
 
     list_scenarii = ["Constant", "Increasing", "Decreasing"]
-    scenario_men = st.sidebar.radio(
-        "Profile across categories for men", list_scenarii
+    scenario_men = cast(
+        str, st.sidebar.radio("Profile across categories for men", list_scenarii)
     )
-    scenario_women = st.sidebar.radio(
-        "Profile across categories for women", list_scenarii
+    scenario_women = cast(
+        str, st.sidebar.radio("Profile across categories for women", list_scenarii)
     )
 
     nx = _make_margins(proportion_men, ncat_men, scenario_men)
@@ -299,12 +289,8 @@ if enough_cells:
     bases[:, :, 4] = np.outer(xvals, yvals)
     bases[:, :, 5] = yvals_mat * yvals_mat
 
-    st.sidebar.write(
-        "Finally, choose the coefficients of the 6 basis functions:"
-    )
-    st.sidebar.latex(
-        r"\Phi_{xy}=c_0+c_1 x + c_2 y + c_3 x^2 + c_4 x y + c_5 y^2"
-    )
+    st.sidebar.write("Finally, choose the coefficients of the 6 basis functions:")
+    st.sidebar.latex(r"\Phi_{xy}=c_0+c_1 x + c_2 y + c_3 x^2 + c_4 x y + c_5 y^2")
     min_c = np.array([-3.0] + [-2.0 / ncat_men] * 5)
     max_c = np.array([3.0] + [2.0 / ncat_women] * 5)
     true_coeffs = np.zeros(6)
@@ -380,23 +366,21 @@ if enough_cells:
         col1, col2 = st.columns(2)
         with col1:
             st.markdown(
-                "#### Below: the minimum distance estimator in Galichon and Salanié (2023)."
+                "#### Below: the minimum distance estimator in Galichon and Salanié"
+                " (2023)."
             )
             st.write("It also gives us a specification test.")
-            mde_results = estimate_semilinear_mde(
-                mus_sim, bases, entropy_choo_siow
-            )
+            mde_results = estimate_semilinear_mde(mus_sim, bases, entropy_choo_siow)
             mde_estimates = mde_results.estimated_coefficients
             mde_stderrs = mde_results.stderrs_coefficients
 
-            _table_estimates(
-                coeff_names, true_coeffs, mde_estimates, mde_stderrs
-            )
+            _table_estimates(coeff_names, true_coeffs, mde_estimates, mde_stderrs)
 
             specif_test_stat = round(mde_results.test_statistic, 2)
             specif_test_pval = round(mde_results.test_pvalue, 2)
             st.write(
-                f"Test statistic: chi2({mde_results.ndf}) = {specif_test_stat} has p-value {specif_test_pval}"
+                f"Test statistic: chi2({mde_results.ndf}) = {specif_test_stat} has"
+                f" p-value {specif_test_pval}"
             )
 
         with col2:
@@ -409,7 +393,8 @@ if enough_cells:
                 """
             )
             st.write(
-                "It also gives us the estimates of the expected utilities $u_x$ and $v_y$."
+                "It also gives us the estimates of the expected utilities $u_x$ and"
+                " $v_y$."
             )
 
             pglm_results = choo_siow_poisson_glm(mus_sim, bases)
@@ -419,9 +404,7 @@ if enough_cells:
             pglm_estimates = pglm_results.estimated_beta
             pglm_stderrs = pglm_results.stderrs_beta
 
-            _table_estimates(
-                coeff_names, true_coeffs, pglm_estimates, pglm_stderrs
-            )
+            _table_estimates(coeff_names, true_coeffs, pglm_estimates, pglm_stderrs)
 
             x_names = [str(x) for x in range(ncat_men)]
             y_names = [str(y) for y in range(ncat_women)]
