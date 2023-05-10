@@ -971,11 +971,11 @@ $$ where <span class="arithmatex">\(\mathcal{E}\)</span>, the <em>generalized en
 <li>the minimum distance estimator in <code>min_distance.py</code> </li>
 <li>the Poisson estimator in <code>poisson_glm.py</code>, which only applies to the Choo and Siow homoskedastic model.</li>
 </ul>
-<p>At this stage <code>cupid_matching</code> only allows for linear models of the joint surplus:
-$$
-\Phi^{\beta}<em k="1">{xy} = \sum</em>^K \phi_{xy}^k \beta_k,
-$$
-where the <em>basis functions</em> <span class="arithmatex">\((\phi^1,\ldots,\phi^K)\)</span> are imposed by the analyst.</p>
+<p>At this stage <code>cupid_matching</code> only allows for linear models of the joint surplus:</p>
+<div class="arithmatex">\[
+\Phi^{\beta}_{xy} = \sum_{k=1}^K \phi_{xy}^k \beta_k
+\]</div>
+<p>where the <em>basis functions</em> <span class="arithmatex">\((\phi^1,\ldots,\phi^K)\)</span> are imposed by the analyst. </p>
 <p>The file <code>example_choosiow.py</code> has a demo of minimum distance and Poisson estimators on the Choo and Siow 2006 model. For other models, the minimum distance estimator works as follows, given </p>
 <ul>
 <li>an observed matching stored in a <code>Matching</code> object <code>mus</code></li>
