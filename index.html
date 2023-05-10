@@ -393,8 +393,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#version-110" class="md-nav__link">
-    version 1.1.0
+  <a href="#version-111" class="md-nav__link">
+    version 1.1.1
   </a>
   
 </li>
@@ -809,8 +809,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#version-110" class="md-nav__link">
-    version 1.1.0
+  <a href="#version-111" class="md-nav__link">
+    version 1.1.1
   </a>
   
 </li>
@@ -937,7 +937,7 @@ The total number of individuals is <span class="arithmatex">\(N_i=\sum_{x=1}^X n
 $$ where <span class="arithmatex">\(\mathcal{E}\)</span>, the <em>generalized entropy</em> function, depends on the assumed distributions of the <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\eta\)</span> random vectors.</p>
 <p>The files <code>choo_siow.py</code>, <code>choo_siow_gender_heteroskedastic</code>, <code>choo_siow_heteroskedastic</code>, and <code>nested_logit</code> provide <code>EntropyFunctions</code> objects that compute the generalized entropy and at least its first derivative for, respectively,</p>
 <ol>
-<li>the original Choo and Siow 2006 model, in which the <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\eta\)</span> terms are iid draws from a type I extreme value distributio</li>
+<li>the original Choo and Siow 2006 model, in which the <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\eta\)</span> terms are iid draws from a type I extreme value distribution</li>
 <li>the same model, without singles (to be used when only couples are observed)</li>
 <li>an extension of 1. that allows for a scale parameter <span class="arithmatex">\(\tau\)</span> for the distribution of <span class="arithmatex">\(\eta\)</span></li>
 <li>an extension of 3. that has type-dependent scale parameters <span class="arithmatex">\(\sigma_x\)</span> and <span class="arithmatex">\(\tau_y\)</span> (with <span class="arithmatex">\(\sigma_1=1\)</span></li>
@@ -1002,8 +1002,9 @@ The <code>mde_results</code> object contains the estimated <span class="arithmat
 <li>the estimated variance of the estimators assumes that the observed matching was sampled at the household level, and that sampling weights are all equal.</li>
 </ul>
 <h2 id="release-notes">Release notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h2>
-<h3 id="version-110">version 1.1.0<a class="headerlink" href="#version-110" title="Permanent link">&para;</a></h3>
+<h3 id="version-111">version 1.1.1<a class="headerlink" href="#version-111" title="Permanent link">&para;</a></h3>
 <ul>
+<li>improved documentation</li>
 <li>the package now relies on my utilities package <code>bs_python_utils</code>.  The <code>VarianceMatching</code> class in <code>matching_utils,py</code> is new; this should be transparent for the user.</li>
 </ul>
 <h3 id="version-108">version 1.0.8<a class="headerlink" href="#version-108" title="Permanent link">&para;</a></h3>
