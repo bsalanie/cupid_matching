@@ -346,21 +346,21 @@
         
           <li class="md-nav__item">
   <a href="#the-solution-the-stable-matching" class="md-nav__link">
-    the solution: the stable matching
+    The solution: the stable matching
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#solving-for-the-stable-matching" class="md-nav__link">
-    solving for the stable matching
+    Solving for the stable matching
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#estimating-the-joint-surplus" class="md-nav__link">
-    estimating the joint surplus
+    Estimating the joint surplus
   </a>
   
 </li>
@@ -762,21 +762,21 @@
         
           <li class="md-nav__item">
   <a href="#the-solution-the-stable-matching" class="md-nav__link">
-    the solution: the stable matching
+    The solution: the stable matching
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#solving-for-the-stable-matching" class="md-nav__link">
-    solving for the stable matching
+    Solving for the stable matching
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#estimating-the-joint-surplus" class="md-nav__link">
-    estimating the joint surplus
+    Estimating the joint surplus
   </a>
   
 </li>
@@ -908,19 +908,21 @@
 <p>The package builds on the pioneering work of <a href="https://www.jstor.org/stable/10.1086/498585?seq=1">Choo and Siow <em>JPE</em> 2006</a> and on my work with Alfred Galichon, especially our <a href="https://academic.oup.com/restud/article-abstract/89/5/2600/6478301"><em>REStud</em> 2022 paper</a> and <a href="https://econ.columbia.edu/working-paper/estimating-separable-matching-models/">this working paper</a>.</p>
 <p>At this stage, it only deals with bipartite models. As the heterosexual marriage market is a leading example, I will refer to the two sides as <em>men</em> and <em>women</em>. Each man <span class="arithmatex">\(m\)</span>/each women $w has an observed, discrete-valued type <span class="arithmatex">\(x\)</span>/<span class="arithmatex">\(y\)</span>, and some unobserved heterogeneity.</p>
 <h3 id="the-primitives">The primitives<a class="headerlink" href="#the-primitives" title="Permanent link">&para;</a></h3>
-<p>The primitives of this class of matching models are * the <em>margins</em>: the numbers <span class="arithmatex">\(n_x\)</span> of men of type <span class="arithmatex">\(x=1,\ldots,X\)</span> and the numbers <span class="arithmatex">\(m_y\)</span> of women of type <span class="arithmatex">\(y=1,\ldots,Y\)</span> * the joint surplus created by the match of a man <span class="arithmatex">\(m\)</span> of type <span class="arithmatex">\(x\)</span> and a woman <span class="arithmatex">\(w\)</span> of type <span class="arithmatex">\(y\)</span>. We assume <em>separability</em>: this joint surplus takes the form 
+<p>The primitives of this class of matching models are 
+- the <em>margins</em>: the numbers <span class="arithmatex">\(n_x\)</span> of men of type <span class="arithmatex">\(x=1,\ldots,X\)</span> and the numbers <span class="arithmatex">\(m_y\)</span> of women of type <span class="arithmatex">\(y=1,\ldots,Y\)</span>
+- the <em>joint surplus</em> created by the match of a man <span class="arithmatex">\(m\)</span> of type <span class="arithmatex">\(x\)</span> and a woman <span class="arithmatex">\(w\)</span> of type <span class="arithmatex">\(y\)</span>. We assume <em>separability</em>: this joint surplus takes the form 
 $$
 \Phi_{xy}+\varepsilon_{my} +\eta_{xw}.
 $$ 
 A single man has utility <span class="arithmatex">\(\varepsilon_{m0}\)</span> and a single woman has utility <span class="arithmatex">\(\eta_{0w}\)</span>.</p>
 <p>The modeler chooses the distributions of the vectors <span class="arithmatex">\((\varepsilon_{m0},\varepsilon_{m1},\ldots, \varepsilon_{mY})\)</span> and <span class="arithmatex">\((\eta_{0w},\eta_{1w},\ldots,\eta_{Xw})\)</span>.</p>
-<h3 id="the-solution-the-stable-matching">the solution: the stable matching<a class="headerlink" href="#the-solution-the-stable-matching" title="Permanent link">&para;</a></h3>
+<h3 id="the-solution-the-stable-matching">The solution: the stable matching<a class="headerlink" href="#the-solution-the-stable-matching" title="Permanent link">&para;</a></h3>
 <p>We denote <span class="arithmatex">\(\mu_{xy}\)</span> the number of matches between men of type <span class="arithmatex">\(x\)</span> and women of type <span class="arithmatex">\(y\)</span>, <span class="arithmatex">\(\mu_{x0}\)</span> the number of single men of type <span class="arithmatex">\(x\)</span>, and <span class="arithmatex">\(\mu_{0y}\)</span> the number of single women of type <span class="arithmatex">\(y\)</span>.</p>
 <p>The total numbers must add up to the margins: $$
 \sum_{y=1}^Y \mu_{xy}+\mu_{x0}=n_x \; \text{ and } \;
 \sum_{x=1}^X \mu_{xy}+\mu_{0y}=m_y.
 $$ The total number of individuals is <span class="arithmatex">\(N_i=\sum_{x=1}^X n_x+ \sum_{y=1}^Y m_y\)</span> and the total number of households is <span class="arithmatex">\(N_h = N_i - \sum_{x=1}^X \sum_{y=1}^Y \mu_{xy}\)</span>.</p>
-<p>Galichon-Salanié (*REStud* 2022) shows that in large markets, if the vectors <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\eta\)</span> have full support, the stable matching is the unique solution to the strictly convex program $$
+<p>Galichon-Salanié (<em>REStud</em> 2022) shows that in large markets, if the vectors <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\eta\)</span> have full support, the stable matching is the unique solution to the strictly convex program $$
 \max_{\mu} \left(\sum_{x=1}^X \sum_{y=1}^Y \mu_{xy}\Phi_{xy} + \mathcal{E}(\mu; n, m)\right)
 $$ where <span class="arithmatex">\(\mathcal{E}\)</span>, the <em>generalized entropy</em> function, depends on the assumed distributions of the <span class="arithmatex">\(\varepsilon\)</span> and <span class="arithmatex">\(\eta\)</span> random vectors.</p>
 <p>The files <code>choo_siow.py</code>, <code>choo_siow_gender_heteroskedastic</code>, <code>choo_siow_heteroskedastic</code>, and <code>nested_logit</code> provide <code>EntropyFunctions</code> objects that compute the generalized entropy and at least its first derivative for, respectively,</p>
@@ -932,7 +934,7 @@ $$ where <span class="arithmatex">\(\mathcal{E}\)</span>, the <em>generalized en
 <li>a two-layer nested logit model in which singles (type 0) are in their own nest and the user chooses the structure of the other nests.</li>
 </ol>
 <p>Users of the package are welcome to code <code>EntropyFunctions</code> objects for different distributions of the unobserved heterogeneity terms.</p>
-<h3 id="solving-for-the-stable-matching">solving for the stable matching<a class="headerlink" href="#solving-for-the-stable-matching" title="Permanent link">&para;</a></h3>
+<h3 id="solving-for-the-stable-matching">Solving for the stable matching<a class="headerlink" href="#solving-for-the-stable-matching" title="Permanent link">&para;</a></h3>
 <p>Given any joint surplus matrix <span class="arithmatex">\(\Phi\)</span>; margins <span class="arithmatex">\(n\)</span> and <span class="arithmatex">\(m\)</span>; and a generalized entropy <span class="arithmatex">\(\mathcal{E}\)</span>, one would like to compute the stable matching patterns <span class="arithmatex">\(\mu\)</span>.</p>
 <p>For the five classes of models above, this can be done efficiently using the IPFP algorithm in Galichon-Salanié (<em>REStud</em> 2022) , which is coded in <code>ipfp_solvers.py</code> for the four Choo and Siow variants and in <code>model_classes.py</code> for the nested logit.</p>
 <p>Here is an example, given a Numpy array <span class="arithmatex">\(\Phi\)</span> that is an <span class="arithmatex">\((X,Y)\)</span> matrix and a number <span class="arithmatex">\(\tau&gt;0\)</span>:</p>
@@ -952,7 +954,7 @@ $$ where <span class="arithmatex">\(\mathcal{E}\)</span>, the <em>generalized en
 </code></pre></div></td></tr></table></div>
 <p>The <code>mus</code> above is an instance of a <code>Matching</code> object (defined in <code>matching_utils.py</code>). <code>mus.muxy</code> has the number of couples by <span class="arithmatex">\((x,y)\)</span> cell at the stable matching; the vectors <code>mus.mux0</code> and <code>mus.mu0y</code> contain the numbers of single men and women of each type.</p>
 <p>The vectors <code>error_x</code> and <code>error_y</code> are estimates of the precision of the solution (see the code in <code>ipfp_solvers.py</code>).</p>
-<h3 id="estimating-the-joint-surplus">estimating the joint surplus<a class="headerlink" href="#estimating-the-joint-surplus" title="Permanent link">&para;</a></h3>
+<h3 id="estimating-the-joint-surplus">Estimating the joint surplus<a class="headerlink" href="#estimating-the-joint-surplus" title="Permanent link">&para;</a></h3>
 <p>Given observed matching patterns <span class="arithmatex">\(\mu\)</span>; a class of generalized entropy functions <span class="arithmatex">\((\mathcal{E}^{\alpha})\)</span>; and a class of joint surplus functions <span class="arithmatex">\((\Phi^{\beta})\)</span>, one would like to estimate the parameter vectors <span class="arithmatex">\(\alpha\)</span> and <span class="arithmatex">\(\beta\)</span>.</p>
 <p>The package provides two estimators, which are described extensively in <a href="https://econ.columbia.edu/working-paper/estimating-separable-matching-models/">this paper</a>. 
 - the minimum distance estimator in <code>min_distance.py</code> 
@@ -964,7 +966,8 @@ $$
 where the <em>basis functions</em> <span class="arithmatex">\((\phi^1,\ldots,\phi^K)\)</span> are imposed by the analyst.</p>
 <p>The file <code>example_choosiow.py</code> has a demo of minimum distance and Poisson estimators on the Choo and Siow 2006 model. For other models, the minimum distance estimator works as follows, given </p>
 <ul>
-<li>an observed matching stored in a <code>Matching</code> object <code>mus</code>  - an <code>EntropyFunction</code> object <code>entropy_model</code> that allows for <code>p</code> parameters in <span class="arithmatex">\(\alpha\)</span></li>
+<li>an observed matching stored in a <code>Matching</code> object <code>mus</code></li>
+<li>an <code>EntropyFunction</code> object <code>entropy_model</code> that allows for <code>p</code> parameters in <span class="arithmatex">\(\alpha\)</span></li>
 <li>an <span class="arithmatex">\((X,Y,K)\)</span> Numpy array of basis functions <code>phi_bases</code>:</li>
 </ul>
 <p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
