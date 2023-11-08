@@ -157,6 +157,9 @@ The `mde_results` object contains the estimated $\alpha$ and $\beta$, their esti
 
 ## Release notes
 
+### version 1.1.3 (November 8, 2023)
+- fixed URL of Streamlit app.
+
 ### version 1.1.2 (November 7, 2023)
 -  improved the Streamlit app, now in two files: `cupid_streamlit.py` and  `cupid_streamlit_utils.py`.
 
