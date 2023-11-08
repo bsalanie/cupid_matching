@@ -9,7 +9,7 @@ copyright: Maintained by <a href="https://bsalanie.github.io">Bernard Salanie</a
 
 nav:
   - Home: index.md
-  - API Reference: 
+  - API Reference:
       - Minimum Distance Estimator: min_distance.md
       - Utilities for MDE: min_distance_utils.md
       - Poisson estimator: poisson_glm.md
@@ -26,23 +26,20 @@ nav:
       - Example on the Choo and Siow model: example_choo_siow.md
       - Example on a nested logit model: example_nested_logit.md
       - Code for a Streamlit app: cupid_streamlit.md
-
+      - Utilities for the Streamlit app: cupid_streamlit_utils.md
 
 plugins:
   - search
   - mkdocstrings:
       handlers:
         python:
-            setup_commands:
-                - import sys
-                - sys.path.append('../')
-
+          setup_commands:
+            - import sys
+            - sys.path.append('../')
 
 # theme:
 #   palette:
 #     scheme: preference
-
-
 
 theme:
   name: material
@@ -87,7 +84,7 @@ markdown_extensions:
   - codehilite
   - toc
   - pymdownx.arithmatex: # for LaTeX
-      generic: true  
+      generic: true
 extra_javascript: # for arithmatex
   - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6

@@ -41,9 +41,9 @@ The `cupid_matching` package has code
 - to solve for the stable matching using our Iterative Projection Fitting Procedure (IPFP) in variants of the model of bipartite, one-to-one matching with perfectly transferable utility. It has IPFP solvers for variants of the [Choo and Siow 2006](https://www.jstor.org/stable/10.1086/498585?seq=1) model with or without singles, homoskedastic and heteroskedastic; and also for a class of nested logit models
 - to estimate the parameters of separable models with semilinear surplus and entropy using a minimum distance estimator
 - to estimate the parameters of semilinear Choo and Siow models using a Poisson GLM estimator
-- for a [Streamlit](https://www.streamlit.io/) interactive app that demonstrates solving and estimating the Choo and Siow model using the `cupid_matching` package. You can try it [here](https://share.streamlit.io/bsalanie/cupid_matching_st/main/cupid_streamlit.py).
+- for a [Streamlit](https://www.streamlit.io/) interactive app that demonstrates solving and estimating the Choo and Siow model using the `cupid_matching` package. You can try it [here](http://3.84.215.135:8501).
 
-Incidentally, myy [ipfp_R](https://www.github.com/bsalanie/ipfp_R.git) Github repository contains R code to solve for equilibrium in (*only*) the basic version of the Choo and Siow model.
+Incidentally, my [ipfp_R](https://www.github.com/bsalanie/ipfp_R.git) Github repository contains R code to solve for equilibrium in (*only*) the basic version of the Choo and Siow model.
 
 The package builds on the pioneering work of [Choo and Siow *JPE* 2006](https://www.jstor.org/stable/10.1086/498585?seq=1) and on my work with Alfred Galichon, especially our [*REStud* 2022 paper](https://academic.oup.com/restud/article-abstract/89/5/2600/6478301) and [this working paper](https://econ.columbia.edu/working-paper/estimating-separable-matching-models/).
 
@@ -157,8 +157,10 @@ The `mde_results` object contains the estimated $\alpha$ and $\beta$, their esti
 
 ## Release notes
 
-### version 1.1.1
+### version 1.1.2 (November 7, 2023)
+-  improved the Streamlit app, now in two files: `cupid_streamlit.py` and  `cupid_streamlit_utils.py`.
 
+### version 1.1.1
 -  improved documentation
 -  the package now relies on my utilities package `bs_python_utils`.  The `VarianceMatching` class in `matching_utils,py` is new; this should be transparent for the user.
 

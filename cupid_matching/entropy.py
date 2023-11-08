@@ -1,7 +1,8 @@
 """Entropies and their derivatives. """
+from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
-from typing import Any, Callable, Literal, cast
+from typing import Any, Literal, cast
 
 import numpy as np
 from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
@@ -42,14 +43,14 @@ EntropyHessianMuRParam = Callable[[Matching, list[Any]], TwoArrays]
 """
 
 EntropyHessianComponents = tuple[ThreeArrays, TwoArrays]
-""" combines the tuples of the values 
+""" combines the tuples of the values
     of the components of the hessians."""
 
 EntropyHessians = tuple[EntropyHessianMuMu, EntropyHessianMuR]
 """ combines the hessian functions """
 
 EntropyHessiansParam = tuple[EntropyHessianMuMuParam, EntropyHessianMuRParam]
-""" combines the hessian functions 
+""" combines the hessian functions
     when additional parameters are used"""
 
 

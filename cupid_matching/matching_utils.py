@@ -1,6 +1,7 @@
 """ matching-related utilities """
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from typing import Any
 
 import numpy as np
 from bs_python_utils.bsnputils import (
