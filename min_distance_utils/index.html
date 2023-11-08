@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/min_distance_utils/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -598,6 +598,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -698,7 +712,7 @@
 
 
 <h2 id="cupid_matching.min_distance_utils.MDEResults" class="doc doc-heading">
-        <code>MDEResults</code>
+          <code>MDEResults</code>
 
   
   <span class="doc doc-labels">
@@ -712,6 +726,8 @@
 
   
       <p>The results from minimum-distance estimation and testing.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -729,7 +745,11 @@
           <td>
                 <code>int</code>
           </td>
-          <td><p>the number of types of men</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of types of men</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -739,7 +759,11 @@
           <td>
                 <code>int</code>
           </td>
-          <td><p>the number of types of women</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of types of women</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -749,7 +773,11 @@
           <td>
                 <code>int</code>
           </td>
-          <td><p>the number of bases</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of bases</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -759,7 +787,11 @@
           <td>
                 <code>int</code>
           </td>
-          <td><p>the number of households in the sample</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of households in the sample</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -769,7 +801,11 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the estimated coefficients</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the estimated coefficients</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -779,7 +815,11 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>their eetimated var-covar</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>their eetimated var-covar</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -789,7 +829,11 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>their estimated stderrs</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>their estimated stderrs</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -799,7 +843,11 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the estimated joint surplus</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the estimated joint surplus</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -809,7 +857,11 @@
           <td>
                 <code>float</code>
           </td>
-          <td><p>the value of the misspecification statistic</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the value of the misspecification statistic</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -819,7 +871,11 @@
           <td>
                 <code>float</code>
           </td>
-          <td><p>the p-value of the test</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the p-value of the test</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -829,7 +885,11 @@
           <td>
                 <code>int</code>
           </td>
-          <td><p>the number of degrees of freedom</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of degrees of freedom</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -839,7 +899,11 @@
           <td>
                 <code>bool | None</code>
           </td>
-          <td><p>True if the derivative of the entropy has unknown parameters</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if the derivative of the entropy has unknown parameters</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -847,10 +911,9 @@
     </tbody>
   </table>
 
-
-        <details class="quote">
-          <summary>Source code in <code>cupid_matching/min_distance_utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 33</span>
+            <details class="quote">
+              <summary>Source code in <code>cupid_matching/min_distance_utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 33</span>
 <span class="normal"> 34</span>
 <span class="normal"> 35</span>
 <span class="normal"> 36</span>
@@ -1088,7 +1151,7 @@
             <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">discrepancy</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -1111,6 +1174,7 @@
 </div>
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1124,6 +1188,8 @@
   <div class="doc doc-contents ">
   
       <p>Returns the QGLS estimates and their variance-covariance.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1141,7 +1207,11 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>an (XY,p) matrix</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an (XY,p) matrix</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1151,7 +1221,11 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>an (XY, XY) weighting matrix</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an (XY, XY) weighting matrix</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1161,13 +1235,19 @@
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>an XY-vector</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an XY-vector</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1182,14 +1262,18 @@
           <td>
                 <code>tuple[<span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>, <span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
           </td>
-          <td><p>the p-vector of estimates and their estimated (p,p) variance</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the p-vector of estimates and their estimated (p,p) variance</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/min_distance_utils.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/min_distance_utils.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
@@ -1227,7 +1311,7 @@
     <span class="n">varcov_coeffs</span> <span class="o">=</span> <span class="n">spla</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M_S_M</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">est_coeffs</span><span class="p">,</span> <span class="n">varcov_coeffs</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

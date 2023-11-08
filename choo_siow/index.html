@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/choo_siow/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -626,6 +626,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -751,6 +765,7 @@ for the Choo and Siow homoskedastic model.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -764,6 +779,8 @@ for the Choo and Siow homoskedastic model.</p>
   <div class="doc doc-contents ">
   
       <p>Returns the values of <span class="arithmatex">\(e_0\)</span> for the Choo and Siow model.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -781,13 +798,19 @@ for the Choo and Siow homoskedastic model.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -802,14 +825,18 @@ for the Choo and Siow homoskedastic model.</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y) matrix of the first derivative of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y) matrix of the first derivative of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
 <span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
@@ -831,10 +858,11 @@ for the Choo and Siow homoskedastic model.</p>
     <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">entropy_res</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -850,6 +878,8 @@ for the Choo and Siow homoskedastic model.</p>
   
       <p>Returns the values of <span class="arithmatex">\(e_0\)</span> for the Choo and Siow model,
 using the finite-sample correction log(p+(1-p)/(2N))</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -867,13 +897,19 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -888,14 +924,18 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y) matrix of the first derivative of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y) matrix of the first derivative of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
 <span class="normal">159</span>
 <span class="normal">160</span>
 <span class="normal">161</span>
@@ -919,10 +959,11 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
     <span class="n">e0_val_corrected</span> <span class="o">=</span> <span class="n">_der_entropy_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">hessian</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">e0_val_corrected</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -938,6 +979,8 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
   
       <p>Returns the derivatives of <span class="arithmatex">\(e_0\)</span> in <span class="arithmatex">\(\mu\)</span>
 for the Choo and Siow model.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -955,13 +998,19 @@ for the Choo and Siow model.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -976,14 +1025,18 @@ for the Choo and Siow model.</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the three components of the hessian wrt <span class="arithmatex">\((\mu,\mu)\)</span> of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the three components of the hessian wrt <span class="arithmatex">\((\mu,\mu)\)</span> of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
@@ -1031,10 +1084,11 @@ for the Choo and Siow model.</p>
             <span class="n">hess_xy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2xy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1050,6 +1104,8 @@ for the Choo and Siow model.</p>
   
       <p>Returns the derivatives of <span class="arithmatex">\(e_0\)</span> in <span class="arithmatex">\(\mu\)</span>
 for the Choo and Siow model, with the small sample correction</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1067,13 +1123,19 @@ for the Choo and Siow model, with the small sample correction</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1088,14 +1150,18 @@ for the Choo and Siow model, with the small sample correction</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the three components of the hessian wrt <span class="arithmatex">\((\mu,\mu)\)</span> of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the three components of the hessian wrt <span class="arithmatex">\((\mu,\mu)\)</span> of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">198</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">198</span>
 <span class="normal">199</span>
 <span class="normal">200</span>
 <span class="normal">201</span>
@@ -1141,10 +1207,11 @@ for the Choo and Siow model, with the small sample correction</p>
             <span class="n">hess_xy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2xy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1160,6 +1227,8 @@ for the Choo and Siow model, with the small sample correction</p>
   
       <p>Returns the derivatives of <span class="arithmatex">\(e_0\)</span> in <span class="arithmatex">\(r\)</span>
 for the Choo and Siow model.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1177,13 +1246,19 @@ for the Choo and Siow model.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1198,14 +1273,18 @@ for the Choo and Siow model.</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the two components of the hessian wrt <span class="arithmatex">\((\mu,r)\)</span> of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the two components of the hessian wrt <span class="arithmatex">\((\mu,r)\)</span> of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">223</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">223</span>
 <span class="normal">224</span>
 <span class="normal">225</span>
 <span class="normal">226</span>
@@ -1249,10 +1328,11 @@ for the Choo and Siow model.</p>
             <span class="n">hess_my</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2r</span><span class="p">[</span><span class="n">X</span> <span class="o">+</span> <span class="n">y</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">hess_nx</span><span class="p">,</span> <span class="n">hess_my</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1268,6 +1348,8 @@ for the Choo and Siow model.</p>
   
       <p>Returns the derivatives of <span class="arithmatex">\(e_0\)</span> in <span class="arithmatex">\(r\)</span>
 for the Choo and Siow model, with the small sample correction</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1285,13 +1367,19 @@ for the Choo and Siow model, with the small sample correction</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1306,14 +1394,18 @@ for the Choo and Siow model, with the small sample correction</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the two components of the hessian wrt <span class="arithmatex">\((\mu,r)\)</span> of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the two components of the hessian wrt <span class="arithmatex">\((\mu,r)\)</span> of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
 <span class="normal">248</span>
 <span class="normal">249</span>
 <span class="normal">250</span>
@@ -1355,7 +1447,7 @@ for the Choo and Siow model, with the small sample correction</p>
             <span class="n">hess_my</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2r</span><span class="p">[</span><span class="n">X</span> <span class="o">+</span> <span class="n">y</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">hess_nx</span><span class="p">,</span> <span class="n">hess_my</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

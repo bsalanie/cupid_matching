@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -393,6 +393,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#version-112-november-7-2023" class="md-nav__link">
+    version 1.1.2 (November 7, 2023)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#version-111" class="md-nav__link">
     version 1.1.1
   </a>
@@ -699,6 +706,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -809,6 +830,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#version-112-november-7-2023" class="md-nav__link">
+    version 1.1.2 (November 7, 2023)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#version-111" class="md-nav__link">
     version 1.1.1
   </a>
@@ -908,9 +936,9 @@
 <li>to solve for the stable matching using our Iterative Projection Fitting Procedure (IPFP) in variants of the model of bipartite, one-to-one matching with perfectly transferable utility. It has IPFP solvers for variants of the <a href="https://www.jstor.org/stable/10.1086/498585?seq=1">Choo and Siow 2006</a> model with or without singles, homoskedastic and heteroskedastic; and also for a class of nested logit models</li>
 <li>to estimate the parameters of separable models with semilinear surplus and entropy using a minimum distance estimator</li>
 <li>to estimate the parameters of semilinear Choo and Siow models using a Poisson GLM estimator</li>
-<li>for a <a href="https://www.streamlit.io/">Streamlit</a> interactive app that demonstrates solving and estimating the Choo and Siow model using the <code>cupid_matching</code> package. You can try it <a href="https://share.streamlit.io/bsalanie/cupid_matching_st/main/cupid_streamlit.py">here</a>.</li>
+<li>for a <a href="https://www.streamlit.io/">Streamlit</a> interactive app that demonstrates solving and estimating the Choo and Siow model using the <code>cupid_matching</code> package. You can try it <a href="http://3.84.215.135:8501">here</a>.</li>
 </ul>
-<p>Incidentally, myy <a href="https://www.github.com/bsalanie/ipfp_R.git">ipfp_R</a> Github repository contains R code to solve for equilibrium in (<em>only</em>) the basic version of the Choo and Siow model.</p>
+<p>Incidentally, my <a href="https://www.github.com/bsalanie/ipfp_R.git">ipfp_R</a> Github repository contains R code to solve for equilibrium in (<em>only</em>) the basic version of the Choo and Siow model.</p>
 <p>The package builds on the pioneering work of <a href="https://www.jstor.org/stable/10.1086/498585?seq=1">Choo and Siow <em>JPE</em> 2006</a> and on my work with Alfred Galichon, especially our <a href="https://academic.oup.com/restud/article-abstract/89/5/2600/6478301"><em>REStud</em> 2022 paper</a> and <a href="https://econ.columbia.edu/working-paper/estimating-separable-matching-models/">this working paper</a>.</p>
 <p>At this stage, it only deals with bipartite models. As the heterosexual marriage market is a leading example, I will refer to the two sides as <em>men</em> and <em>women</em>. Each man <span class="arithmatex">\(m\)</span> (resp. each women <span class="arithmatex">\(w\)</span>) has an observed, discrete-valued type <span class="arithmatex">\(x\)</span> (resp. <span class="arithmatex">\(y\)</span>), along with unobserved heterogeneity.</p>
 <h3 id="the-primitives">The primitives<a class="headerlink" href="#the-primitives" title="Permanent link">&para;</a></h3>
@@ -1002,6 +1030,10 @@ The <code>mde_results</code> object contains the estimated <span class="arithmat
 <li>the estimated variance of the estimators assumes that the observed matching was sampled at the household level, and that sampling weights are all equal.</li>
 </ul>
 <h2 id="release-notes">Release notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h2>
+<h3 id="version-112-november-7-2023">version 1.1.2 (November 7, 2023)<a class="headerlink" href="#version-112-november-7-2023" title="Permanent link">&para;</a></h3>
+<ul>
+<li>improved the Streamlit app, now in two files: <code>cupid_streamlit.py</code> and  <code>cupid_streamlit_utils.py</code>.</li>
+</ul>
 <h3 id="version-111">version 1.1.1<a class="headerlink" href="#version-111" title="Permanent link">&para;</a></h3>
 <ul>
 <li>improved documentation</li>

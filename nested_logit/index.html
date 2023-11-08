@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/nested_logit/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -629,6 +629,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -765,6 +779,7 @@ On each side, the nests are the same for each type, with the same parameters.</p
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -779,6 +794,8 @@ On each side, the nests are the same for each type, with the same parameters.</p
   
       <p>Returns the derivatives of the parameter-independent part <span class="arithmatex">\(e_0\)</span>
 wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -796,7 +813,11 @@ wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -806,13 +827,19 @@ wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
           <td>
                 <code>list[<span title="typing.Any">Any</span>]</code>
           </td>
-          <td><p>a list with the nest structure</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list with the nest structure</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -827,20 +854,28 @@ wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the parameter-independent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-independent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
@@ -934,10 +969,11 @@ wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
 
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -953,6 +989,8 @@ wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
   
       <p>Returns the derivatives of the parameter-independent part <span class="arithmatex">\(e_0\)</span>
 wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -970,7 +1008,11 @@ wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -980,13 +1022,19 @@ wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
           <td>
                 <code>list[<span title="typing.Any">Any</span>]</code>
           </td>
-          <td><p>a list with the nest structure</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list with the nest structure</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1001,20 +1049,28 @@ wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the parameter-independent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-independent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
@@ -1088,10 +1144,11 @@ wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
 
     <span class="k">return</span> <span class="n">hess_n</span><span class="p">,</span> <span class="n">hess_m</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1107,6 +1164,8 @@ wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
   
       <p>Returns the values of the parameter-independent part <span class="arithmatex">\(e_0\)</span>
 for the nested logit.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1124,7 +1183,11 @@ for the nested logit.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1134,13 +1197,19 @@ for the nested logit.</p>
           <td>
                 <code>list[<span title="typing.Any">Any</span>]</code>
           </td>
-          <td><p>a list with the nest structure</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list with the nest structure</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1155,20 +1224,28 @@ for the nested logit.</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y) matrix of the parameter-independent part</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y) matrix of the parameter-independent part</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>of the first derivative of the entropy.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>of the first derivative of the entropy.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
@@ -1228,10 +1305,11 @@ for the nested logit.</p>
             <span class="n">e0_vals</span><span class="p">[</span><span class="n">nest</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">-=</span> <span class="n">log</span><span class="p">(</span><span class="n">mu_ny</span> <span class="o">/</span> <span class="n">mu0y_y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">e0_vals</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1247,6 +1325,8 @@ for the nested logit.</p>
   
       <p>Returns the derivatives of the parameter-dependent part <span class="arithmatex">\(e\)</span>
  wrt <span class="arithmatex">\(\mu\)</span> for the nested logit.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1264,7 +1344,11 @@ for the nested logit.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1274,13 +1358,19 @@ for the nested logit.</p>
           <td>
                 <code>list[<span title="typing.Any">Any</span>]</code>
           </td>
-          <td><p>a list with the nest structure</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list with the nest structure</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1295,20 +1385,28 @@ for the nested logit.</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the parameter-dependent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-dependent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">184</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span>
@@ -1406,10 +1504,11 @@ for the nested logit.</p>
 
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1425,6 +1524,8 @@ for the nested logit.</p>
   
       <p>Returns the derivatives of the parameter-dependent part <span class="arithmatex">\(e\)</span>
  wrt <span class="arithmatex">\(r\)</span> for the nested logit.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1442,7 +1543,11 @@ for the nested logit.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1452,13 +1557,19 @@ for the nested logit.</p>
           <td>
                 <code>list[<span title="typing.Any">Any</span>]</code>
           </td>
-          <td><p>a list with the nest structure</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list with the nest structure</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1473,20 +1584,28 @@ for the nested logit.</p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the parameter-dependent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-dependent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">235</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">235</span>
 <span class="normal">236</span>
 <span class="normal">237</span>
 <span class="normal">238</span>
@@ -1538,10 +1657,11 @@ for the nested logit.</p>
 
     <span class="k">return</span> <span class="n">hess_n</span><span class="p">,</span> <span class="n">hess_m</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1557,6 +1677,8 @@ for the nested logit.</p>
   
       <p>Returns the values of the parameter-dependent part  <span class="arithmatex">\(e\)</span>
 for the nested logit.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1574,7 +1696,11 @@ for the nested logit.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1584,13 +1710,19 @@ for the nested logit.</p>
           <td>
                 <code>list[<span title="typing.Any">Any</span>]</code>
           </td>
-          <td><p>a list with the nest structure</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list with the nest structure</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1605,20 +1737,28 @@ for the nested logit.</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y,n_alpha) array of the parameter-dependent part</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y,n_alpha) array of the parameter-dependent part</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>of the first derivative of the entropy.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>of the first derivative of the entropy.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/nested_logit.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
 <span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
@@ -1692,7 +1832,7 @@ for the nested logit.</p>
 
     <span class="k">return</span> <span class="n">e_vals</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

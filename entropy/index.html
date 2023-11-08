@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/entropy/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -647,6 +647,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -806,7 +820,7 @@
 
   <div class="doc doc-contents ">
   
-      <p>combines the tuples of the values 
+      <p>combines the tuples of the values
 of the components of the hessians.</p>
   </div>
 
@@ -943,7 +957,7 @@ wrt <span class="arithmatex">\((\mu,n)\)</span> and <span class="arithmatex">\((
 
   <div class="doc doc-contents ">
   
-      <p>combines the hessian functions 
+      <p>combines the hessian functions
 when additional parameters are used</p>
   </div>
 
@@ -955,7 +969,7 @@ when additional parameters are used</p>
 
 
 <h2 id="cupid_matching.entropy.EntropyFunctions" class="doc doc-heading">
-        <code>EntropyFunctions</code>
+          <code>EntropyFunctions</code>
 
   
   <span class="doc doc-labels">
@@ -969,6 +983,8 @@ when additional parameters are used</p>
 
   
       <p>Defines the entropy used, via the derivative <span class="arithmatex">\(e_0 + e \cdot \alpha\)</span></p>
+
+
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -985,77 +1001,109 @@ when additional parameters are used</p>
           <td>
                 <code><span title="cupid_matching.matching_utils.MatchingFunction">MatchingFunction</span> | <a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.MatchingFunctionParam" href="../matching_utils/#cupid_matching.matching_utils.MatchingFunctionParam">MatchingFunctionParam</a></code>
           </td>
-          <td><p>required</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>required</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>parameter_dependent</code></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, the entropy depends on parameters.
-Defaults to <code>False</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, the entropy depends on parameters.
+Defaults to <code>False</code></p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>e_fun</code></td>
           <td>
                 <code><span title="cupid_matching.matching_utils.MatchingFunction">MatchingFunction</span> | <a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.MatchingFunctionParam" href="../matching_utils/#cupid_matching.matching_utils.MatchingFunctionParam">MatchingFunctionParam</a> | None</code>
           </td>
-          <td><p>only in entropies that depend on parameters.
-Defaults to <code>None</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>only in entropies that depend on parameters.
+Defaults to <code>None</code></p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>hessian</code></td>
           <td>
                 <code>str | None</code>
           </td>
-          <td><p>defaults to <code>"numeric"</code>
+          <td>
+            <div class="doc-md-description">
+              <p>defaults to <code>"numeric"</code>
 * if <code>"provided"</code>, we provide the hessian of the entropy.
-* if <code>"numerical"</code>, it is compute_d by central differences.</p></td>
+* if <code>"numerical"</code>, it is compute_d by central differences.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>e0_derivative</code></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.entropy.EntropyHessians" href="#cupid_matching.entropy.EntropyHessians">EntropyHessians</a> | <a class="autorefs autorefs-internal" title="cupid_matching.entropy.EntropyHessiansParam" href="#cupid_matching.entropy.EntropyHessiansParam">EntropyHessiansParam</a> | None</code>
           </td>
-          <td><p>the derivative of <code>e0_fun</code>, if available.
-Defaults to <code>None</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the derivative of <code>e0_fun</code>, if available.
+Defaults to <code>None</code></p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>e_derivative</code></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.entropy.EntropyHessians" href="#cupid_matching.entropy.EntropyHessians">EntropyHessians</a> | <a class="autorefs autorefs-internal" title="cupid_matching.entropy.EntropyHessiansParam" href="#cupid_matching.entropy.EntropyHessiansParam">EntropyHessiansParam</a> | None</code>
           </td>
-          <td><p>the derivative of <code>e_fun</code>, if available.
-Defaults to <code>None</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the derivative of <code>e_fun</code>, if available.
+Defaults to <code>None</code></p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>additional_parameters</code></td>
           <td>
                 <code>list | None</code>
           </td>
-          <td><p>additional parameters
+          <td>
+            <div class="doc-md-description">
+              <p>additional parameters
 that define the distribution of errors.
-Defaults to <code>None</code></p></td>
+Defaults to <code>None</code></p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>description</code></td>
           <td>
                 <code>str | None</code>
           </td>
-          <td><p>some text describing the model.
-Defaults to <code>None</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>some text describing the model.
+Defaults to <code>None</code></p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
+
+
 <p><strong>Examples:</strong></p>
     <p>See <code>entropy_choo_siow</code> in <code>choo_siow.py</code></p>
 
-
-        <details class="quote">
-          <summary>Source code in <code>cupid_matching/entropy.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 56</span>
-<span class="normal"> 57</span>
+            <details class="quote">
+              <summary>Source code in <code>cupid_matching/entropy.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 57</span>
 <span class="normal"> 58</span>
 <span class="normal"> 59</span>
 <span class="normal"> 60</span>
@@ -1111,7 +1159,8 @@ Defaults to <code>None</code></p></td>
 <span class="normal">110</span>
 <span class="normal">111</span>
 <span class="normal">112</span>
-<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="normal">113</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">EntropyFunctions</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines the entropy used, via the derivative $e_0 + e \\cdot \\alpha$</span>
 
@@ -1170,7 +1219,7 @@ Defaults to <code>None</code></p></td>
                     <span class="o">+</span> <span class="s2">&quot; but I do not see the e_derivative.&quot;</span>
                 <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -1193,6 +1242,7 @@ Defaults to <code>None</code></p></td>
 </div>
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -1207,6 +1257,8 @@ Defaults to <code>None</code></p></td>
   
       <p>Computes the derivative of the entropy wrt <span class="arithmatex">\(\mu\)</span>
  at <span class="arithmatex">\((\mu, n, m, \alpha, p)\)</span></p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1224,7 +1276,11 @@ Defaults to <code>None</code></p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.entropy.EntropyFunctions" href="#cupid_matching.entropy.EntropyFunctions">EntropyFunctions</a></code>
           </td>
-          <td><p>the <code>EntropyFunctions</code> object</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the <code>EntropyFunctions</code> object</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1234,7 +1290,11 @@ Defaults to <code>None</code></p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1244,7 +1304,11 @@ Defaults to <code>None</code></p></td>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span> | None</code>
           </td>
-          <td><p>a vector of parameters of the derivative of the entropy, if any</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a vector of parameters of the derivative of the entropy, if any</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -1254,13 +1318,19 @@ Defaults to <code>None</code></p></td>
           <td>
                 <code>list | None</code>
           </td>
-          <td><p>a list of additional parameters <code>p</code>, if any</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a list of additional parameters <code>p</code>, if any</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1275,21 +1345,28 @@ Defaults to <code>None</code></p></td>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the derivative of the entropy wrt <span class="arithmatex">\(\mu\)</span></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the derivative of the entropy wrt <span class="arithmatex">\(\mu\)</span></p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>at <span class="arithmatex">\((\mu, n, m, \alpha, p)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>at <span class="arithmatex">\((\mu, n, m, \alpha, p)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/entropy.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
-<span class="normal">117</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/entropy.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">117</span>
 <span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
@@ -1330,7 +1407,8 @@ Defaults to <code>None</code></p></td>
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">entropy_gradient</span><span class="p">(</span>
+<span class="normal">158</span>
+<span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">entropy_gradient</span><span class="p">(</span>
     <span class="n">entropy</span><span class="p">:</span> <span class="n">EntropyFunctions</span><span class="p">,</span>
     <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1374,7 +1452,7 @@ Defaults to <code>None</code></p></td>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">e0_vals</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

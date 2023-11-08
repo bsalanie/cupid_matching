@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/ipfp_solvers/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -612,6 +612,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -738,6 +752,7 @@ in all primitives.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -752,6 +767,8 @@ in all primitives.</p>
   
       <p>Solves for equilibrium in a in a gender-heteroskedastic Choo and Siow market
 given systematic surplus and margins and a scale parameter <code>tau</code></p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -769,7 +786,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>matrix of systematic surplus, shape (X, Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>matrix of systematic surplus, shape (X, Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -779,7 +800,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of men margins, shape (X)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of men margins, shape (X)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -789,7 +814,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of women margins, shape (Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of women margins, shape (Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -799,7 +828,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>the standard error for all women</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the standard error for all women</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -809,7 +842,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>tolerance on change in solution</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>tolerance on change in solution</p>
+            </div>
+          </td>
           <td>
                 <code>1e-09</code>
           </td>
@@ -819,7 +856,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, also evaluate derivatives of the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, also evaluate derivatives of the matching patterns</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -829,7 +870,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, prints information</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, prints information</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -839,13 +884,19 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>maximum number of iterations</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>maximum number of iterations</p>
+            </div>
+          </td>
           <td>
                 <code>1000</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -858,34 +909,50 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
     <tbody>
         <tr>
           <td>
-                <code>muxy, mux0, mu0y</code>
+                <code>(muxy, mux0, mu0y)</code>
           </td>
-          <td><p>the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the matching patterns</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>marg_err_x, marg_err_y: the errors on the margins</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>marg_err_x, marg_err_y: the errors on the margins</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>and the gradients of the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>and the gradients of the matching patterns</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>wrt (men_margins, women_margins, Phi, tau) if <code>gr</code> is <code>True</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt (men_margins, women_margins, Phi, tau) if <code>gr</code> is <code>True</code></p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">398</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">398</span>
 <span class="normal">399</span>
 <span class="normal">400</span>
 <span class="normal">401</span>
@@ -1075,10 +1142,11 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
             <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1096,6 +1164,8 @@ given systematic surplus and margins and a scale parameter <code>tau</code></p>
 given systematic surplus and margins
 and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1112,7 +1182,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>matrix of systematic surplus, shape (X, Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>matrix of systematic surplus, shape (X, Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1122,7 +1196,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of men margins, shape (X)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of men margins, shape (X)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1132,7 +1210,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of women margins, shape (Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of women margins, shape (Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1142,7 +1224,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the vector of standard errors for the X types of men</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the vector of standard errors for the X types of men</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1152,7 +1238,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the vector of standard errors for Y types of women</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the vector of standard errors for Y types of women</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1162,7 +1252,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>tolerance on change in solution</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>tolerance on change in solution</p>
+            </div>
+          </td>
           <td>
                 <code>1e-09</code>
           </td>
@@ -1172,7 +1266,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, also evaluate derivatives of the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, also evaluate derivatives of the matching patterns</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1182,7 +1280,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, prints information</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, prints information</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1192,13 +1294,19 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>maximum number of iterations</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>maximum number of iterations</p>
+            </div>
+          </td>
           <td>
                 <code>1000</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1211,40 +1319,60 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
     <tbody>
         <tr>
           <td>
-                <code>muxy, mux0, mu0y</code>
+                <code>(muxy, mux0, mu0y)</code>
           </td>
-          <td><p>the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the matching patterns</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>marg_err_x, marg_err_y: the errors on the margins</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>marg_err_x, marg_err_y: the errors on the margins</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>and the gradients of the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>and the gradients of the matching patterns</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>wrt (men_margins, women_margins, Phi, sigma_x, tau_y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt (men_margins, women_margins, Phi, sigma_x, tau_y)</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>if <code>gr</code> is <code>True</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>gr</code> is <code>True</code></p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">525</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">525</span>
 <span class="normal">526</span>
 <span class="normal">527</span>
 <span class="normal">528</span>
@@ -1728,10 +1856,11 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
             <span class="n">dmu0y</span><span class="p">,</span>
         <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1747,6 +1876,8 @@ and standard errors <code>sigma_x</code> and <code>tau_y</code></p>
   
       <p>Solves for equilibrium in a Choo and Siow market without singles,
 given systematic surplus and margins</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1764,7 +1895,11 @@ given systematic surplus and margins</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>matrix of systematic surplus, shape (X, Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>matrix of systematic surplus, shape (X, Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1774,7 +1909,11 @@ given systematic surplus and margins</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of men margins, shape (X)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of men margins, shape (X)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1784,7 +1923,11 @@ given systematic surplus and margins</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of women margins, shape (Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of women margins, shape (Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1794,7 +1937,11 @@ given systematic surplus and margins</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>tolerance on change in solution</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>tolerance on change in solution</p>
+            </div>
+          </td>
           <td>
                 <code>1e-09</code>
           </td>
@@ -1804,7 +1951,11 @@ given systematic surplus and margins</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, also evaluate derivatives of <span class="arithmatex">\((\mu_{xy})\)</span> wrt <span class="arithmatex">\(\Phi\)</span></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, also evaluate derivatives of <span class="arithmatex">\((\mu_{xy})\)</span> wrt <span class="arithmatex">\(\Phi\)</span></p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1814,7 +1965,11 @@ given systematic surplus and margins</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, prints information</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, prints information</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1824,13 +1979,19 @@ given systematic surplus and margins</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>maximum number of iterations</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>maximum number of iterations</p>
+            </div>
+          </td>
           <td>
                 <code>1000</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1845,26 +2006,38 @@ given systematic surplus and margins</p>
 <td><code>muxy</code></td>          <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span> | <span title="bs_python_utils.bsnputils.FourArrays">FourArrays</span></code>
           </td>
-          <td><p>the matching patterns, shape (X, Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the matching patterns, shape (X, Y)</p>
+            </div>
+          </td>
         </tr>
         <tr>
 <td></td>          <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span> | <span title="bs_python_utils.bsnputils.FourArrays">FourArrays</span></code>
           </td>
-          <td><p>marg_err_x, marg_err_y: the errors on the margins</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>marg_err_x, marg_err_y: the errors on the margins</p>
+            </div>
+          </td>
         </tr>
         <tr>
 <td></td>          <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span> | <span title="bs_python_utils.bsnputils.FourArrays">FourArrays</span></code>
           </td>
-          <td><p>and the gradients of <span class="arithmatex">\((\mu_{xy})\)</span> wrt <span class="arithmatex">\(\Phi\)</span> if <code>gr</code> is <code>True</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>and the gradients of <span class="arithmatex">\((\mu_{xy})\)</span> wrt <span class="arithmatex">\(\Phi\)</span> if <code>gr</code> is <code>True</code></p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -2096,10 +2269,11 @@ given systematic surplus and margins</p>
         <span class="n">dmuxy</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">muxy_vec2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">muxy</span><span class="p">,</span> <span class="n">marg_err_x</span><span class="p">,</span> <span class="n">marg_err_y</span><span class="p">,</span> <span class="n">dmuxy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -2115,6 +2289,8 @@ given systematic surplus and margins</p>
   
       <p>Solves for equilibrium in a Choo and Siow market with singles,
 given systematic surplus and margins</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2132,7 +2308,11 @@ given systematic surplus and margins</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>matrix of systematic surplus, shape (X, Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>matrix of systematic surplus, shape (X, Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2142,7 +2322,11 @@ given systematic surplus and margins</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of men margins, shape (X)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of men margins, shape (X)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2152,7 +2336,11 @@ given systematic surplus and margins</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>vector of women margins, shape (Y)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>vector of women margins, shape (Y)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2162,7 +2350,11 @@ given systematic surplus and margins</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>tolerance on change in solution</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>tolerance on change in solution</p>
+            </div>
+          </td>
           <td>
                 <code>1e-09</code>
           </td>
@@ -2172,7 +2364,11 @@ given systematic surplus and margins</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, also evaluate derivatives of the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, also evaluate derivatives of the matching patterns</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2182,7 +2378,11 @@ given systematic surplus and margins</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>if <code>True</code>, prints information</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, prints information</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2192,13 +2392,19 @@ given systematic surplus and margins</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>maximum number of iterations</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>maximum number of iterations</p>
+            </div>
+          </td>
           <td>
                 <code>1000</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -2211,27 +2417,43 @@ given systematic surplus and margins</p>
     <tbody>
         <tr>
           <td>
-                <code>muxy, mux0, mu0y</code>
+                <code>(muxy, mux0, mu0y)</code>
           </td>
-          <td><p>the matching patterns</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the matching patterns</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>marg_err_x, marg_err_y: the errors on the margins</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>marg_err_x, marg_err_y: the errors on the margins</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>and the gradients of the matching patterns wrt (men_margins, women_margins, Phi)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>and the gradients of the matching patterns wrt (men_margins, women_margins, Phi)</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="cupid_matching.ipfp_solvers.IPFPNoGradientResults">IPFPNoGradientResults</span> | <span title="cupid_matching.ipfp_solvers.IPFPGradientResults">IPFPGradientResults</span></code>
           </td>
-          <td><p>if <code>gr</code> is <code>True</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>gr</code> is <code>True</code></p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -2303,9 +2525,9 @@ given systematic surplus and margins</p>
 <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">199</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/ipfp_solvers.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">199</span>
 <span class="normal">200</span>
 <span class="normal">201</span>
 <span class="normal">202</span>
@@ -2643,7 +2865,7 @@ given systematic surplus and margins</p>
             <span class="n">dmu0y</span><span class="p">,</span>
         <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

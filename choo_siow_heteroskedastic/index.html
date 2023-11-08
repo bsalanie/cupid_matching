@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/choo_siow_heteroskedastic/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -626,6 +626,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -753,6 +767,7 @@ for all other types on the X side and for all types on the Y side.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -768,6 +783,8 @@ for all other types on the X side and for all types on the Y side.</p>
       <p>Returns the values of the parameter-independent part <span class="arithmatex">\(e_0\)</span>
 for the Choo and Siow heteroskedastic model;
 we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -785,13 +802,19 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -806,20 +829,28 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y) matrix of the parameter-independent part</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y) matrix of the parameter-independent part</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>of the first derivative of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>of the first derivative of the entropy</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
@@ -855,10 +886,11 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
     <span class="n">e0_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">mu1y</span> <span class="o">/</span> <span class="n">mu10</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">e0_vals</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -876,6 +908,8 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 wrt <span class="arithmatex">\(\mu\)</span> for the Choo and Siow heteroskedastic model;
 we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -892,13 +926,19 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -913,20 +953,28 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the parameter-independent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-independent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu, \mu)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu, \mu)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
@@ -980,10 +1028,11 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
         <span class="n">hess_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">der_log1y</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">-</span> <span class="n">der_log10</span>
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1001,6 +1050,8 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 wrt <span class="arithmatex">\(r\)</span> for the Choo and Siow heteroskedastic model;
 we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1017,13 +1068,19 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1038,20 +1095,28 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the parameter-independent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-independent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
@@ -1097,10 +1162,11 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
         <span class="n">hess_n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">der_log10</span>
     <span class="k">return</span> <span class="n">hess_n</span><span class="p">,</span> <span class="n">hess_m</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1118,6 +1184,8 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 for the Choo and Siow heteroskedastic model;
 we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1134,13 +1202,19 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1155,14 +1229,18 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y,X+Y-1) parameter-dependent part of the hessian of the entropy.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y,X+Y-1) parameter-dependent part of the hessian of the entropy.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
@@ -1212,10 +1290,11 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
     <span class="k">return</span> <span class="n">e_vals</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1233,6 +1312,8 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 wrt <span class="arithmatex">\(\mu\)</span> for the Choo and Siow heteroskedastic model;
 we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1249,13 +1330,19 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1270,20 +1357,28 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the parameter-dependent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-dependent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
 <span class="normal">124</span>
 <span class="normal">125</span>
 <span class="normal">126</span>
@@ -1369,10 +1464,11 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1390,6 +1486,8 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 wrt <span class="arithmatex">\(r\)</span> for the Choo and Siow heteroskedastic model;
 we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1406,13 +1504,19 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1427,20 +1531,28 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the parameter-dependent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-dependent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\(r\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\(r\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
 <span class="normal">169</span>
 <span class="normal">170</span>
 <span class="normal">171</span>
@@ -1514,7 +1626,7 @@ we normalized <span class="arithmatex">\(\sigma_1=1\)</span></p>
 
     <span class="k">return</span> <span class="n">hess_n</span><span class="p">,</span> <span class="n">hess_m</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/poisson_glm/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -591,6 +591,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -681,6 +695,7 @@ using Poisson GLM.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -695,6 +710,8 @@ using Poisson GLM.</p>
   
       <p>Estimates the semilinear Choo and Siow homoskedastic (2006) model
     using Poisson GLM.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -712,7 +729,11 @@ using Poisson GLM.</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>the observed Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the observed Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -722,7 +743,11 @@ using Poisson GLM.</p>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>an (X, Y, K) array of bases</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an (X, Y, K) array of bases</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -732,7 +757,11 @@ using Poisson GLM.</p>
           <td>
                 <code>float | None</code>
           </td>
-          <td><p>tolerance level for <code>linear_model.PoissonRegressor.fit</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>tolerance level for <code>linear_model.PoissonRegressor.fit</code></p>
+            </div>
+          </td>
           <td>
                 <code>1e-12</code>
           </td>
@@ -742,8 +771,12 @@ using Poisson GLM.</p>
           <td>
                 <code>int | None</code>
           </td>
-          <td><p>maximum number of iterations
-for <code>linear_model.PoissonRegressor.fit</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>maximum number of iterations
+for <code>linear_model.PoissonRegressor.fit</code></p>
+            </div>
+          </td>
           <td>
                 <code>10000</code>
           </td>
@@ -753,13 +786,19 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
           <td>
                 <code>int | None</code>
           </td>
-          <td><p>defines how much output we want (0 = least)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>defines how much output we want (0 = least)</p>
+            </div>
+          </td>
           <td>
                 <code>1</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -774,7 +813,11 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.poisson_glm_utils.PoissonGLMResults" href="../poisson_glm_utils/#cupid_matching.poisson_glm_utils.PoissonGLMResults">PoissonGLMResults</a></code>
           </td>
-          <td><p>a <code>PoissonGLMResults</code> instance</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a <code>PoissonGLMResults</code> instance</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -850,9 +893,9 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
 <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 </details>
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/poisson_glm.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 17</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/poisson_glm.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 17</span>
 <span class="normal"> 18</span>
 <span class="normal"> 19</span>
 <span class="normal"> 20</span>
@@ -1286,7 +1329,7 @@ for <code>linear_model.PoissonRegressor.fit</code></p></td>
 
     <span class="k">return</span> <span class="n">results</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

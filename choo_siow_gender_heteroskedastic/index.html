@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://bsalanie.github.io/cupid_matching/choo_siow_gender_heteroskedastic/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
     
     
       
@@ -626,6 +626,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cupid_streamlit_utils/" class="md-nav__link">
+        Utilities for the Streamlit app
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -753,6 +767,7 @@ and we estimate the standard error on the Y side.</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
@@ -767,6 +782,8 @@ and we estimate the standard error on the Y side.</p>
   
       <p>Returns the values of the parameter-independent part <span class="arithmatex">\(e_0\)</span>
 for the Choo and Siow gender-heteroskedastic model; we normalized <span class="arithmatex">\(\sigma=1\)</span>.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -784,13 +801,19 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -805,20 +828,28 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y) matrix of the parameter-independent part</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y) matrix of the parameter-independent part</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>of the first derivative of the entropy.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>of the first derivative of the entropy.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
@@ -846,10 +877,11 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
     <span class="n">e0_vals</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">muxy</span> <span class="o">/</span> <span class="n">mux0</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">e0_vals</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -865,6 +897,8 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
   
       <p>Returns the derivatives of the parameter-independent part <span class="arithmatex">\(e_0\)</span> in <span class="arithmatex">\(\mu\)</span>.
 for the Choo and Siow gender-heteroskedastic model; we normalized <span class="arithmatex">\(\sigma=1\)</span>.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -882,13 +916,19 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -903,20 +943,28 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the  parameter-independent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the  parameter-independent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
@@ -968,10 +1016,11 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
             <span class="n">hess_xy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">der_logxy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">-</span> <span class="n">dlogx0</span>
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -987,6 +1036,8 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
   
       <p>Returns the derivatives of the parameter-independent part <span class="arithmatex">\(e_0\)</span> wrt <span class="arithmatex">\(r\)</span>
 for the Choo and Siow gender-heteroskedastic model; we normalized <span class="arithmatex">\(\sigma=1\)</span>.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1004,13 +1055,19 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1025,20 +1082,28 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the parameter-independent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-independent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,r)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
@@ -1084,10 +1149,11 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
             <span class="n">hess_n</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">dlogx0</span>
     <span class="k">return</span> <span class="n">hess_n</span><span class="p">,</span> <span class="n">hess_m</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1103,6 +1169,8 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
   
       <p>Returns the values of the parameter-dependent part  <span class="arithmatex">\(e\)</span>
 for the Choo and Siow gender-heteroskedastic model; we normalized <span class="arithmatex">\(\sigma=1\)</span>.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1120,13 +1188,19 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1141,20 +1215,28 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>the (X,Y,1) array of the parameter-dependent part</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the (X,Y,1) array of the parameter-dependent part</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
           </td>
-          <td><p>of the first derivative of the entropy.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>of the first derivative of the entropy.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
 <span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
@@ -1190,10 +1272,11 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
     <span class="n">e_vals</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">muxy</span> <span class="o">/</span> <span class="n">mu0y</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">e_vals</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1211,6 +1294,8 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
  wrt <span class="arithmatex">\(\mu\)</span> for the Choo and Siow gender-heteroskedastic model;
  we normalized <span class="arithmatex">\(\sigma_1=1\)</span>.</p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1227,13 +1312,19 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1248,20 +1339,28 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>the parameter-dependent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-dependent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.ThreeArrays">ThreeArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,\mu)\)</span>.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
@@ -1319,10 +1418,11 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
             <span class="n">hess_xy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">der_logxy</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">-</span> <span class="n">dlog0y</span>
     <span class="k">return</span> <span class="n">hess_x</span><span class="p">,</span> <span class="n">hess_y</span><span class="p">,</span> <span class="n">hess_xy</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
@@ -1340,6 +1440,8 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
  wrt <span class="arithmatex">\(r\)</span> for the Choo and Siow gender-heteroskedastic model;
  we normalized <span class="arithmatex">\(\sigma_1=1\)</span>.</p>
 
+
+
   <p><strong>Parameters:</strong></p>
   <table>
     <thead>
@@ -1356,13 +1458,19 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
           </td>
-          <td><p>a Matching</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a Matching</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1377,20 +1485,28 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>the parameter-dependent part of the hessian of the entropy</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the parameter-dependent part of the hessian of the entropy</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td>
                 <code><span title="bs_python_utils.bsnputils.TwoArrays">TwoArrays</span></code>
           </td>
-          <td><p>wrt <span class="arithmatex">\((\mu,r)\)</span></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>wrt <span class="arithmatex">\((\mu,r)\)</span></p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">142</span>
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/choo_siow_gender_heteroskedastic.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
 <span class="normal">145</span>
@@ -1442,7 +1558,7 @@ for the Choo and Siow gender-heteroskedastic model; we normalized <span class="a
             <span class="n">hess_m</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dlog0y</span>
     <span class="k">return</span> <span class="n">hess_n</span><span class="p">,</span> <span class="n">hess_m</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
