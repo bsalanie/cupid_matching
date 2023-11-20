@@ -1,6 +1,7 @@
 """ Estimates semilinear separable models with a given entropy function.
 The entropy function and the surplus matrix must both be linear in the parameters.
 """
+
 from typing import cast
 
 import numpy as np
@@ -16,9 +17,9 @@ from cupid_matching.entropy import (
     EntropyHessianMuRParam,
     EntropyHessians,
     EntropyHessiansParam,
-    _fill_hessianMuMu_from_components,
-    _fill_hessianMuR_from_components,
-    _numeric_hessian,
+    fill_hessianMuMu_from_components,
+    fill_hessianMuR_from_components,
+    numeric_hessian,
 )
 from cupid_matching.matching_utils import (
     Matching,
@@ -27,7 +28,7 @@ from cupid_matching.matching_utils import (
     variance_muhat,
 )
 from cupid_matching.min_distance_utils import MDEResults, compute_estimates
-from cupid_matching.utils import _make_XY_K_mat
+from cupid_matching.utils import make_XY_K_mat
 
 
 def estimate_semilinear_mde(
@@ -36,18 +37,20 @@ def estimate_semilinear_mde(
     entropy: EntropyFunctions,
     additional_parameters: list | None = None,
     initial_weights: np.ndarray | None = None,
+    verbose: bool = False,
 ) -> MDEResults:
     """
     Estimates the parameters of the distributions and of the base functions.
 
     Args:
-        muhat: the observed Matching
+        muhat: the observed `Matching`
         phi_bases: an (X, Y, K) array of bases
         entropy: an `EntropyFunctions` object
         additional_parameters: additional parameters of the distribution of errors,
             if any
         initial_weights: if specified, used as the weighting matrix
             for the first step when `entropy.param_dependent` is `True`
+        verbose: prints stuff if `True`
 
     Returns:
         an `MDEResults` instance
@@ -102,7 +105,7 @@ def estimate_semilinear_mde(
         else:
             S_mat = initial_weights
 
-    phi_mat = _make_XY_K_mat(phi_bases)
+    phi_mat = make_XY_K_mat(phi_bases)
     e0_fun = entropy.e0_fun
     if additional_parameters is None:
         e0_fun = cast(MatchingFunction, e0_fun)
@@ -128,9 +131,9 @@ def estimate_semilinear_mde(
                 hessian_components_mur = e0_derivative1[1](muhat, additional_parameters)
         else:
             if additional_parameters is None:
-                hessian_components = _numeric_hessian(entropy, muhat)
+                hessian_components = numeric_hessian(entropy, muhat)
             else:
-                hessian_components = _numeric_hessian(
+                hessian_components = numeric_hessian(
                     entropy,
                     muhat,
                     additional_parameters=additional_parameters,
@@ -139,8 +142,8 @@ def estimate_semilinear_mde(
                 hessian_components_mumu,
                 hessian_components_mur,
             ) = hessian_components
-        hessian_mumu = _fill_hessianMuMu_from_components(hessian_components_mumu)
-        hessian_mur = _fill_hessianMuR_from_components(hessian_components_mur)
+        hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
+        hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
         hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
 
         var_muhat = variance_muhat(muhat)
@@ -161,7 +164,7 @@ def estimate_semilinear_mde(
         else:
             e_fun1 = cast(MatchingFunctionParam, entropy.e_fun)
             e_vals = e_fun1(muhat, additional_parameters)
-        e_hat = _make_XY_K_mat(e_vals)
+        e_hat = make_XY_K_mat(e_vals)
 
         F_hat = np.column_stack((e_hat, phi_mat))
         n_pars = e_hat.shape[1] + K
@@ -203,8 +206,9 @@ def estimate_semilinear_mde(
                     muhat, additional_parameters
                 )
 
-            # print_stars("First-stage estimates:")
-            # print(first_coeffs)
+            if verbose:
+                print_stars("First-stage estimates:")
+                print(first_coeffs)
 
             hessian_components_mumu1 = (
                 hessian_components_mumu_e0[0]
@@ -220,13 +224,13 @@ def estimate_semilinear_mde(
                 hessian_components_mur_e0[1]
                 + hessian_components_mur_e[1] @ first_alpha,
             )
-            hessian_mumu = _fill_hessianMuMu_from_components(hessian_components_mumu1)
-            hessian_mur = _fill_hessianMuR_from_components(hessian_components_mur1)
+            hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu1)
+            hessian_mur = fill_hessianMuR_from_components(hessian_components_mur1)
         else:  # numeric hessian
             if additional_parameters is None:
-                hessian_components = _numeric_hessian(entropy, muhat, alpha=first_alpha)
+                hessian_components = numeric_hessian(entropy, muhat, alpha=first_alpha)
             else:
-                hessian_components = _numeric_hessian(
+                hessian_components = numeric_hessian(
                     entropy,
                     muhat,
                     alpha=first_alpha,
@@ -236,8 +240,8 @@ def estimate_semilinear_mde(
                 hessian_components_mumu,
                 hessian_components_mur,
             ) = hessian_components
-            hessian_mumu = _fill_hessianMuMu_from_components(hessian_components_mumu)
-            hessian_mur = _fill_hessianMuR_from_components(hessian_components_mur)
+            hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
+            hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
 
         hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
 

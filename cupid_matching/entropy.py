@@ -218,7 +218,7 @@ def _numeric_component(
     return cast(float, deriv_value)
 
 
-def _numeric_hessian(
+def numeric_hessian(
     entropy: EntropyFunctions,
     muhat: Matching,
     alpha: np.ndarray | None = None,
@@ -304,7 +304,7 @@ def _numeric_hessian(
     return components_mumu, components_mur
 
 
-def _fill_hessianMuMu_from_components(
+def fill_hessianMuMu_from_components(
     hessian_components: ThreeArrays,
 ) -> np.ndarray:
     """Fills the hessian of the entropy wrt $(\\mu,\\mu)$
@@ -334,7 +334,7 @@ def _fill_hessianMuMu_from_components(
     return hessian
 
 
-def _fill_hessianMuR_from_components(
+def fill_hessianMuR_from_components(
     hessian_components: TwoArrays,
 ) -> np.ndarray:
     """Fills the hessian of the entropy wrt $(\\mu,(n,m))$

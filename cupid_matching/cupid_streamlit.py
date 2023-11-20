@@ -7,11 +7,11 @@ from bs_python_utils.bsnputils import nprepeat_col, nprepeat_row
 
 from cupid_matching.choo_siow import entropy_choo_siow
 from cupid_matching.cupid_streamlit_utils import (
-    _download_parameters_results,
-    _make_margins,
-    _plot_heatmap,
-    _plot_matching,
-    _table_estimates,
+    download_parameters_results,
+    make_margins,
+    plot_heatmap,
+    plot_matching,
+    table_estimates,
 )
 from cupid_matching.min_distance import estimate_semilinear_mde
 from cupid_matching.model_classes import ChooSiowPrimitives
@@ -112,8 +112,8 @@ if enough_cells:
         str, st.sidebar.radio("Profile across categories for women", list_scenarii)
     )
 
-    nx = _make_margins(proportion_men, ncat_men, scenario_men)
-    my = _make_margins(1.0 - proportion_men, ncat_women, scenario_women)
+    nx = make_margins(proportion_men, ncat_men, scenario_men)
+    my = make_margins(1.0 - proportion_men, ncat_women, scenario_women)
 
     bases = np.zeros((ncat_men, ncat_women, 6))
     bases[:, :, 0] = 1.0
@@ -195,7 +195,7 @@ else:
 
 
 st.subheader("Here is your joint surplus by categories:")
-st.altair_chart(_plot_heatmap(Phi, ".2f"))
+st.altair_chart(plot_heatmap(Phi, ".2f"))
 
 cs_market = ChooSiowPrimitives(Phi, nx, my)
 
@@ -206,7 +206,7 @@ st.subheader(
 mus_sim = cs_market.simulate(n_households)
 muxy_sim, mux0_sim, mu0y_sim, n_sim, m_sim = mus_sim.unpack()
 
-st.altair_chart(_plot_matching(mus_sim))
+st.altair_chart(plot_matching(mus_sim))
 
 do_estimates = False
 
@@ -228,7 +228,7 @@ if enough_cells:
             mde_estimates = mde_results.estimated_coefficients
             mde_stderrs = mde_results.stderrs_coefficients
 
-            df_mde = _table_estimates(
+            df_mde = table_estimates(
                 coeff_names, true_coeffs, mde_estimates, mde_stderrs
             )
             st.table(df_mde)
@@ -262,7 +262,7 @@ if enough_cells:
             pglm_estimates = pglm_results.estimated_beta
             pglm_stderrs = pglm_results.stderrs_beta
 
-            df_poisson = _table_estimates(
+            df_poisson = table_estimates(
                 coeff_names, true_coeffs, pglm_estimates, pglm_stderrs
             )
             st.table(df_poisson)
@@ -305,7 +305,7 @@ if enough_cells:
             ),
         )
 
-        _download_parameters_results(summary_file_name, True, pars_res)
+        download_parameters_results(summary_file_name, True, pars_res)
     else:
         pars_res = (
             ncat_men,
@@ -317,9 +317,9 @@ if enough_cells:
             mux0_sim,
             mu0y_sim,
         )
-        _download_parameters_results(summary_file_name, False, pars_res)
+        download_parameters_results(summary_file_name, False, pars_res)
 else:
     pars_res = cast(
         Any, (ncat_men, ncat_women, n_sim, m_sim, Phi, muxy_sim, mux0_sim, mu0y_sim)
     )
-    _download_parameters_results(summary_file_name, False, pars_res)
+    download_parameters_results(summary_file_name, False, pars_res)

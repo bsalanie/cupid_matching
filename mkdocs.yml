@@ -16,6 +16,7 @@ nav:
       - Utilities for Poisson: poisson_glm_utils.md
       - Entropy utilities: entropy.md
       - Choo-Siow homoskedastic: choo_siow.md
+      - Choo-Siow homoskedastic w/o singles: choo_siow_no_singles.md      
       - Choo-Siow Gender-heteroskedastic: choo_siow_gender_heteroskedastic.md
       - Choo-Siow Heteroskedastic: choo_siow_heteroskedastic.md
       - Nested Logit: nested_logit.md

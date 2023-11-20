@@ -139,7 +139,7 @@ class PoissonGLMResults:
             print_stars(repr_str)
 
 
-def _prepare_data(
+def prepare_data(
     muhat: Matching,
     var_muhat: VarianceMatching,
 ) -> tuple[np.ndarray, VarianceMatching, int, int]:
@@ -148,11 +148,10 @@ def _prepare_data(
 
     Args:
         muhat: the observed Matching
-        var_muhat: the variance-covariance object for teh observed matching
-        phi_bases: an (X, Y, K) array of bases
+        var_muhat: the variance-covariance object for the observed matching
 
     Returns:
-        the stacked muxy, mux0, mu0y
+        the stacked `muxy, mux0, mu0y`
         the corresponding variance-covariance matrix
         the number of households
         the number of individuals

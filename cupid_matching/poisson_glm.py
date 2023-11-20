@@ -10,8 +10,8 @@ import scipy.sparse as spr
 from sklearn import linear_model
 
 from cupid_matching.matching_utils import Matching, variance_muhat
-from cupid_matching.poisson_glm_utils import PoissonGLMResults, _prepare_data
-from cupid_matching.utils import _make_XY_K_mat
+from cupid_matching.poisson_glm_utils import PoissonGLMResults, prepare_data
+from cupid_matching.utils import make_XY_K_mat
 
 
 def choo_siow_poisson_glm(
@@ -83,7 +83,7 @@ def choo_siow_poisson_glm(
     # the vector of weights for the Poisson regression
     w = np.concatenate((2 * np.ones(XY), np.ones(X + Y)))
     # reshape the bases
-    phi_mat = _make_XY_K_mat(phi_bases)
+    phi_mat = make_XY_K_mat(phi_bases)
 
     if try_sparse:
         w_mat = spr.csr_matrix(
@@ -138,7 +138,7 @@ def choo_siow_poisson_glm(
         var_muhat_norm,
         n_households,
         n_individuals,
-    ) = _prepare_data(muhat, var_muhat)
+    ) = prepare_data(muhat, var_muhat)
 
     clf = linear_model.PoissonRegressor(
         fit_intercept=False,

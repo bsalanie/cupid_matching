@@ -29,14 +29,13 @@ def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
     return n_types
 
 
-def _make_margins(n: int, ncat: int, scenario: str = "Constant") -> np.ndarray:
+def make_margins(n: int, ncat: int, scenario: str = "Constant") -> np.ndarray:
     """generates the numbers by type on one side of the market
 
     Args:
         n: the total number of individuals on that side of the market
         ncat: the number of types on that side of the market
-        scenario: "Constant", "Increasing", or "Decreasing" numbers
-        as a function of type
+        scenario: "Constant", "Increasing", or "Decreasing" numbers as a function of type
 
     Returns:
         the numbers by type on this side
@@ -55,7 +54,7 @@ def _make_margins(n: int, ncat: int, scenario: str = "Constant") -> np.ndarray:
     return n_types
 
 
-def _table_estimates(
+def table_estimates(
     coeff_names: list[str],
     true_coeffs: np.ndarray,
     estimates: np.ndarray,
@@ -84,7 +83,7 @@ def _table_estimates(
     return df_coeffs_estimates
 
 
-def _plot_heatmap(
+def plot_heatmap(
     mat: np.ndarray, str_format: str, str_tit: str | None = None
 ) -> alt.Chart:
     """Plots a heatmap of the matrix
@@ -169,7 +168,7 @@ def _plot_bars(mux0: np.ndarray, mu0y: np.ndarray) -> alt.Chart:
     return (men_bars & women_bars).properties(title="Singles")
 
 
-def _plot_matching(mus: Matching) -> alt.Chart:
+def plot_matching(mus: Matching) -> alt.Chart:
     """generates the complete plot of matching patterns
 
     Args:
@@ -179,7 +178,7 @@ def _plot_matching(mus: Matching) -> alt.Chart:
         the plot
     """
     muxy, mux0, mu0y, _, _ = mus.unpack()
-    plotxy = _plot_heatmap(muxy, "d", str_tit="Marriages")
+    plotxy = plot_heatmap(muxy, "d", str_tit="Marriages")
     plotsingles = _plot_bars(mux0, mu0y)
     return plotxy | plotsingles
 
@@ -232,7 +231,7 @@ def _download_dataframe_as_csv(df: pd.DataFrame, file_name: str) -> None:
     )
 
 
-def _download_parameters_results(
+def download_parameters_results(
     file_name: str, do_estimates: bool, pars_res: Any
 ) -> None:
     """formats the summary of the simulation (parameters and results) and offers to download

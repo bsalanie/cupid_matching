@@ -1,8 +1,6 @@
 """This module contains some utility programs used by the package."""
-from typing import (
-    Final,
-    TypeAlias,
-)
+
+from typing import Final, TypeAlias
 
 import numpy as np
 from bs_python_utils.bsutils import bs_error_abort
@@ -15,7 +13,7 @@ _EPS: Final = 1e-6
 _TWO_EPS: Final = 2.0 * _EPS
 
 
-def _make_XY_K_mat(xyk_array: np.ndarray) -> np.ndarray:
+def make_XY_K_mat(xyk_array: np.ndarray) -> np.ndarray:
     """Reshapes an (X,Y,K) array to an (XY,K) matrix.
 
     Args:
@@ -54,19 +52,19 @@ def _reshape4_to2(array4: np.ndarray) -> np.ndarray:
     return array2
 
 
-def _change_indices(nests: NestsList):
+def change_indices(nests: NestsList) -> NestsList:
     """subtracts 1 from the indices within the nest structure
 
     Args:
         nests: the nest structure
 
     Returns:
-        a similar list
+        the same, with all indices decreased by 1
     """
     return [[nest_i - 1 for nest_i in nest] for nest in nests]
 
 
-def _find_nest_of(nests: NestsList, y: int) -> int:
+def find_nest_of(nests: NestsList, y: int) -> int:
     """find the index of the nest that contains y, or return -1
 
     Args:

@@ -3,32 +3,26 @@ from typing import cast
 
 import numpy as np
 from bs_python_utils.bsnputils import (
+    ThreeArrays,
     check_matrix,
     check_vector,
     npexp,
     npmaxabs,
     nppow,
 )
-from bs_python_utils.bsutils import (
-    bs_error_abort,
-    print_stars,
-)
+from bs_python_utils.bsutils import bs_error_abort, print_stars
 
 from cupid_matching.ipfp_solvers import (
     IPFPNoGradientResults,
+    ipfp_homoskedastic_nosingles_solver,
     ipfp_homoskedastic_solver,
 )
 from cupid_matching.matching_utils import (
     Matching,
-    _simulate_sample_from_mus,
     compute_margins,
+    simulate_sample_from_mus,
 )
-from cupid_matching.utils import (
-    Nest,
-    NestsList,
-    _change_indices,
-    _find_nest_of,
-)
+from cupid_matching.utils import Nest, NestsList, change_indices, find_nest_of
 
 
 @dataclass
@@ -59,7 +53,7 @@ class ChooSiowPrimitives:
     def simulate(self, n_households: int, seed: int | None = None) -> Matching:
         self.n_households = n_households
         self.mus = self.ipfp_solve()
-        mus_sim = _simulate_sample_from_mus(self.mus, n_households, seed)
+        mus_sim = simulate_sample_from_mus(self.mus, n_households, seed=seed)
         return mus_sim
 
     def describe(self):
@@ -70,13 +64,57 @@ class ChooSiowPrimitives:
 
 
 @dataclass
+class ChooSiowPrimitivesNoSingles:
+    Phi: np.ndarray
+    n: np.ndarray
+    m: np.ndarray
+    mus: Matching | None = None
+
+    def __post_init__(self):
+        X, Y = check_matrix(self.Phi)
+        Xn = check_vector(self.n)
+        Ym = check_vector(self.m)
+        if Xn != X:
+            bs_error_abort(f"Phi is a ({X}, {Y}) matrix but n has {Xn} elements.")
+        if Ym != Y:
+            bs_error_abort(f"Phi is a ({X}, {Y}) matrix but m has {Ym} elements.")
+
+    def ipfp_solve(self) -> Matching:
+        muxy, *_ = cast(
+            ThreeArrays,
+            ipfp_homoskedastic_nosingles_solver(self.Phi, self.n, self.m),
+        )
+        return Matching(muxy, self.n, self.m, no_singles=True)
+
+    def simulate(self, n_households: int, seed: int | None = None) -> Matching:
+        self.n_households = n_households
+        self.mus = self.ipfp_solve()
+        mus_sim = simulate_sample_from_mus(
+            self.mus, n_households, no_singles=True, seed=seed
+        )
+        return mus_sim
+
+    def describe(self):
+        X, Y = self.Phi.shape
+        print_stars(
+            "We are working with a Choo and Siow homoskedastic market w/o singles;"
+        )
+        print(f"\t\t we have {int(X)} types of men and {int(Y)} types of women")
+        print(f"\t\t and a total of {int(self.n_households):,d} households")
+
+
+@dataclass
 class NestedLogitPrimitives:
     Phi: np.ndarray
     n: np.ndarray
     m: np.ndarray
-    nests_for_each_x: NestsList  # given by user, e.g. [[1, 3], [2,4]] has y=1 and y=3 in first nest
+    nests_for_each_x: (
+        NestsList  # given by user, e.g. [[1, 3], [2,4]] has y=1 and y=3 in first nest
+    )
     nests_for_each_y: NestsList
-    nests_over_Y: NestsList  # rebased to zero: the above example becomes [[0, 2], [1,3]]
+    nests_over_Y: (
+        NestsList  # rebased to zero: the above example becomes [[0, 2], [1,3]]
+    )
     nests_over_X: NestsList
     i_nest_of_x: Nest  # mapping x -> n'
     i_nest_of_y: Nest  # mapping y -> n
@@ -110,8 +148,8 @@ class NestedLogitPrimitives:
         Ym = check_vector(m)
 
         # we need to rebase the indices to zero
-        self.nests_over_X = _change_indices(nests_for_each_y)
-        self.nests_over_Y = _change_indices(nests_for_each_x)
+        self.nests_over_X = change_indices(nests_for_each_y)
+        self.nests_over_Y = change_indices(nests_for_each_x)
 
         self.n_alphas = len(nests_for_each_y) + len(nests_for_each_x)
 
@@ -138,7 +176,7 @@ class NestedLogitPrimitives:
         nests_check = []
         i_nest_of_x = np.zeros(X, int)
         for x in range(X):
-            i_nest_of_x[x] = _find_nest_of(self.nests_over_X, x)
+            i_nest_of_x[x] = find_nest_of(self.nests_over_X, x)
             nests_check.append(i_nest_of_x[x])
         if -1 in nests_check or len(set(nests_check)) != len(nests_for_each_y):
             bs_error_abort("Check your nests_for_each_y")
@@ -146,7 +184,7 @@ class NestedLogitPrimitives:
         nests_check = []
         i_nest_of_y = np.zeros(Y, int)
         for y in range(Y):
-            i_nest_of_y[y] = _find_nest_of(self.nests_over_Y, y)
+            i_nest_of_y[y] = find_nest_of(self.nests_over_Y, y)
             nests_check.append(i_nest_of_y[y])
         if -1 in nests_check or len(set(nests_check)) != len(nests_for_each_x):
             bs_error_abort("Check your nests_for_each_x")
@@ -413,5 +451,5 @@ class NestedLogitPrimitives:
 
     def simulate(self, n_households: int, seed: int | None = None) -> Matching:
         self.mus = self.ipfp_solve()
-        mus_sim = _simulate_sample_from_mus(self.mus, n_households, seed)
+        mus_sim = simulate_sample_from_mus(self.mus, n_households, seed=seed)
         return mus_sim

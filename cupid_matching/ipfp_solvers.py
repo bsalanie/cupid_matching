@@ -16,6 +16,7 @@ the adding-up errors on the margins,
 and if requested (using `gr=True`) the derivatives of the matching patterns
 in all primitives.
 """
+
 from math import sqrt
 from typing import Literal, overload
 
@@ -50,32 +51,6 @@ def _ipfp_check_sizes(
     if Phi.shape != (X, Y):
         bs_error_abort(f"The shape of Phi should be ({X}, {Y}")
     return X, Y
-
-
-@overload
-def ipfp_homoskedastic_nosingles_solver(
-    Phi: np.ndarray,
-    men_margins: np.ndarray,
-    women_margins: np.ndarray,
-    tol: float,
-    gr: Literal[False],
-    verbose: bool,
-    maxiter: int,
-) -> ThreeArrays:
-    ...
-
-
-@overload
-def ipfp_homoskedastic_nosingles_solver(
-    Phi: np.ndarray,
-    men_margins: np.ndarray,
-    women_margins: np.ndarray,
-    tol: float,
-    gr: Literal[True],
-    verbose: bool,
-    maxiter: int,
-) -> FourArrays:
-    ...
 
 
 def ipfp_homoskedastic_nosingles_solver(

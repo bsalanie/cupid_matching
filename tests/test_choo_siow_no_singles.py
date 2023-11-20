@@ -1,29 +1,25 @@
-""" example using the Choo and Siow homoskedastic model"""
-
 from typing import cast
 
 import numpy as np
 from bs_python_utils.bsutils import print_stars
 
-from cupid_matching.choo_siow import (
-    entropy_choo_siow,
-    entropy_choo_siow_corrected,
-    entropy_choo_siow_corrected_numeric,
-    entropy_choo_siow_numeric,
+from cupid_matching.choo_siow_no_singles import (
+    entropy_choo_siow_no_singles,
+    entropy_choo_siow_no_singles_corrected,
+    entropy_choo_siow_no_singles_corrected_numeric,
+    entropy_choo_siow_no_singles_numeric,
 )
-from cupid_matching.entropy import EntropyFunctions
-from cupid_matching.min_distance import estimate_semilinear_mde
-from cupid_matching.model_classes import ChooSiowPrimitives, Matching
+from cupid_matching.example_choo_siow import mde_estimate
+from cupid_matching.model_classes import ChooSiowPrimitivesNoSingles
 from cupid_matching.poisson_glm import choo_siow_poisson_glm
 
 
-def create_choosiow_population(
+def create_choosiow_population_no_singles(
     X: int, Y: int, K: int, std_betas: float
-) -> tuple[ChooSiowPrimitives, np.ndarray, np.ndarray]:
+) -> tuple[ChooSiowPrimitivesNoSingles, np.ndarray, np.ndarray]:
     """
-    we simulate a Choo and Siow population
-    with equal numbers of men and women of each type
-    and random bases functions and coefficients
+    we simulate a Choo and Siow population w/o singles
+    with random bases functions and coefficients
 
         Args:
          X: number of types of men
@@ -36,44 +32,22 @@ def create_choosiow_population(
             a `ChooSiowPrimitives` instance, the basis functions, and the coefficients
     """
     betas_true = std_betas * np.random.randn(K)
-    phi_bases = np.random.randn(X, Y, K)
+    phi_bases = np.zeros((X, Y, K))
+    range_X, range_Y = np.arange(1, X + 1), np.arange(1, Y + 1)
+    for k in range(1, K + 1):
+        phi_bases[:, :, k - 1] = np.outer(range_X**k, range_Y)
     n = np.ones(X)
-    m = np.ones(Y)
+    m = np.ones(Y) * X / float(Y)  # we want as many men as women
     Phi = phi_bases @ betas_true
-    choo_siow_instance = ChooSiowPrimitives(Phi, n, m)
+    choo_siow_instance = ChooSiowPrimitivesNoSingles(Phi, n, m)
     return choo_siow_instance, phi_bases, betas_true
 
 
-def mde_estimate(
-    mus_sim: Matching,
-    phi_bases: np.ndarray,
-    betas_true: np.ndarray,
-    entropy: EntropyFunctions,
-    title: str,
-) -> float:
-    """we estimate the parameters using the minimum distance estimator
-
-    Args:
-        mus_sim: a Choo and Siow Matching
-        phi_bases: the basis functions
-        betas_true: their true coefficients
-        entropy: the entropy functions we use
-        title: the name of the estimator
-
-    Returns:
-        the largest absolute difference between the true and estimated coefficients
-    """
-    print_stars(f"    {title}")
-    mde_results = estimate_semilinear_mde(mus_sim, phi_bases, entropy)
-    mde_discrepancy = mde_results.print_results(true_coeffs=betas_true)
-    return cast(float, mde_discrepancy)
-
-
-def demo_choo_siow(
+def demo_choo_siow_no_singles(
     n_households: int, X: int, Y: int, K: int, std_betas: float = 1.0
 ) -> tuple[float, float, float, float, float]:
     """run four MDE estimators and the Poisson estimator
-    on randomly generated data
+    on randomly generated data w/o singles
 
     Args:
         n_households: number of households
@@ -85,7 +59,7 @@ def demo_choo_siow(
     Returns:
         the discrepancies of the five estimators
     """
-    choo_siow_instance, phi_bases, betas_true = create_choosiow_population(
+    choo_siow_instance, phi_bases, betas_true = create_choosiow_population_no_singles(
         X, Y, K, std_betas
     )
     mus_sim = choo_siow_instance.simulate(n_households)
@@ -95,28 +69,28 @@ def demo_choo_siow(
         mus_sim,
         phi_bases,
         betas_true,
-        entropy_choo_siow,
+        entropy_choo_siow_no_singles,
         "RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
     )
     mde_discrepancy_numeric = mde_estimate(
         mus_sim,
         phi_bases,
         betas_true,
-        entropy_choo_siow_numeric,
+        entropy_choo_siow_no_singles_numeric,
         "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
     )
     mde_discrepancy_corrected = mde_estimate(
         mus_sim,
         phi_bases,
         betas_true,
-        entropy_choo_siow_corrected,
+        entropy_choo_siow_no_singles_corrected,
         "RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT",
     )
     mde_discrepancy_corrected_numeric = mde_estimate(
         mus_sim,
         phi_bases,
         betas_true,
-        entropy_choo_siow_corrected_numeric,
+        entropy_choo_siow_no_singles_corrected_numeric,
         "RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
     )
 
@@ -138,24 +112,22 @@ def demo_choo_siow(
     )
 
 
-if __name__ == "__main__":
-    n_households = 100_000
-    X, Y = 10, 15
-    K = 5
-    std_betas = 0.5
+def test_choo_siow_no_singles():
+    n_households = 10_000_000
+    X, Y = 2, 3
+    K = 2
+    std_betas = 0.1
+    TOL_CS = 1e-2
+
     (
         mde_discrepancy,
         mde_discrepancy_numeric,
         mde_discrepancy_corrected,
         mde_discrepancy_corrected_numeric,
         poisson_discrepancy,
-    ) = demo_choo_siow(n_households, X, Y, K, std_betas=std_betas)
-
-    print_stars(
-        "Largest absolute differences between the true and estimated coefficcients:"
-    )
-    print(f"MDE:                            {mde_discrepancy: .2e}")
-    print(f"MDE numeric:                    {mde_discrepancy_numeric: .2e}")
-    print(f"MDE corrected:                  {mde_discrepancy_corrected: .2e}")
-    print(f"MDE corrected numeric:          {mde_discrepancy_corrected_numeric: .2e}")
-    print(f"Poisson:                        {poisson_discrepancy: .2e}")
+    ) = demo_choo_siow_no_singles(n_households, X, Y, K, std_betas=std_betas)
+    assert mde_discrepancy < TOL_CS
+    assert mde_discrepancy_numeric < TOL_CS
+    assert mde_discrepancy_corrected < TOL_CS
+    assert mde_discrepancy_corrected_numeric < TOL_CS
+    assert poisson_discrepancy < TOL_CS

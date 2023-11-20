@@ -5,6 +5,7 @@ E.g. [[1, 3], [2,4]] describes two nests, one with types 1 and 3,
 and the other with types 2 and 4.
 On each side, the nests are the same for each type, with the same parameters.
 """
+
 from math import log
 from typing import Any, cast
 
@@ -13,7 +14,7 @@ from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 
 from cupid_matching.entropy import EntropyFunctions, EntropyHessiansParam
 from cupid_matching.matching_utils import Matching
-from cupid_matching.utils import NestsList, _change_indices
+from cupid_matching.utils import NestsList, change_indices
 
 
 def e0_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndarray:
@@ -29,8 +30,8 @@ def e0_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.nda
         of the first derivative of the entropy.
     """
     nests_for_each_x, nests_for_each_y = additional_parameters
-    nests_x = _change_indices(nests_for_each_x)
-    nests_y = _change_indices(nests_for_each_y)
+    nests_x = change_indices(nests_for_each_x)
+    nests_y = change_indices(nests_for_each_y)
     muxy, mux0, mu0y, *_ = muhat.unpack()
     X, Y = muxy.shape
     e0_vals = np.zeros((X, Y))
@@ -63,8 +64,8 @@ def e0_derivative_mu_nested_logit(
         wrt $(\\mu,\\mu)$.
     """
     nests_for_each_x, nests_for_each_y = additional_parameters
-    nests_x = _change_indices(nests_for_each_x)
-    nests_y = _change_indices(nests_for_each_y)
+    nests_x = change_indices(nests_for_each_x)
+    nests_y = change_indices(nests_for_each_y)
     muxy, mux0, mu0y, *_ = muhat.unpack()
     X, Y = muxy.shape
 
@@ -112,8 +113,8 @@ def e0_derivative_r_nested_logit(
         wrt $(\\mu,r)$.
     """
     nests_for_each_x, nests_for_each_y = additional_parameters
-    nests_x = _change_indices(nests_for_each_x)
-    nests_y = _change_indices(nests_for_each_y)
+    nests_x = change_indices(nests_for_each_x)
+    nests_y = change_indices(nests_for_each_y)
     muxy, mux0, mu0y, n, m = muhat.unpack()
     X, Y = muxy.shape
 
@@ -155,8 +156,8 @@ def e_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndar
         of the first derivative of the entropy.
     """
     nests_for_each_x, nests_for_each_y = additional_parameters
-    nests_x = _change_indices(nests_for_each_x)
-    nests_y = _change_indices(nests_for_each_y)
+    nests_x = change_indices(nests_for_each_x)
+    nests_y = change_indices(nests_for_each_y)
     n_rhos = len(nests_for_each_x)
     n_deltas = len(nests_for_each_y)
     n_alpha = n_rhos + n_deltas
@@ -196,8 +197,8 @@ def e_derivative_mu_nested_logit(
         wrt $(\\mu,\\mu)$.
     """
     nests_for_each_x, nests_for_each_y = additional_parameters
-    nests_x = _change_indices(nests_for_each_x)
-    nests_y = _change_indices(nests_for_each_y)
+    nests_x = change_indices(nests_for_each_x)
+    nests_y = change_indices(nests_for_each_y)
     n_rhos = len(nests_for_each_x)
     n_deltas = len(nests_for_each_y)
     n_alpha = n_rhos + n_deltas
