@@ -53,7 +53,7 @@ def _ipfp_check_sizes(
     return X, Y
 
 
-def ipfp_homoskedastic_nosingles_solver(
+def ipfp_homoskedastic_no_singles_solver(
     Phi: np.ndarray,
     men_margins: np.ndarray,
     women_margins: np.ndarray,

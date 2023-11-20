@@ -56,8 +56,6 @@ def _entropy_choo_siow_no_singles(
             for x in range(X):
                 for y in range(Y):
                     der2_xyzt[x, y, x, y] = -2.0 / muxy[x, y]
-                    der2_xyr[x, y, x] = 1.0 / logn[x]
-                    der2_xyr[x, y, X + y] = 1.0 / logm[y]
             return val_entropy, der_xy, der2_xyzt, der2_xyr
     else:
         bs_error_abort("deriv should be 0, 1, or 2")
@@ -79,15 +77,13 @@ def _der_entropy_choo_siow_no_singles_corrected(
         if hessian is True, the (X,Y,X,Y) array of the second derivative wrt $(\\mu,\\mu)$
           and the (X,Y,X+Y) second derivatives wrt $(\\mu,(n,m))$
     """
-    muxy, *_, n, m = muhat.unpack()
+    muxy, *_ = muhat.unpack()
     n_households = np.sum(muxy)
 
     muxy_corr = muxy + (1.0 - muxy / n_households) / 2.0
     logxy = np.log(muxy_corr)
-    logn = np.log(n)
-    logm = np.log(m)
 
-    der_xy = -2.0 * logxy
+    der_xy = -2.0 * (logxy + 1.0)
     if not hessian:
         return der_xy
     else:  # we compute_ the Hessians
@@ -99,8 +95,6 @@ def _der_entropy_choo_siow_no_singles_corrected(
         for x in range(X):
             for y in range(Y):
                 der2_xyzt[x, y, x, y] = -2.0 * derlogxy[x, y]
-                der2_xyr[x, y, x] = 1.0 / logn[x]
-                der2_xyr[x, y, X + y] = 1.0 / logm[y]
         return der_xy, der2_xyzt, der2_xyr
 
 
@@ -134,7 +128,7 @@ def e0_fun_choo_siow_no_singles_corrected(muhat: Matching) -> np.ndarray:
 
 
 def hessian_mumu_choo_siow_no_singles(muhat: Matching) -> ThreeArrays:
-    """Returns the hessan of $e_0$ wrt $(\\mu,\\mu)$ for the Choo and Siow model w/o singles.
+    """Returns the hessian of $e_0$ wrt $(\\mu,\\mu)$ for the Choo and Siow model w/o singles.
 
     Args:
         muhat: a `Matching`
@@ -174,8 +168,7 @@ def hessian_mumu_choo_siow_no_singles_corrected(muhat: Matching) -> ThreeArrays:
         tuple[float, np.ndarray, np.ndarray, np.ndarray],
         _der_entropy_choo_siow_no_singles_corrected(muhat, hessian=True),
     )
-    muxy, *_ = muhat.unpack()
-    X, Y = muxy.shape
+    X, Y = muhat.muxy.shape
     hess_x = np.zeros((X, Y, Y))
     hess_y = np.zeros((X, Y, X))
     hess_xy = np.zeros((X, Y))
@@ -197,19 +190,9 @@ def hessian_mur_choo_siow_no_singles(muhat: Matching) -> TwoArrays:
     Returns:
         the two components of the hessian of the entropy wrt $(\\mu,r)$
     """
-    *_, hessmur = cast(
-        tuple[float, np.ndarray, np.ndarray, np.ndarray],
-        _entropy_choo_siow_no_singles(muhat, deriv=2),
-    )
-    muxy, *_ = muhat.unpack()
-    X, Y = muxy.shape
+    X, Y = muhat.muxy.shape
     hess_nx = np.zeros((X, Y))
     hess_my = np.zeros((X, Y))
-    for x in range(X):
-        for y in range(Y):
-            d2r = hessmur[x, y, :]
-            hess_nx[x, y] = d2r[x]
-            hess_my[x, y] = d2r[X + y]
     return hess_nx, hess_my
 
 
@@ -222,19 +205,9 @@ def hessian_mur_choo_siow_no_singles_corrected(muhat: Matching) -> TwoArrays:
     Returns:
         the two components of the hessian  of the entropy wrt $(\\mu,r)$
     """
-    *_, hessmur = cast(
-        tuple[float, np.ndarray, np.ndarray, np.ndarray],
-        _der_entropy_choo_siow_no_singles_corrected(muhat, hessian=True),
-    )
-    muxy, *_ = muhat.unpack()
-    X, Y = muxy.shape
+    X, Y = muhat.muxy.shape
     hess_nx = np.zeros((X, Y))
     hess_my = np.zeros((X, Y))
-    for x in range(X):
-        for y in range(Y):
-            d2r = hessmur[x, y, :]
-            hess_nx[x, y] = d2r[x]
-            hess_my[x, y] = d2r[X + y]
     return hess_nx, hess_my
 
 

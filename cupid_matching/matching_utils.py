@@ -70,7 +70,6 @@ class Matching:
         return repr_str
 
     def __post_init__(self):
-        # print('inside __post_init__ method')
         X, Y = check_matrix(self.muxy)
         Xn = check_vector(self.n)
         Ym = check_vector(self.m)
@@ -135,7 +134,8 @@ def simulate_sample_from_mus(
     # make sure we have no zeros
     _MU_EPS = min(1, int(1e-3 * n_households))
     if no_singles:
-        pvec = muxy / np.sum(muxy)
+        pvec = muxy.reshape(XY)
+        pvec /= np.sum(pvec)
         matches = rng.multinomial(n_households, pvec)
         muxy_sim = matches.reshape((X, Y))
         mux0_sim = np.full(X, _MU_EPS)

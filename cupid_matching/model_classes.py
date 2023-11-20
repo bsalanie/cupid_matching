@@ -14,7 +14,7 @@ from bs_python_utils.bsutils import bs_error_abort, print_stars
 
 from cupid_matching.ipfp_solvers import (
     IPFPNoGradientResults,
-    ipfp_homoskedastic_nosingles_solver,
+    ipfp_homoskedastic_no_singles_solver,
     ipfp_homoskedastic_solver,
 )
 from cupid_matching.matching_utils import (
@@ -82,7 +82,7 @@ class ChooSiowPrimitivesNoSingles:
     def ipfp_solve(self) -> Matching:
         muxy, *_ = cast(
             ThreeArrays,
-            ipfp_homoskedastic_nosingles_solver(self.Phi, self.n, self.m),
+            ipfp_homoskedastic_no_singles_solver(self.Phi, self.n, self.m),
         )
         return Matching(muxy, self.n, self.m, no_singles=True)
 

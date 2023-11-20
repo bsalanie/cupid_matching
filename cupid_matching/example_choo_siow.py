@@ -49,7 +49,8 @@ def mde_estimate(
     phi_bases: np.ndarray,
     betas_true: np.ndarray,
     entropy: EntropyFunctions,
-    title: str,
+    no_singles: bool = False,
+    title: str | None = None,
 ) -> float:
     """we estimate the parameters using the minimum distance estimator
 
@@ -58,13 +59,16 @@ def mde_estimate(
         phi_bases: the basis functions
         betas_true: their true coefficients
         entropy: the entropy functions we use
+        no_singles: if `True`, we use the no-singles version of the model
         title: the name of the estimator
 
     Returns:
         the largest absolute difference between the true and estimated coefficients
     """
     print_stars(f"    {title}")
-    mde_results = estimate_semilinear_mde(mus_sim, phi_bases, entropy)
+    mde_results = estimate_semilinear_mde(
+        mus_sim, phi_bases, entropy, no_singles=no_singles
+    )
     mde_discrepancy = mde_results.print_results(true_coeffs=betas_true)
     return cast(float, mde_discrepancy)
 
@@ -96,28 +100,28 @@ def demo_choo_siow(
         phi_bases,
         betas_true,
         entropy_choo_siow,
-        "RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
+        title="RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
     )
     mde_discrepancy_numeric = mde_estimate(
         mus_sim,
         phi_bases,
         betas_true,
         entropy_choo_siow_numeric,
-        "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
+        title="RESULTS FOR MDE WITH NUMERICAL GRADIENT",
     )
     mde_discrepancy_corrected = mde_estimate(
         mus_sim,
         phi_bases,
         betas_true,
         entropy_choo_siow_corrected,
-        "RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT",
+        title="RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT",
     )
     mde_discrepancy_corrected_numeric = mde_estimate(
         mus_sim,
         phi_bases,
         betas_true,
         entropy_choo_siow_corrected_numeric,
-        "RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
+        title="RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
     )
 
     # we also estimate using Poisson GLM
@@ -152,7 +156,7 @@ if __name__ == "__main__":
     ) = demo_choo_siow(n_households, X, Y, K, std_betas=std_betas)
 
     print_stars(
-        "Largest absolute differences between the true and estimated coefficcients:"
+        "Largest absolute differences between the true and estimated coefficients:"
     )
     print(f"MDE:                            {mde_discrepancy: .2e}")
     print(f"MDE numeric:                    {mde_discrepancy_numeric: .2e}")

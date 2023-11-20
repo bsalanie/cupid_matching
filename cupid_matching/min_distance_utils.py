@@ -6,7 +6,45 @@ from typing import cast
 import numpy as np
 import scipy.linalg as spla
 from bs_python_utils.bsnputils import npmaxabs
-from bs_python_utils.bsutils import print_stars
+from bs_python_utils.bsutils import bs_error_abort, print_stars
+
+
+def make_D2_matrix(X: int, Y: int) -> np.ndarray:
+    """create the double difference matrix for use w/o singles
+
+    Args:
+        X: number of types of men
+        Y: number of types of women
+
+    Returns:
+        np.ndarray:  an (XY, XY) matrix
+    """
+    XY = X * Y
+    D2_mat = np.ones((XY, XY)) / XY + np.eye(XY)
+    for x in range(X):
+        slice_x = slice(x * Y, x * Y + Y)
+        D2_mat[slice_x, slice_x] -= 1.0 / Y
+    for y in range(Y):
+        slice_y = slice(y, XY, Y)
+        D2_mat[slice_y, slice_y] -= 1.0 / X
+    return D2_mat
+
+
+def check_indep_phi_no_singles(D2_phi: np.ndarray, X: int, Y: int) -> None:
+    """check that the double difference of the phi matrix has full column rank;
+        if so, return it
+
+    Args:
+        D2_phi: an $(X*Y, K)$ matrix of double differences
+        X: number of types of men
+        Y: number of types of women
+
+    Returns:
+        nothing
+    """
+    actual_rank = np.linalg.matrix_rank(D2_phi)  # Compute the matrix rank
+    if actual_rank != D2_phi.shape[1]:
+        bs_error_abort(f"phi_mat only has rank {actual_rank}.")
 
 
 def compute_estimates(

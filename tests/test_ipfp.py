@@ -4,6 +4,7 @@ from pytest import fixture
 from cupid_matching.ipfp_solvers import (
     ipfp_gender_heteroskedastic_solver,
     ipfp_heteroskedastic_solver,
+    ipfp_homoskedastic_no_singles_solver,
     ipfp_homoskedastic_solver,
 )
 from cupid_matching.matching_utils import Matching
@@ -19,6 +20,16 @@ def _matching_phi():
     _, mux0, mu0y, *_ = mus.unpack()
     phi = 2.0 * np.log(muxy) - np.log(mu0y)
     phi -= np.log(mux0).reshape((-1, 1))
+    return mus, phi
+
+
+@fixture
+def _matching_phi_no_singles():
+    muxy = np.array([[1, 2, 1], [2, 1, 2], [1, 2, 1], [1, 1, 3]])
+    n = np.sum(muxy, 1)
+    m = np.sum(muxy, 0)
+    mus = Matching(muxy, n, m, no_singles=True)
+    phi = 2.0 * np.log(muxy)
     return mus, phi
 
 
@@ -62,6 +73,13 @@ def test_ipfp_homo(_matching_phi):
     assert np.allclose(mus.mu0y, mu0y_th)
 
 
+def test_ipfp_homo_no_singles(_matching_phi_no_singles):
+    mus_th, phi = _matching_phi_no_singles
+    muxy_th, *_, n_th, m_th = mus_th.unpack()
+    muxy, *_ = ipfp_homoskedastic_no_singles_solver(phi, n_th, m_th)
+    assert np.allclose(muxy, muxy_th)
+
+
 def test_ipfp_gender_hetero(_matching_phi_gender_hetero):
     mus_th, phi, tau = _matching_phi_gender_hetero
     muxy_th, mux0_th, mu0y_th, n_th, m_th = mus_th.unpack()
@@ -78,12 +96,3 @@ def test_ipfp_hetero(_matching_phi_hetero):
     assert np.allclose(mus.muxy, muxy_th)
     assert np.allclose(mus.mux0, mux0_th)
     assert np.allclose(mus.mu0y, mu0y_th)
-
-
-# def test_ipfp_hetero(_matching_phi_hetero):
-#     mus_th, phi, tau = _matching_phi_hetero
-#     muxy_th, mux0_th, mu0y_th, n_th, m_th = mus_th.unpack()
-#     mus, *_ = ipfp_gender_heteroskedastic_solver(phi, n_th, m_th, tau=tau)
-#     assert np.allclose(mus.muxy, muxy_th)
-#     assert np.allclose(mus.mux0, mux0_th)
-#     assert np.allclose(mus.mu0y, mu0y_th)
