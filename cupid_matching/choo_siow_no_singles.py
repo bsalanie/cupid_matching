@@ -1,5 +1,4 @@
-"""The components of the derivative of the entropy
-for the Choo and Siow homoskedastic model w/o singles.
+"""The components of the derivative of the entropy for the Choo and Siow homoskedastic model w/o singles.
 """
 
 from typing import cast
@@ -146,11 +145,9 @@ def hessian_mumu_choo_siow_no_singles(muhat: Matching) -> ThreeArrays:
     hess_y = np.zeros((X, Y, X))
     hess_xy = np.zeros((X, Y))
     for x in range(X):
+        d2x = hessmumu[x, :, x, :]
         for y in range(Y):
-            d2xy = hessmumu[x, y, :, :]
-            hess_x[x, y, :] = d2xy[x, :]
-            hess_y[x, y, :] = d2xy[:, y]
-            hess_xy[x, y] = d2xy[x, y]
+            hess_xy[x, y] = d2x[y, y]
     return hess_x, hess_y, hess_xy
 
 
@@ -164,8 +161,8 @@ def hessian_mumu_choo_siow_no_singles_corrected(muhat: Matching) -> ThreeArrays:
     Returns:
         the three components of the hessian of the entropy wrt $(\\mu,\\mu)$
     """
-    _, _, hessmumu, _ = cast(
-        tuple[float, np.ndarray, np.ndarray, np.ndarray],
+    _, hessmumu, _ = cast(
+        tuple[np.ndarray, np.ndarray, np.ndarray],
         _der_entropy_choo_siow_no_singles_corrected(muhat, hessian=True),
     )
     X, Y = muhat.muxy.shape
@@ -173,11 +170,9 @@ def hessian_mumu_choo_siow_no_singles_corrected(muhat: Matching) -> ThreeArrays:
     hess_y = np.zeros((X, Y, X))
     hess_xy = np.zeros((X, Y))
     for x in range(X):
+        d2x = hessmumu[x, :, x, :]
         for y in range(Y):
-            d2xy = hessmumu[x, y, :, :]
-            hess_x[x, y, :] = d2xy[x, :]
-            hess_y[x, y, :] = d2xy[:, y]
-            hess_xy[x, y] = d2xy[x, y]
+            hess_xy[x, y] = d2x[y, y]
     return hess_x, hess_y, hess_xy
 
 

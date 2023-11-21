@@ -3,6 +3,7 @@ from bs_python_utils.bsutils import print_stars
 
 from cupid_matching.choo_siow_no_singles import (
     entropy_choo_siow_no_singles,
+    entropy_choo_siow_no_singles_numeric,
 )
 from cupid_matching.example_choo_siow import mde_estimate
 from cupid_matching.model_classes import ChooSiowPrimitivesNoSingles
@@ -27,12 +28,16 @@ def create_choosiow_population_no_singles(
     """
     betas_true = std_betas * np.random.randn(K)
     phi_bases = np.zeros((X, Y, K))
-    range_X, range_Y = np.arange(1, X + 1) / (X + 1), np.arange(1, Y + 1) / (Y + 1)
+    range_X, range_Y = (
+        np.arange(1, X + 1, dtype=float) / X,
+        np.arange(1, Y + 1, dtype=float) / Y,
+    )
     for k in range(1, K + 1):
         phi_bases[:, :, k - 1] = np.outer(range_X**k, range_Y)
     n = np.ones(X)
     m = np.full(Y, X / float(Y))  # we want as many men as women
     Phi = phi_bases @ betas_true
+    print(f"{Phi=}")
     choo_siow_instance = ChooSiowPrimitivesNoSingles(Phi, n, m)
     return choo_siow_instance, phi_bases, betas_true
 
@@ -71,26 +76,29 @@ def demo_choo_siow_no_singles(
         no_singles=True,
         title="RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
     )
-    # mde_discrepancy_numeric = mde_estimate(
-    #     mus_sim,
-    #     phi_bases,
-    #     betas_true,
-    #     entropy_choo_siow_no_singles_numeric,
-    #     "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
-    # )
+    mde_discrepancy_numeric = mde_estimate(
+        mus_sim,
+        phi_bases,
+        betas_true,
+        entropy_choo_siow_no_singles_numeric,
+        no_singles=True,
+        title="RESULTS FOR MDE WITH NUMERICAL GRADIENT",
+    )
     # mde_discrepancy_corrected = mde_estimate(
     #     mus_sim,
     #     phi_bases,
     #     betas_true,
     #     entropy_choo_siow_no_singles_corrected,
-    #     "RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT",
+    #     no_singles=True,
+    #     title="RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT",
     # )
     # mde_discrepancy_corrected_numeric = mde_estimate(
     #     mus_sim,
     #     phi_bases,
     #     betas_true,
     #     entropy_choo_siow_no_singles_corrected_numeric,
-    #     "RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
+    #     no_singles=True,
+    #     title="RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
     # )
 
     # # we also estimate using Poisson GLM
@@ -104,7 +112,7 @@ def demo_choo_siow_no_singles(
     # )
     return (
         mde_discrepancy,
-        # mde_discrepancy_numeric,
+        mde_discrepancy_numeric,
         # mde_discrepancy_corrected,
         # mde_discrepancy_corrected_numeric,
         # cast(float, poisson_discrepancy),
@@ -113,20 +121,20 @@ def demo_choo_siow_no_singles(
 
 def test_choo_siow_no_singles():
     n_households = 100_000_000
-    X, Y = 10, 15
+    X, Y = 5, 5
     K = 2
-    std_betas = 0.5
+    std_betas = 2.0
     TOL_CS = 1e-1
 
     (
         mde_discrepancy,
-        # mde_discrepancy_numeric,
+        mde_discrepancy_numeric,
         # mde_discrepancy_corrected,
         # mde_discrepancy_corrected_numeric,
         # poisson_discrepancy,
     ) = demo_choo_siow_no_singles(n_households, X, Y, K, std_betas=std_betas)
     assert mde_discrepancy < TOL_CS
-    # assert mde_discrepancy_numeric < TOL_CS
+    assert mde_discrepancy_numeric < TOL_CS
     # assert mde_discrepancy_corrected < TOL_CS
     # assert mde_discrepancy_corrected_numeric < TOL_CS
     # assert poisson_discrepancy < TOL_CS
@@ -134,7 +142,11 @@ def test_choo_siow_no_singles():
         "Largest absolute differences between the true and estimated coefficients:"
     )
     print(f"MDE:                            {mde_discrepancy: .2e}")
-    # print(f"MDE numeric:                    {mde_discrepancy_numeric: .2e}")
+    print(f"MDE numeric:                    {mde_discrepancy_numeric: .2e}")
     # print(f"MDE corrected:                  {mde_discrepancy_corrected: .2e}")
     # print(f"MDE corrected numeric:          {mde_discrepancy_corrected_numeric: .2e}")
     # print(f"Poisson:                        {poisson_discrepancy: .2e}")
+
+
+if __name__ == "__main__":
+    test_choo_siow_no_singles()

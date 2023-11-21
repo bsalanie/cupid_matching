@@ -115,9 +115,14 @@ def estimate_semilinear_mde(
     phi_mat = make_XY_K_mat(phi_bases)
     if no_singles:
         D2_mat = make_D2_matrix(X, Y)
+        # print(f"{D2_mat=}")
+        # print(f"first {phi_mat=}")
+        phi_mat = D2_mat @ phi_mat
+        # print(f"second {phi_mat=}")
         check_indep_phi_no_singles(phi_mat, X, Y)
         X1Y1 = (X - 1) * (Y - 1)  # number of double differences
         phi_mat = phi_mat[:X1Y1, :]
+        # print(f"third {phi_mat=}")
 
     e0_fun = entropy.e0_fun
     if additional_parameters is None:
@@ -130,6 +135,7 @@ def estimate_semilinear_mde(
     if no_singles:
         e0_hat = D2_mat @ e0_hat
         e0_hat = e0_hat[:X1Y1]
+        # print(f"{e0_hat=}")
 
     if not parameterized_entropy:  # we only have e0(mu,r)
         n_pars = K
@@ -164,10 +170,12 @@ def estimate_semilinear_mde(
         if no_singles:
             hessians_both = D2_mat @ hessians_both
             hessians_both = hessians_both[:X1Y1, :]
+            print(f"{hessians_both=}")
 
         var_muhat = variance_muhat(muhat)
         var_munm = var_muhat.var_munm
         var_entropy_gradient = hessians_both @ var_munm @ hessians_both.T
+        print(f"{var_entropy_gradient=}")
         S_mat = spla.inv(var_entropy_gradient)
         # print("Altering S_mat to identity")
         # S_mat = np.eye(S_mat.shape[0])
