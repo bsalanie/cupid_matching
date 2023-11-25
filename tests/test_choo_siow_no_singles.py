@@ -27,17 +27,18 @@ def create_choosiow_population_no_singles(
             a `ChooSiowPrimitives` instance, the basis functions, and the coefficients
     """
     betas_true = std_betas * np.random.randn(K)
-    phi_bases = np.zeros((X, Y, K))
-    range_X, range_Y = (
-        np.arange(1, X + 1, dtype=float) / X,
-        np.arange(1, Y + 1, dtype=float) / Y,
-    )
-    for k in range(1, K + 1):
-        phi_bases[:, :, k - 1] = np.outer(range_X**k, range_Y)
+    rng = np.random.default_rng(453)
+    phi_bases = rng.uniform(size=(X, Y, K))
+    # range_X, range_Y = (
+    #     np.arange(1, X + 1, dtype=float) * 2.0 / X,
+    #     np.arange(1, Y + 1, dtype=float) * 2.0 / Y,
+    # )
+    # for k in range(1, K + 1):
+    #     phi_bases[:, :, k - 1] = np.outer(range_X**k, range_Y)
     n = np.ones(X)
     m = np.full(Y, X / float(Y))  # we want as many men as women
     Phi = phi_bases @ betas_true
-    print(f"{Phi=}")
+    # print(f"{Phi=}")
     choo_siow_instance = ChooSiowPrimitivesNoSingles(Phi, n, m)
     return choo_siow_instance, phi_bases, betas_true
 
@@ -62,10 +63,24 @@ def demo_choo_siow_no_singles(
         X, Y, K, std_betas
     )
     mus_sim = choo_siow_instance.simulate(n_households)
+    # muxy = mus_sim.muxy.reshape(X * Y)
+    # phi_mat = phi_bases.reshape((X * Y, K))
+    # Phi = phi_mat @ betas_true
+    # D2 = make_D2_matrix(X, Y)
+    # print(f"{D2 @ Phi=}")
+    # print(f"{2.0 * D2 @ np.log(muxy)=}")
+    # assert np.allclose(D2 @ Phi, 2.0 * D2 @ np.log(muxy), atol=1e-2)
+
+    # beta_est = spla.solve(
+    #     phi_mat.T @ D2.T @ D2 @ phi_mat, 2.0 * phi_mat.T @ D2.T @ D2 @ np.log(muxy)
+    # )
+    # assert np.allclose(beta_est, betas_true, atol=1e-2)
+    # print(f"{np.column_stack((beta_est, betas_true))=}")
+
     # print(f"{(mus_sim.muxy**2)/np.exp(choo_siow_instance.Phi)=}")
     # print(f"{mus_sim.n=}")
     # print(f"{mus_sim.m=}")
-    print(f"{mus_sim.muxy=}")
+    # print(f"{mus_sim.muxy=}")
 
     # we estimate using four variants of the minimum distance estimator
     mde_discrepancy = mde_estimate(
@@ -121,9 +136,9 @@ def demo_choo_siow_no_singles(
 
 def test_choo_siow_no_singles():
     n_households = 100_000_000
-    X, Y = 5, 5
-    K = 2
-    std_betas = 2.0
+    X, Y = 15, 10
+    K = 8
+    std_betas = 0.5
     TOL_CS = 1e-1
 
     (

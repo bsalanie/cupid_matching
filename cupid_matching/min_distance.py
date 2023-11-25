@@ -7,7 +7,7 @@ from typing import cast
 import numpy as np
 import scipy.linalg as spla
 import scipy.stats as sts
-from bs_python_utils.bsutils import bs_error_abort, print_stars
+from bs_python_utils.bsutils import print_stars
 
 from cupid_matching.entropy import (
     EntropyFunctions,
@@ -17,8 +17,6 @@ from cupid_matching.entropy import (
     EntropyHessianMuRParam,
     EntropyHessians,
     EntropyHessiansParam,
-    fill_hessianMuMu_from_components,
-    fill_hessianMuR_from_components,
     numeric_hessian,
 )
 from cupid_matching.matching_utils import (
@@ -29,9 +27,12 @@ from cupid_matching.matching_utils import (
 )
 from cupid_matching.min_distance_utils import (
     MDEResults,
+    check_args_mde,
     check_indep_phi_no_singles,
     compute_estimates,
+    get_initial_weighting_matrix,
     make_D2_matrix,
+    make_hessian_mde,
 )
 from cupid_matching.utils import make_XY_K_mat
 
@@ -91,37 +92,22 @@ def estimate_semilinear_mde(
         ```
 
     """
-    muxyhat, _, _, nhat, mhat = muhat.unpack()
-    X, Y = muxyhat.shape
+    X, Y, K = check_args_mde(muhat, phi_bases)
     XY = X * Y
-    ndims_phi = phi_bases.ndim
-    if ndims_phi != 3:
-        bs_error_abort(f"phi_bases should have 3 dimensions, not {ndims_phi}")
-    Xp, Yp, K = phi_bases.shape
-    if Xp != X or Yp != Y:
-        bs_error_abort(
-            f"phi_bases should have shape ({X}, {Y}, {K}) not ({Xp}, {Yp}, {K})"
-        )
     parameterized_entropy = entropy.parameter_dependent
-    if parameterized_entropy:
-        if initial_weighting_matrix is None:
-            print_stars(
-                "Using the identity matrix as weighting matrix in the first step."
-            )
-            S_mat = np.eye(XY)
-        else:
-            S_mat = initial_weighting_matrix
+    S_mat = get_initial_weighting_matrix(
+        parameterized_entropy, initial_weighting_matrix, XY
+    )
 
     phi_mat = make_XY_K_mat(phi_bases)
     if no_singles:
         D2_mat = make_D2_matrix(X, Y)
-        # print(f"{D2_mat=}")
+        # print(f"{X=}, {Y=}")
+        # print(f"{D2_mat.shape=}")
         # print(f"first {phi_mat=}")
         phi_mat = D2_mat @ phi_mat
         # print(f"second {phi_mat=}")
         check_indep_phi_no_singles(phi_mat, X, Y)
-        X1Y1 = (X - 1) * (Y - 1)  # number of double differences
-        phi_mat = phi_mat[:X1Y1, :]
         # print(f"third {phi_mat=}")
 
     e0_fun = entropy.e0_fun
@@ -134,7 +120,6 @@ def estimate_semilinear_mde(
     e0_hat = e0_vals.ravel()
     if no_singles:
         e0_hat = D2_mat @ e0_hat
-        e0_hat = e0_hat[:X1Y1]
         # print(f"{e0_hat=}")
 
     if not parameterized_entropy:  # we only have e0(mu,r)
@@ -164,21 +149,21 @@ def estimate_semilinear_mde(
                 hessian_components_mumu,
                 hessian_components_mur,
             ) = hessian_components
-        hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
-        hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
-        hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
+
+        hessians_both = make_hessian_mde(
+            hessian_components_mumu, hessian_components_mur
+        )
         if no_singles:
             hessians_both = D2_mat @ hessians_both
-            hessians_both = hessians_both[:X1Y1, :]
-            print(f"{hessians_both=}")
+            print(f"{hessians_both.shape=}")
 
         var_muhat = variance_muhat(muhat)
         var_munm = var_muhat.var_munm
         var_entropy_gradient = hessians_both @ var_munm @ hessians_both.T
         print(f"{var_entropy_gradient=}")
         S_mat = spla.inv(var_entropy_gradient)
-        # print("Altering S_mat to identity")
-        # S_mat = np.eye(S_mat.shape[0])
+        print("Altering S_mat to identity")
+        S_mat = np.eye(S_mat.shape[0])
         # print(f"{phi_mat=}")
         # print(f"{e0_hat=}")
         # print(f"{spla.solve(phi_mat.T @ phi_mat, phi_mat.T @ e0_hat)=}")
@@ -199,7 +184,6 @@ def estimate_semilinear_mde(
         e_hat = make_XY_K_mat(e_vals)
         if no_singles:
             e0_hat = D2_mat @ e0_hat
-            e0_hat = e0_hat[:X1Y1]
 
         F_hat = np.column_stack((e_hat, phi_mat))
         n_pars = e_hat.shape[1] + K
@@ -245,7 +229,7 @@ def estimate_semilinear_mde(
                 print_stars("First-stage estimates:")
                 print(first_coeffs)
 
-            hessian_components_mumu1 = (
+            hessian_components_mumu = (
                 hessian_components_mumu_e0[0]
                 + hessian_components_mumu_e[0] @ first_alpha,
                 hessian_components_mumu_e0[1]
@@ -253,14 +237,12 @@ def estimate_semilinear_mde(
                 hessian_components_mumu_e0[2]
                 + hessian_components_mumu_e[2] @ first_alpha,
             )
-            hessian_components_mur1 = (
+            hessian_components_mur = (
                 hessian_components_mur_e0[0]
                 + hessian_components_mur_e[0] @ first_alpha,
                 hessian_components_mur_e0[1]
                 + hessian_components_mur_e[1] @ first_alpha,
             )
-            hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu1)
-            hessian_mur = fill_hessianMuR_from_components(hessian_components_mur1)
         else:  # numeric hessian
             if additional_parameters is None:
                 hessian_components = numeric_hessian(entropy, muhat, alpha=first_alpha)
@@ -275,13 +257,12 @@ def estimate_semilinear_mde(
                 hessian_components_mumu,
                 hessian_components_mur,
             ) = hessian_components
-            hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
-            hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
 
-        hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
+        hessians_both = make_hessian_mde(
+            hessian_components_mumu, hessian_components_mur
+        )
         if no_singles:
             hessians_both = D2_mat @ hessians_both
-            hessians_both = hessians_both[:X1Y1, :]
 
         varmus = variance_muhat(muhat)
         var_munm = varmus.var_munm
@@ -289,6 +270,8 @@ def estimate_semilinear_mde(
         S_mat = spla.inv(var_entropy_gradient)
 
         # second pass
+        print("Again, altering S_mat to identity")
+        S_mat = np.eye(S_mat.shape[0])
         estimated_coefficients, varcov_coefficients = compute_estimates(
             F_hat, S_mat, e0_hat
         )
@@ -301,8 +284,9 @@ def estimate_semilinear_mde(
         residuals = est_Phi + e0_hat + e_hat @ est_alpha
 
     value_obj = residuals.T @ S_mat @ residuals
-    ndf = X1Y1 - n_pars if no_singles else XY - n_pars
+    ndf = (X - 1) * (Y - 1) - n_pars if no_singles else XY - n_pars
     test_stat = value_obj
+    muxyhat, *_, nhat, mhat = muhat.unpack()
     n_individuals = np.sum(nhat) + np.sum(mhat)
     n_households = n_individuals - np.sum(muxyhat)
 

@@ -1,12 +1,60 @@
 """Utility programs used in `min_distance.py`.
 """
+
 from dataclasses import dataclass
 from typing import cast
 
 import numpy as np
 import scipy.linalg as spla
-from bs_python_utils.bsnputils import npmaxabs
+from bs_python_utils.bsnputils import ThreeArrays, TwoArrays, npmaxabs
 from bs_python_utils.bsutils import bs_error_abort, print_stars
+
+from cupid_matching.entropy import (
+    fill_hessianMuMu_from_components,
+    fill_hessianMuR_from_components,
+)
+from cupid_matching.matching_utils import Matching
+
+
+def check_args_mde(muhat: Matching, phi_bases: np.ndarray) -> tuple[int, int, int]:
+    """check that the arguments to the MDE are consistent"""
+    muxyhat, *_ = muhat.unpack()
+    X, Y = muxyhat.shape
+    ndims_phi = phi_bases.ndim
+    if ndims_phi != 3:
+        bs_error_abort(f"phi_bases should have 3 dimensions, not {ndims_phi}")
+    Xp, Yp, K = phi_bases.shape
+    if Xp != X or Yp != Y:
+        bs_error_abort(
+            f"phi_bases should have shape ({X}, {Y}, {K}) not ({Xp}, {Yp}, {K})"
+        )
+    return X, Y, K
+
+
+def get_initial_weighting_matrix(
+    parameterized_entropy: bool, initial_weighting_matrix: np.ndarray | None, XY: int
+) -> np.ndarray | None:
+    """returns the initial weighting matrix for the MDE when the entropy is parameterized
+
+    Args:
+        parameterized_entropy: if `True`, the entropy has unknown parameters
+        initial_weighting_matrix: the initial weighting matrix, if provided
+        XY: = X*Y
+
+    Returns:
+        the initial_weighting_matrix, or None if the entropy is not parameterized.
+    """
+    if parameterized_entropy:
+        if initial_weighting_matrix is None:
+            print_stars(
+                "Using the identity matrix as weighting matrix in the first step."
+            )
+            S_mat = np.eye(XY)
+        else:
+            S_mat = initial_weighting_matrix
+        return S_mat
+    else:
+        return
 
 
 def make_D2_matrix(X: int, Y: int) -> np.ndarray:
@@ -27,7 +75,8 @@ def make_D2_matrix(X: int, Y: int) -> np.ndarray:
     for y in range(Y):
         slice_y = slice(y, XY, Y)
         D2_mat[slice_y, slice_y] -= 1.0 / X
-    return D2_mat
+    X1Y1 = (X - 1) * (Y - 1)
+    return D2_mat[:X1Y1, :]
 
 
 def check_indep_phi_no_singles(D2_phi: np.ndarray, X: int, Y: int) -> None:
@@ -45,6 +94,15 @@ def check_indep_phi_no_singles(D2_phi: np.ndarray, X: int, Y: int) -> None:
     actual_rank = np.linalg.matrix_rank(D2_phi)  # Compute the matrix rank
     if actual_rank != D2_phi.shape[1]:
         bs_error_abort(f"phi_mat only has rank {actual_rank}.")
+
+
+def make_hessian_mde(
+    hessian_components_mumu: ThreeArrays, hessian_components_mur: TwoArrays
+) -> np.ndarray:
+    hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
+    hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
+    hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
+    return hessians_both
 
 
 def compute_estimates(
