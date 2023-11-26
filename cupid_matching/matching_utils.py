@@ -99,11 +99,13 @@ class Matching:
         return muxy, mux0, mu0y, self.n, self.m
 
 
-MatchingFunction = Callable[[Matching], np.ndarray]
+MatchingFunction = (
+    Callable[[Matching], np.ndarray] | Callable[[Matching, list], np.ndarray]
+)
 
-MatchingFunctionParam = Callable[[Matching, list[Any]], np.ndarray]
-"""Same with a list of additional parameters
-"""
+# MatchingFunctionParam = Callable[[Matching, list[Any]], np.ndarray]
+# """Same with a list of additional parameters
+# """
 
 
 def get_margins(mus: Matching) -> TwoArrays:

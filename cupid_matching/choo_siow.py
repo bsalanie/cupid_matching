@@ -1,28 +1,29 @@
-"""The components of the derivative of the entropy
-for the Choo and Siow homoskedastic model.
+"""The components of the derivative of the entropy for the Choo and Siow homoskedastic model.
 """
-from typing import Literal, cast, overload
+
+from typing import cast
 
 import numpy as np
-from bs_python_utils.bsnputils import FourArrays, ThreeArrays, TwoArrays, bs_error_abort
+from bs_python_utils.bsnputils import FourArrays, ThreeArrays, TwoArrays
+from bs_python_utils.bsutils import bs_error_abort
 
-from cupid_matching.entropy import EntropyFunctions, EntropyHessians
+from cupid_matching.entropy import (
+    EntropyFunctions,
+    EntropyHessians,
+    check_additional_parameters,
+)
 from cupid_matching.matching_utils import Matching
 
-
-@overload
-def _entropy_choo_siow(muhat: Matching, deriv: Literal[0]) -> np.ndarray:
-    ...
+# @overload
+# def _entropy_choo_siow(muhat: Matching, deriv: Literal[0]) -> np.ndarray: ...
 
 
-@overload
-def _entropy_choo_siow(muhat: Matching, deriv: Literal[1]) -> TwoArrays:
-    ...
+# @overload
+# def _entropy_choo_siow(muhat: Matching, deriv: Literal[1]) -> TwoArrays: ...
 
 
-@overload
-def _entropy_choo_siow(muhat: Matching, deriv: Literal[2]) -> FourArrays:
-    ...
+# @overload
+# def _entropy_choo_siow(muhat: Matching, deriv: Literal[2]) -> FourArrays: ...
 
 
 def _entropy_choo_siow(
@@ -142,7 +143,9 @@ def _der_entropy_choo_siow_corrected(
         return der_xy, der2_xyzt, der2_xyr
 
 
-def e0_fun_choo_siow(muhat: Matching) -> np.ndarray:
+def e0_fun_choo_siow(
+    muhat: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
     """Returns the values of $e_0$ for the Choo and Siow model.
 
     Args:
@@ -151,11 +154,14 @@ def e0_fun_choo_siow(muhat: Matching) -> np.ndarray:
     Returns:
         the (X,Y) matrix of the first derivative of the entropy
     """
+    check_additional_parameters(0, additional_parameters)
     entropy_res = _entropy_choo_siow(muhat, deriv=1)
     return cast(np.ndarray, entropy_res[1])
 
 
-def e0_fun_choo_siow_corrected(muhat: Matching) -> np.ndarray:
+def e0_fun_choo_siow_corrected(
+    muhat: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
     """Returns the values of $e_0$ for the Choo and Siow model,
     using the finite-sample correction log(p+(1-p)/(2N))
 
@@ -165,11 +171,14 @@ def e0_fun_choo_siow_corrected(muhat: Matching) -> np.ndarray:
     Returns:
         the (X,Y) matrix of the first derivative of the entropy
     """
+    check_additional_parameters(0, additional_parameters)
     e0_val_corrected = _der_entropy_choo_siow_corrected(muhat, hessian=False)
     return e0_val_corrected
 
 
-def hessian_mumu_choo_siow(muhat: Matching) -> ThreeArrays:
+def hessian_mumu_choo_siow(
+    muhat: Matching, additional_parameters: list | None = None
+) -> ThreeArrays:
     """Returns the derivatives of $e_0$ in $\\mu$
     for the Choo and Siow model.
 
@@ -179,6 +188,7 @@ def hessian_mumu_choo_siow(muhat: Matching) -> ThreeArrays:
     Returns:
         the three components of the hessian wrt $(\\mu,\\mu)$ of the entropy
     """
+    check_additional_parameters(0, additional_parameters)
     entropy_res = _entropy_choo_siow(muhat, deriv=2)
     hessmumu = entropy_res[2]
     muxy, *_ = muhat.unpack()
@@ -195,7 +205,9 @@ def hessian_mumu_choo_siow(muhat: Matching) -> ThreeArrays:
     return hess_x, hess_y, hess_xy
 
 
-def hessian_mumu_choo_siow_corrected(muhat: Matching) -> ThreeArrays:
+def hessian_mumu_choo_siow_corrected(
+    muhat: Matching, additional_parameters: list | None = None
+) -> ThreeArrays:
     """Returns the derivatives of $e_0$ in $\\mu$
     for the Choo and Siow model, with the small sample correction
 
@@ -205,6 +217,7 @@ def hessian_mumu_choo_siow_corrected(muhat: Matching) -> ThreeArrays:
     Returns:
         the three components of the hessian wrt $(\\mu,\\mu)$ of the entropy
     """
+    check_additional_parameters(0, additional_parameters)
     _, hessmumu, _ = _der_entropy_choo_siow_corrected(muhat, hessian=True)
     muxy, *_ = muhat.unpack()
     X, Y = muxy.shape
@@ -220,7 +233,9 @@ def hessian_mumu_choo_siow_corrected(muhat: Matching) -> ThreeArrays:
     return hess_x, hess_y, hess_xy
 
 
-def hessian_mur_choo_siow(muhat: Matching) -> TwoArrays:
+def hessian_mur_choo_siow(
+    muhat: Matching, additional_parameters: list | None = None
+) -> TwoArrays:
     """Returns the derivatives of $e_0$ in $r$
     for the Choo and Siow model.
 
@@ -230,6 +245,7 @@ def hessian_mur_choo_siow(muhat: Matching) -> TwoArrays:
     Returns:
         the two components of the hessian wrt $(\\mu,r)$ of the entropy
     """
+    check_additional_parameters(0, additional_parameters)
     entropy_res = _entropy_choo_siow(muhat, deriv=2)
     hessmur = entropy_res[3]
     muxy, *_ = muhat.unpack()
@@ -244,7 +260,9 @@ def hessian_mur_choo_siow(muhat: Matching) -> TwoArrays:
     return hess_nx, hess_my
 
 
-def hessian_mur_choo_siow_corrected(muhat: Matching) -> TwoArrays:
+def hessian_mur_choo_siow_corrected(
+    muhat: Matching, additional_parameters: list | None = None
+) -> TwoArrays:
     """Returns the derivatives of $e_0$ in $r$
     for the Choo and Siow model, with the small sample correction
 
@@ -254,6 +272,7 @@ def hessian_mur_choo_siow_corrected(muhat: Matching) -> TwoArrays:
     Returns:
         the two components of the hessian wrt $(\\mu,r)$ of the entropy
     """
+    check_additional_parameters(0, additional_parameters)
     _, _, hessmur = _der_entropy_choo_siow_corrected(muhat, hessian=True)
     muxy, *_ = muhat.unpack()
     X, Y = muxy.shape

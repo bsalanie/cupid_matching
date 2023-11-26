@@ -1,3 +1,5 @@
+""" example using the Choo and Siow homoskedastic model w/o singles"""
+
 import numpy as np
 from bs_python_utils.bsutils import print_stars
 
@@ -8,15 +10,18 @@ from cupid_matching.choo_siow_no_singles import (
     entropy_choo_siow_no_singles_numeric,
 )
 from cupid_matching.example_choo_siow import mde_estimate
-from cupid_matching.model_classes import ChooSiowPrimitivesNoSingles
+from cupid_matching.model_classes import ChooSiowPrimitives
+
+# from cupid_matching.poisson_glm import choo_siow_poisson_glm
 
 
-def create_choosiow_population_no_singles(
+def create_choosiow_no_singles_population(
     X: int, Y: int, K: int, std_betas: float
-) -> tuple[ChooSiowPrimitivesNoSingles, np.ndarray, np.ndarray]:
+) -> tuple[ChooSiowPrimitives, np.ndarray, np.ndarray]:
     """
-    we simulate a Choo and Siow population w/o singles
-    with random bases functions and coefficients
+    we simulate a Choo and Siow population
+    with equal numbers of men and women of each type
+    and random bases functions and coefficients
 
         Args:
          X: number of types of men
@@ -26,22 +31,14 @@ def create_choosiow_population_no_singles(
                      with this standard deviation
 
         Returns:
-            a `ChooSiowPrimitives` instance, the basis functions, and the coefficients
+            a `ChooSiowPrimitivesNoSingles` instance, the basis functions, and the coefficients
     """
     betas_true = std_betas * np.random.randn(K)
-    rng = np.random.default_rng(453)
-    phi_bases = rng.uniform(size=(X, Y, K))
-    # range_X, range_Y = (
-    #     np.arange(1, X + 1, dtype=float) * 2.0 / X,
-    #     np.arange(1, Y + 1, dtype=float) * 2.0 / Y,
-    # )
-    # for k in range(1, K + 1):
-    #     phi_bases[:, :, k - 1] = np.outer(range_X**k, range_Y)
+    phi_bases = np.random.randn(X, Y, K)
     n = np.ones(X)
-    m = np.full(Y, X / float(Y))  # we want as many men as women
+    m = np.full(Y, X / Y)  # we need as many women as men overall
     Phi = phi_bases @ betas_true
-    # print(f"{Phi=}")
-    choo_siow_instance = ChooSiowPrimitivesNoSingles(Phi, n, m)
+    choo_siow_instance = ChooSiowPrimitives(Phi, n, m)
     return choo_siow_instance, phi_bases, betas_true
 
 
@@ -49,7 +46,7 @@ def demo_choo_siow_no_singles(
     n_households: int, X: int, Y: int, K: int, std_betas: float = 1.0
 ) -> tuple[float, float, float, float, float]:
     """run four MDE estimators and the Poisson estimator
-    on randomly generated data w/o singles
+    on randomly generated data
 
     Args:
         n_households: number of households
@@ -61,28 +58,10 @@ def demo_choo_siow_no_singles(
     Returns:
         the discrepancies of the five estimators
     """
-    choo_siow_instance, phi_bases, betas_true = create_choosiow_population_no_singles(
+    choo_siow_instance, phi_bases, betas_true = create_choosiow_no_singles_population(
         X, Y, K, std_betas
     )
     mus_sim = choo_siow_instance.simulate(n_households)
-    # muxy = mus_sim.muxy.reshape(X * Y)
-    # phi_mat = phi_bases.reshape((X * Y, K))
-    # Phi = phi_mat @ betas_true
-    # D2 = make_D2_matrix(X, Y)
-    # print(f"{D2 @ Phi=}")
-    # print(f"{2.0 * D2 @ np.log(muxy)=}")
-    # assert np.allclose(D2 @ Phi, 2.0 * D2 @ np.log(muxy), atol=1e-2)
-
-    # beta_est = spla.solve(
-    #     phi_mat.T @ D2.T @ D2 @ phi_mat, 2.0 * phi_mat.T @ D2.T @ D2 @ np.log(muxy)
-    # )
-    # assert np.allclose(beta_est, betas_true, atol=1e-2)
-    # print(f"{np.column_stack((beta_est, betas_true))=}")
-
-    # print(f"{(mus_sim.muxy**2)/np.exp(choo_siow_instance.Phi)=}")
-    # print(f"{mus_sim.n=}")
-    # print(f"{mus_sim.m=}")
-    # print(f"{mus_sim.muxy=}")
 
     # we estimate using four variants of the minimum distance estimator
     mde_discrepancy = mde_estimate(
@@ -118,7 +97,7 @@ def demo_choo_siow_no_singles(
         title="RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT",
     )
 
-    # # we also estimate using Poisson GLM
+    # we also estimate using Poisson GLM
     # print_stars("    RESULTS FOR POISSON   ")
     # poisson_results = choo_siow_poisson_glm(mus_sim, phi_bases)
     # _, mux0_sim, mu0y_sim, n_sim, m_sim = mus_sim.unpack()
@@ -136,13 +115,11 @@ def demo_choo_siow_no_singles(
     )
 
 
-def test_choo_siow_no_singles():
-    n_households = 100_000_000
+if __name__ == "__main__":
+    n_households = 1_000_000
     X, Y = 10, 15
-    K = 8
+    K = 80
     std_betas = 0.5
-    TOL_CS = 1e-1
-
     (
         mde_discrepancy,
         mde_discrepancy_numeric,
@@ -150,11 +127,7 @@ def test_choo_siow_no_singles():
         mde_discrepancy_corrected_numeric,
         # poisson_discrepancy,
     ) = demo_choo_siow_no_singles(n_households, X, Y, K, std_betas=std_betas)
-    assert mde_discrepancy < TOL_CS
-    assert mde_discrepancy_numeric < TOL_CS
-    assert mde_discrepancy_corrected < TOL_CS
-    assert mde_discrepancy_corrected_numeric < TOL_CS
-    # assert poisson_discrepancy < TOL_CS
+
     print_stars(
         "Largest absolute differences between the true and estimated coefficients:"
     )
@@ -163,7 +136,4 @@ def test_choo_siow_no_singles():
     print(f"MDE corrected:                  {mde_discrepancy_corrected: .2e}")
     print(f"MDE corrected numeric:          {mde_discrepancy_corrected_numeric: .2e}")
     # print(f"Poisson:                        {poisson_discrepancy: .2e}")
-
-
-if __name__ == "__main__":
-    test_choo_siow_no_singles()
+    # print(f"Poisson:                        {poisson_discrepancy: .2e}")

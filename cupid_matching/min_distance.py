@@ -5,32 +5,24 @@ The entropy function and the surplus matrix must both be linear in the parameter
 from typing import cast
 
 import numpy as np
-import scipy.linalg as spla
 import scipy.stats as sts
 from bs_python_utils.bsutils import print_stars
 
 from cupid_matching.entropy import (
     EntropyFunctions,
     EntropyHessianMuMu,
-    EntropyHessianMuMuParam,
     EntropyHessianMuR,
-    EntropyHessianMuRParam,
     EntropyHessians,
-    EntropyHessiansParam,
     numeric_hessian,
 )
-from cupid_matching.matching_utils import (
-    Matching,
-    MatchingFunction,
-    MatchingFunctionParam,
-    variance_muhat,
-)
+from cupid_matching.matching_utils import Matching, MatchingFunction
 from cupid_matching.min_distance_utils import (
     MDEResults,
     check_args_mde,
     check_indep_phi_no_singles,
     compute_estimates,
     get_initial_weighting_matrix,
+    get_optimal_weighting_matrix,
     make_D2_matrix,
     make_hessian_mde,
 )
@@ -100,73 +92,42 @@ def estimate_semilinear_mde(
     )
 
     phi_mat = make_XY_K_mat(phi_bases)
-    if no_singles:
-        D2_mat = make_D2_matrix(X, Y)
-        # print(f"{X=}, {Y=}")
-        # print(f"{D2_mat.shape=}")
-        # print(f"first {phi_mat=}")
-        phi_mat = D2_mat @ phi_mat
-        # print(f"second {phi_mat=}")
-        check_indep_phi_no_singles(phi_mat, X, Y)
-        # print(f"third {phi_mat=}")
 
-    e0_fun = entropy.e0_fun
-    if additional_parameters is None:
-        e0_fun = cast(MatchingFunction, e0_fun)
-        e0_vals = e0_fun(muhat)
-    else:
-        e0_fun = cast(MatchingFunctionParam, e0_fun)
-        e0_vals = e0_fun(muhat, additional_parameters)
+    # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
+    if no_singles:
+        D2_mat, rank_D2 = make_D2_matrix(X, Y)
+        phi_mat = D2_mat @ phi_mat
+        check_indep_phi_no_singles(phi_mat, X, Y)
+
+    e0_fun = cast(MatchingFunction, entropy.e0_fun)
+    e0_vals = e0_fun(muhat, additional_parameters)
     e0_hat = e0_vals.ravel()
+
+    # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
     if no_singles:
         e0_hat = D2_mat @ e0_hat
-        # print(f"{e0_hat=}")
 
     if not parameterized_entropy:  # we only have e0(mu,r)
         n_pars = K
         hessian = entropy.hessian
-        if hessian == "provided":  # analytical hessian
+        if hessian == "provided":  # we have the analytical hessian
             e0_derivative = cast(EntropyHessians, entropy.e0_derivative)
-            if additional_parameters is None:
-                hessian_components_mumu = e0_derivative[0](muhat)
-                hessian_components_mur = e0_derivative[1](muhat)
-            else:
-                e0_derivative1 = cast(EntropyHessiansParam, entropy.e0_derivative)
-                hessian_components_mumu = e0_derivative1[0](
-                    muhat, additional_parameters
-                )
-                hessian_components_mur = e0_derivative1[1](muhat, additional_parameters)
-        else:  # numerical hessian
-            if additional_parameters is None:
-                hessian_components = numeric_hessian(entropy, muhat)
-            else:
-                hessian_components = numeric_hessian(
-                    entropy,
-                    muhat,
-                    additional_parameters=additional_parameters,
-                )
-            (
-                hessian_components_mumu,
-                hessian_components_mur,
-            ) = hessian_components
+            hessian_components_mumu = e0_derivative[0](muhat, additional_parameters)
+            hessian_components_mur = e0_derivative[1](muhat, additional_parameters)
+        else:  # we use a numerical hessian
+            hessian_components_mumu, hessian_components_mur = numeric_hessian(
+                entropy,
+                muhat,
+                additional_parameters=additional_parameters,
+            )
 
         hessians_both = make_hessian_mde(
             hessian_components_mumu, hessian_components_mur
         )
-        if no_singles:
-            hessians_both = D2_mat @ hessians_both
-            print(f"{hessians_both.shape=}")
 
-        var_muhat = variance_muhat(muhat)
-        var_munm = var_muhat.var_munm
-        var_entropy_gradient = hessians_both @ var_munm @ hessians_both.T
-        print(f"{var_entropy_gradient=}")
-        S_mat = spla.inv(var_entropy_gradient)
-        print("Altering S_mat to identity")
-        S_mat = np.eye(S_mat.shape[0])
-        # print(f"{phi_mat=}")
-        # print(f"{e0_hat=}")
-        # print(f"{spla.solve(phi_mat.T @ phi_mat, phi_mat.T @ e0_hat)=}")
+        # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
+        S_mat = get_optimal_weighting_matrix(muhat, hessians_both, no_singles, D2_mat)
+
         estimated_coefficients, varcov_coefficients = compute_estimates(
             phi_mat, S_mat, e0_hat
         )
@@ -174,104 +135,69 @@ def estimate_semilinear_mde(
         est_Phi = phi_mat @ estimated_coefficients
         residuals = est_Phi + e0_hat
     else:  # parameterized entropy: e0(mu,r) + e(mu,r) . alpha
-        # create the F matrix
-        if additional_parameters is None:
-            e_fun = cast(MatchingFunction, entropy.e_fun)
-            e_vals = e_fun(muhat)
-        else:
-            e_fun1 = cast(MatchingFunctionParam, entropy.e_fun)
-            e_vals = e_fun1(muhat, additional_parameters)
+        e_fun = cast(MatchingFunction, entropy.e_fun)
+        e_vals = e_fun(muhat, additional_parameters)
         e_hat = make_XY_K_mat(e_vals)
+
+        # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
         if no_singles:
             e0_hat = D2_mat @ e0_hat
 
         F_hat = np.column_stack((e_hat, phi_mat))
         n_pars = e_hat.shape[1] + K
+
         # first pass with an initial weighting matrix
         first_coeffs, _ = compute_estimates(F_hat, S_mat, e0_hat)
         first_alpha = first_coeffs[:-K]
 
-        # compute_ the efficient weighting matrix
+        if verbose:
+            print_stars("First-stage estimates:")
+            print(first_coeffs)
+
+        # compute the efficient weighting matrix
         hessian = entropy.hessian
-        if hessian == "provided":
-            if additional_parameters is None:
-                e0_derivative = cast(EntropyHessians, entropy.e0_derivative)
-                e_derivative = cast(EntropyHessians, entropy.e_derivative)
-                e0_derivative_mumu = cast(EntropyHessianMuMu, e0_derivative[0])
-                hessian_components_mumu_e0 = e0_derivative_mumu(muhat)
-                e0_derivative_mur = cast(EntropyHessianMuR, e0_derivative[1])
-                hessian_components_mur_e0 = e0_derivative_mur(muhat)
-                e_derivative_mumu = cast(EntropyHessianMuMu, e_derivative[0])
-                hessian_components_mumu_e = e_derivative_mumu(muhat)
-                e_derivative_mur = cast(EntropyHessianMuR, e_derivative[1])
-                hessian_components_mur_e = e_derivative_mur(muhat)
-            else:
-                e0_derivative1 = cast(EntropyHessiansParam, entropy.e0_derivative)
-                e_derivative1 = cast(EntropyHessiansParam, entropy.e_derivative)
-                e0_derivative_mumu1 = cast(EntropyHessianMuMuParam, e0_derivative1[0])
-                e0_derivative_mur1 = cast(EntropyHessianMuRParam, e0_derivative1[1])
-                e_derivative_mumu1 = cast(EntropyHessianMuMuParam, e_derivative1[0])
-                e_derivative_mur1 = cast(EntropyHessianMuRParam, e_derivative1[1])
-                hessian_components_mumu_e0 = e0_derivative_mumu1(
-                    muhat, additional_parameters
-                )
-                hessian_components_mur_e0 = e0_derivative_mur1(
-                    muhat, additional_parameters
-                )
-                hessian_components_mumu_e = e_derivative_mumu1(
-                    muhat, additional_parameters
-                )
-                hessian_components_mur_e = e_derivative_mur1(
-                    muhat, additional_parameters
-                )
+        if hessian == "provided":  # we have the analytical hessian
+            e0_derivative = cast(EntropyHessians, entropy.e0_derivative)
+            e_derivative = cast(EntropyHessians, entropy.e_derivative)
+            e0_derivative_mumu = cast(EntropyHessianMuMu, e0_derivative[0])
+            e0_derivative_mur = cast(EntropyHessianMuR, e0_derivative[1])
+            e_derivative_mumu = cast(EntropyHessianMuMu, e_derivative[0])
+            e_derivative_mur = cast(EntropyHessianMuR, e_derivative[1])
+            hessian_components_mumu_e0 = e0_derivative_mumu(
+                muhat, additional_parameters
+            )
+            hessian_components_mur_e0 = e0_derivative_mur(muhat, additional_parameters)
+            hessian_components_mumu_e = e_derivative_mumu(muhat, additional_parameters)
+            hessian_components_mur_e = e_derivative_mur(muhat, additional_parameters)
 
             if verbose:
                 print_stars("First-stage estimates:")
                 print(first_coeffs)
 
             hessian_components_mumu = (
-                hessian_components_mumu_e0[0]
-                + hessian_components_mumu_e[0] @ first_alpha,
-                hessian_components_mumu_e0[1]
-                + hessian_components_mumu_e[1] @ first_alpha,
-                hessian_components_mumu_e0[2]
-                + hessian_components_mumu_e[2] @ first_alpha,
+                hessian_components_mumu_e0[i]
+                + hessian_components_mumu_e[i] @ first_alpha
+                for i in range(3)
             )
             hessian_components_mur = (
-                hessian_components_mur_e0[0]
-                + hessian_components_mur_e[0] @ first_alpha,
-                hessian_components_mur_e0[1]
-                + hessian_components_mur_e[1] @ first_alpha,
+                hessian_components_mur_e0[i] + hessian_components_mur_e[i] @ first_alpha
+                for i in range(3)
             )
-        else:  # numeric hessian
-            if additional_parameters is None:
-                hessian_components = numeric_hessian(entropy, muhat, alpha=first_alpha)
-            else:
-                hessian_components = numeric_hessian(
-                    entropy,
-                    muhat,
-                    alpha=first_alpha,
-                    additional_parameters=additional_parameters,
-                )
-            (
-                hessian_components_mumu,
-                hessian_components_mur,
-            ) = hessian_components
-
+        else:  # we use a numeric hessian
+            hessian_components_mumu, hessian_components_mur = numeric_hessian(
+                entropy,
+                muhat,
+                alpha=first_alpha,
+                additional_parameters=additional_parameters,
+            )
         hessians_both = make_hessian_mde(
             hessian_components_mumu, hessian_components_mur
         )
-        if no_singles:
-            hessians_both = D2_mat @ hessians_both
 
-        varmus = variance_muhat(muhat)
-        var_munm = varmus.var_munm
-        var_entropy_gradient = hessians_both @ var_munm @ hessians_both.T
-        S_mat = spla.inv(var_entropy_gradient)
+        # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
+        S_mat = get_optimal_weighting_matrix(muhat, hessians_both, no_singles, D2_mat)
 
-        # second pass
-        print("Again, altering S_mat to identity")
-        S_mat = np.eye(S_mat.shape[0])
+        # second pass with the efficient weighting matrix
         estimated_coefficients, varcov_coefficients = compute_estimates(
             F_hat, S_mat, e0_hat
         )
@@ -284,7 +210,7 @@ def estimate_semilinear_mde(
         residuals = est_Phi + e0_hat + e_hat @ est_alpha
 
     value_obj = residuals.T @ S_mat @ residuals
-    ndf = (X - 1) * (Y - 1) - n_pars if no_singles else XY - n_pars
+    ndf = rank_D2 - n_pars if no_singles else XY - n_pars
     test_stat = value_obj
     muxyhat, *_, nhat, mhat = muhat.unpack()
     n_individuals = np.sum(nhat) + np.sum(mhat)

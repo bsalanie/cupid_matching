@@ -13,7 +13,7 @@ from cupid_matching.entropy import (
     fill_hessianMuMu_from_components,
     fill_hessianMuR_from_components,
 )
-from cupid_matching.matching_utils import Matching
+from cupid_matching.matching_utils import Matching, variance_muhat
 
 
 def check_args_mde(muhat: Matching, phi_bases: np.ndarray) -> tuple[int, int, int]:
@@ -57,7 +57,7 @@ def get_initial_weighting_matrix(
         return
 
 
-def make_D2_matrix(X: int, Y: int) -> np.ndarray:
+def make_D2_matrix(X: int, Y: int) -> tuple[np.ndarray, int]:
     """create the double difference matrix for use w/o singles
 
     Args:
@@ -65,7 +65,7 @@ def make_D2_matrix(X: int, Y: int) -> np.ndarray:
         Y: number of types of women
 
     Returns:
-        np.ndarray:  an (XY, XY) matrix
+        an (r, XY) matrix and  its rank r
     """
     XY = X * Y
     D2_mat = np.ones((XY, XY)) / XY + np.eye(XY)
@@ -75,8 +75,14 @@ def make_D2_matrix(X: int, Y: int) -> np.ndarray:
     for y in range(Y):
         slice_y = slice(y, XY, Y)
         D2_mat[slice_y, slice_y] -= 1.0 / X
-    X1Y1 = (X - 1) * (Y - 1)
-    return D2_mat[:X1Y1, :]
+    rank_D2 = np.linalg.matrix_rank(D2_mat)
+    print(f"rank of D: {rank_D2}")
+    rng = np.random.default_rng(453)
+    A_mat = rng.uniform(size=(rank_D2, XY))
+    D2_mat = A_mat @ D2_mat
+    rank_D2 = np.linalg.matrix_rank(D2_mat)
+    print(f"new rank of D: {rank_D2}")
+    return D2_mat, rank_D2
 
 
 def check_indep_phi_no_singles(D2_phi: np.ndarray, X: int, Y: int) -> None:
@@ -91,18 +97,56 @@ def check_indep_phi_no_singles(D2_phi: np.ndarray, X: int, Y: int) -> None:
     Returns:
         nothing
     """
+    K = D2_phi.shape[1]
     actual_rank = np.linalg.matrix_rank(D2_phi)  # Compute the matrix rank
     if actual_rank != D2_phi.shape[1]:
-        bs_error_abort(f"phi_mat only has rank {actual_rank}.")
+        bs_error_abort(
+            f"We have {K} basis functions but phi_mat only has rank {actual_rank}."
+        )
 
 
 def make_hessian_mde(
     hessian_components_mumu: ThreeArrays, hessian_components_mur: TwoArrays
 ) -> np.ndarray:
+    """reconstitute the Hessian of the entropy function from its components
+
+    Args:
+        hessian_components_mumu:  the components of the Hesssian wrt $(\\mu,\\mu)$
+        hessian_components_mur: the components of the Hesssian wrt $(\\mu,r)$
+
+    Returns:
+        np.ndarray: _description_
+    """
     hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
     hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
     hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
     return hessians_both
+
+
+def get_optimal_weighting_matrix(
+    muhat: Matching,
+    hessians_both: np.ndarray,
+    no_singles: bool = False,
+    D2_mat: np.ndarray | None = None,
+) -> np.ndarray:
+    """compute the $S^\ast$ matrix used in the second step of the MDE
+
+    Args:
+        muhat: the observed `Matching`
+        hessians_both: the Hessian of the entropy function
+    """
+    var_muhat = variance_muhat(muhat)
+    var_munm = var_muhat.var_munm
+    var_entropy_gradient = hessians_both @ var_munm @ hessians_both.T
+    if no_singles:
+        if D2_mat is None:
+            bs_error_abort("D2_mat should not be None when no_singles is True")
+        else:
+            var_entropy_gradient = D2_mat @ var_entropy_gradient @ D2_mat.T
+            print("Eigenvalues of the variance after D2:")
+            print(spla.eigh(var_entropy_gradient)[0])
+    S_mat = spla.inv(var_entropy_gradient)
+    return S_mat
 
 
 def compute_estimates(

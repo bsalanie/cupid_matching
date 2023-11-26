@@ -1,57 +1,56 @@
 """Entropies and their derivatives. """
+
 from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
-from typing import Any, Literal, cast
+from typing import Literal, cast
 
 import numpy as np
 from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 from bs_python_utils.bsutils import bs_error_abort
 
-from cupid_matching.matching_utils import (
-    Matching,
-    MatchingFunction,
-    MatchingFunctionParam,
-)
+from cupid_matching.matching_utils import Matching, MatchingFunction
 from cupid_matching.utils import _EPS, _TWO_EPS
 
-EntropyHessianMuMu = Callable[[Matching], ThreeArrays]
-"""The type of a function that takes in a Matching
+
+def check_additional_parameters(
+    number_required: int, additional_parameters: list | None
+) -> None:
+    """checks that the correct number of additional parameters is passed in
+
+    Args:
+        number_required: number we want
+        additional_parameters: the list of additional parameters passed in, if any
+    """
+    if number_required == 0:
+        if additional_parameters is not None:
+            bs_error_abort("no additional parameters should be passed.")
+    else:
+        if additional_parameters is None:
+            bs_error_abort("additional parameters should be passed.")
+        if len(additional_parameters) != number_required:
+            bs_error_abort(
+                f"additional parameters should be a list of {number_required} elements."
+            )
+
+
+EntropyHessianMuMu = Callable[[Matching, list | None], ThreeArrays]
+"""The type of a function that takes in a `Matching` and possibly a list of additional parameters
    and returns the three components of the hessian of the entropy
    wrt $(\\mu,\\mu)$.
 """
 
-
-EntropyHessianMuMuParam = Callable[[Matching, list[Any]], ThreeArrays]
-"""The type of a function that takes in a Matching
-   and a list of additional parameters
-   and returns the three components of the hessian of the entropy
-   wrt $(\\mu,\\mu)$.
-"""
-
-EntropyHessianMuR = Callable[[Matching], TwoArrays]
-"""The type of a function that takes in a Matching
-   and returns the two components of the hessian of the entropy
-   wrt $(\\mu,n)$ and $(\\mu, m))$.
-"""
-
-EntropyHessianMuRParam = Callable[[Matching, list[Any]], TwoArrays]
-"""The type of a function that takes in a Matching
-   and a list of additional parameters
+EntropyHessianMuR = Callable[[Matching, list | None], TwoArrays]
+"""The type of a function that takes in a `Matching` and possibly a list of additional parameters
    and returns the two components of the hessian of the entropy
    wrt $(\\mu,n)$ and $(\\mu, m))$.
 """
 
 EntropyHessianComponents = tuple[ThreeArrays, TwoArrays]
-""" combines the tuples of the values
-    of the components of the hessians."""
+""" combines the tuples of the values of the components of the hessians."""
 
 EntropyHessians = tuple[EntropyHessianMuMu, EntropyHessianMuR]
-""" combines the hessian functions """
-
-EntropyHessiansParam = tuple[EntropyHessianMuMuParam, EntropyHessianMuRParam]
-""" combines the hessian functions
-    when additional parameters are used"""
+""" combines the hessian functions. """
 
 
 @dataclass
@@ -81,12 +80,13 @@ class EntropyFunctions:
         See `entropy_choo_siow` in `choo_siow.py`
     """
 
-    e0_fun: MatchingFunction | MatchingFunctionParam
-    e0_derivative: EntropyHessians | EntropyHessiansParam | None = None
+    e0_fun: MatchingFunction  # | MatchingFunctionParam
+    e0_derivative: EntropyHessians | None = None
     additional_parameters: list | None = None
     description: str | None = None
-    e_fun: MatchingFunction | MatchingFunctionParam | None = None
-    e_derivative: EntropyHessians | EntropyHessiansParam | None = None
+    # e_fun: MatchingFunction | MatchingFunctionParam | None = None
+    e_fun: MatchingFunction | None = None
+    e_derivative: EntropyHessians | None = None
     hessian: str | None = "numerical"
     parameter_dependent: bool = False
 
@@ -133,13 +133,8 @@ def entropy_gradient(
         the derivative of the entropy wrt $\\mu$
         at $(\\mu, n, m, \\alpha, p)$.
     """
-    e0_fun = entropy.e0_fun
-    if additional_parameters is not None:
-        e0_fun = cast(MatchingFunctionParam, e0_fun)
-        e0_vals = e0_fun(muhat, additional_parameters)
-    else:
-        e0_fun = cast(MatchingFunction, e0_fun)
-        e0_vals = e0_fun(muhat)
+    e0_fun = cast(MatchingFunction, entropy.e0_fun)
+    e0_vals = e0_fun(muhat, additional_parameters)
     parameter_dependent = entropy.parameter_dependent
     if parameter_dependent:
         if alpha is None:
@@ -148,12 +143,8 @@ def entropy_gradient(
         if e_fun is None:
             bs_error_abort("we should have an e_fun in this model")
         else:
-            if additional_parameters is not None:
-                e_fun = cast(MatchingFunctionParam, e_fun)
-                e_vals = e_fun(muhat, additional_parameters)
-            else:
-                e_fun = cast(MatchingFunction, e_fun)
-                e_vals = e_fun(muhat)
+            e_fun = cast(MatchingFunction, e_fun)
+            e_vals = e_fun(muhat, additional_parameters)
         return cast(np.ndarray, e0_vals + e_vals @ alpha)
     else:
         return e0_vals
@@ -165,16 +156,18 @@ def _numeric_component(
     y: int,
     t: int,
     entropy_deriv: MatchingFunction,
+    additional_parameters: list | None,
     direction: Literal["x", "y", "d", "n", "m"],
 ) -> float:
     """
     Takes the numerical hessian in one direction
 
     Args:
-        muhat: the Matching
+        muhat: the observed `Matching`
         x, y: the element we are working on
         t: the element of the derivative, if any
         entropy_deriv: the first derivative of the entropy
+        additional_parameters: additional parameters of the distribution of errors, if any
         direction:
             'y': wrt to mu[x, t]
             'x: wrt to mu[t, y]
@@ -184,36 +177,38 @@ def _numeric_component(
 
     """
     muxy, _, _, n, m = muhat.unpack()
+    muxy1, n1, m1 = muxy.copy(), n.copy(), m.copy()
 
     if direction == "y":
-        muxy[x, t] += _EPS
-        mus = Matching(muxy, n, m)
-        der_entropy_plus = entropy_deriv(mus)
-        muxy[x, t] -= _TWO_EPS
-        mus = Matching(muxy, n, m)
+        muxy1[x, t] += _EPS
+        mus1 = Matching(muxy1, n, m)
+        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        muxy1[x, t] -= _TWO_EPS
     elif direction == "x":
-        muxy[t, y] += _EPS
-        mus = Matching(muxy, n, m)
-        der_entropy_plus = entropy_deriv(mus)
-        muxy[t, y] -= _TWO_EPS
+        muxy1[t, y] += _EPS
+        mus1 = Matching(muxy1, n, m)
+        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        muxy1[t, y] -= _TWO_EPS
     elif direction == "d":
-        muxy[x, y] += _EPS
-        mus = Matching(muxy, n, m)
-        der_entropy_plus = entropy_deriv(mus)
-        muxy[x, y] -= _TWO_EPS
+        muxy1[x, y] += _EPS
+        mus1 = Matching(muxy1, n, m)
+        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        muxy1[x, y] -= _TWO_EPS
     elif direction == "n":
-        n[x] += _EPS
-        mus = Matching(muxy, n, m)
-        der_entropy_plus = entropy_deriv(mus)
-        n[x] -= _TWO_EPS
+        n1[x] += _EPS
+        mus1 = Matching(muxy, n1, m)
+        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        n1[x] -= _TWO_EPS
     elif direction == "m":
-        m[y] += _EPS
-        mus = Matching(muxy, n, m)
-        der_entropy_plus = entropy_deriv(mus)
-        m[y] -= _TWO_EPS
+        m1[y] += _EPS
+        mus1 = Matching(muxy, n, m1)
+        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        m1[y] -= _TWO_EPS
     else:
         bs_error_abort("Wrong direction parameter.")
-    der_entropy_minus = entropy_deriv(mus)
+
+    mus1 = Matching(muxy1, n1, m1)
+    der_entropy_minus = entropy_deriv(mus1, additional_parameters)
     deriv_value = (der_entropy_plus[x, y] - der_entropy_minus[x, y]) / _TWO_EPS
     return cast(float, deriv_value)
 
@@ -237,28 +232,18 @@ def numeric_hessian(
         the hessians of the entropy wrt $(\\mu,\\mu)$ and $(\\mu,(n,m))$.
     """
     parameter_dependent = entropy.parameter_dependent
-    # we create a derivative of entropy that is only a function
-    #  of the Matching
+    # we create a derivative of entropy that is only a function of the Matching and the additional parameters
     if not parameter_dependent:
-        if additional_parameters is not None:
-            entropy_deriv = partial(
-                entropy_gradient,
-                entropy,
-                additional_parameters=additional_parameters,
-            )
-        else:
-            entropy_deriv = partial(entropy_gradient, entropy)
+        entropy_deriv = partial(
+            entropy_gradient,
+            entropy,
+        )
     else:
-        if additional_parameters is not None:
-            entropy_deriv = partial(
-                entropy_gradient,
-                entropy,
-                alpha=alpha,
-                additional_parameters=additional_parameters,
-            )
-        else:
-            entropy_deriv = partial(entropy_gradient, entropy, alpha=alpha)
-
+        entropy_deriv = partial(
+            entropy_gradient,
+            entropy,
+            alpha=alpha,
+        )
     muxyhat, _, _, n, m = muhat.unpack()
     X, Y = muxyhat.shape
 
@@ -276,14 +261,20 @@ def numeric_hessian(
         for y in range(Y):
             for t in range(Y):
                 hessian_x[x, y, t] = _numeric_component(
-                    muhatf, x, y, t, entropy_deriv, direction="y"
+                    muhatf,
+                    x,
+                    y,
+                    t,
+                    entropy_deriv,
+                    additional_parameters,
+                    direction="y",
                 )
             for z in range(X):
                 hessian_y[x, y, z] = _numeric_component(
-                    muhatf, x, y, z, entropy_deriv, direction="x"
+                    muhatf, x, y, z, entropy_deriv, additional_parameters, direction="x"
                 )
             hessian_xy[x, y] = _numeric_component(
-                muhatf, x, y, 0, entropy_deriv, direction="d"
+                muhatf, x, y, 0, entropy_deriv, additional_parameters, direction="d"
             )
     components_mumu = (hessian_x, hessian_y, hessian_xy)
 
@@ -293,10 +284,10 @@ def numeric_hessian(
     for x in range(X):
         for y in range(Y):
             hessian_n[x, y] = _numeric_component(
-                muhatf, x, y, 0, entropy_deriv, direction="n"
+                muhatf, x, y, 0, entropy_deriv, additional_parameters, direction="n"
             )
             hessian_m[x, y] = _numeric_component(
-                muhatf, x, y, 0, entropy_deriv, direction="m"
+                muhatf, x, y, 0, entropy_deriv, additional_parameters, direction="m"
             )
 
     components_mur = (hessian_n, hessian_m)

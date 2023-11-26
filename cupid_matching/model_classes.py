@@ -42,7 +42,7 @@ class ChooSiowPrimitives:
             bs_error_abort(f"Phi is a ({X}, {Y}) matrix but m has {Ym} elements.")
 
     def ipfp_solve(self) -> Matching:
-        mus, err_x, err_y = cast(
+        mus, *_ = cast(
             IPFPNoGradientResults,
             ipfp_homoskedastic_solver(self.Phi, self.n, self.m),
         )

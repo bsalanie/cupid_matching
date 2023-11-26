@@ -51,6 +51,7 @@ def mde_estimate(
     entropy: EntropyFunctions,
     no_singles: bool = False,
     title: str | None = None,
+    verbose: bool = False,
 ) -> float:
     """we estimate the parameters using the minimum distance estimator
 
@@ -67,7 +68,11 @@ def mde_estimate(
     """
     print_stars(f"    {title}")
     mde_results = estimate_semilinear_mde(
-        mus_sim, phi_bases, entropy, no_singles=no_singles
+        mus_sim,
+        phi_bases,
+        entropy,
+        no_singles=no_singles,
+        verbose=verbose,
     )
     mde_discrepancy = mde_results.print_results(true_coeffs=betas_true)
     return cast(float, mde_discrepancy)
@@ -143,9 +148,9 @@ def demo_choo_siow(
 
 
 if __name__ == "__main__":
-    n_households = 100_000
-    X, Y = 10, 15
-    K = 5
+    n_households = 1_000_000
+    X, Y = 6, 4
+    K = 3
     std_betas = 0.5
     (
         mde_discrepancy,
