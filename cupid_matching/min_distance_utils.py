@@ -54,7 +54,7 @@ def get_initial_weighting_matrix(
             S_mat = initial_weighting_matrix
         return S_mat
     else:
-        return
+        return None
 
 
 def make_D2_matrix(X: int, Y: int) -> tuple[np.ndarray, int]:
@@ -120,7 +120,7 @@ def make_hessian_mde(
     hessian_mumu = fill_hessianMuMu_from_components(hessian_components_mumu)
     hessian_mur = fill_hessianMuR_from_components(hessian_components_mur)
     hessians_both = np.concatenate((hessian_mumu, hessian_mur), axis=1)
-    return hessians_both
+    return cast(np.ndarray, hessians_both)
 
 
 def get_optimal_weighting_matrix(
@@ -146,7 +146,7 @@ def get_optimal_weighting_matrix(
             print("Eigenvalues of the variance after D2:")
             print(spla.eigh(var_entropy_gradient)[0])
     S_mat = spla.inv(var_entropy_gradient)
-    return S_mat
+    return cast(np.ndarray, S_mat)
 
 
 def compute_estimates(

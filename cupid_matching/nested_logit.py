@@ -12,7 +12,7 @@ from typing import Any, cast
 import numpy as np
 from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 
-from cupid_matching.entropy import EntropyFunctions, EntropyHessiansParam
+from cupid_matching.entropy import EntropyFunctions, EntropyHessians
 from cupid_matching.matching_utils import Matching
 from cupid_matching.utils import NestsList, change_indices
 
@@ -286,8 +286,8 @@ def setup_standard_nested_logit(
         e_fun=e_nested_logit,
         additional_parameters=nests_params,
         hessian="provided",
-        e0_derivative=cast(EntropyHessiansParam, e0_derivative_nested_logit),
-        e_derivative=cast(EntropyHessiansParam, e_derivative_nested_logit),
+        e0_derivative=cast(EntropyHessians, e0_derivative_nested_logit),
+        e_derivative=cast(EntropyHessians, e_derivative_nested_logit),
         description="Two-layer nested logit with analytic Hessian\n" + nest_description,
     )
 

@@ -155,7 +155,7 @@ def e0_fun_choo_siow(
         the (X,Y) matrix of the first derivative of the entropy
     """
     check_additional_parameters(0, additional_parameters)
-    entropy_res = _entropy_choo_siow(muhat, deriv=1)
+    entropy_res = cast(TwoArrays, _entropy_choo_siow(muhat, deriv=1))
     return cast(np.ndarray, entropy_res[1])
 
 
@@ -189,7 +189,7 @@ def hessian_mumu_choo_siow(
         the three components of the hessian wrt $(\\mu,\\mu)$ of the entropy
     """
     check_additional_parameters(0, additional_parameters)
-    entropy_res = _entropy_choo_siow(muhat, deriv=2)
+    entropy_res = cast(FourArrays, _entropy_choo_siow(muhat, deriv=2))
     hessmumu = entropy_res[2]
     muxy, *_ = muhat.unpack()
     X, Y = muxy.shape
@@ -246,7 +246,7 @@ def hessian_mur_choo_siow(
         the two components of the hessian wrt $(\\mu,r)$ of the entropy
     """
     check_additional_parameters(0, additional_parameters)
-    entropy_res = _entropy_choo_siow(muhat, deriv=2)
+    entropy_res = cast(FourArrays, _entropy_choo_siow(muhat, deriv=2))
     hessmur = entropy_res[3]
     muxy, *_ = muhat.unpack()
     X, Y = muxy.shape

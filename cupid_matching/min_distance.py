@@ -147,6 +147,7 @@ def estimate_semilinear_mde(
         n_pars = e_hat.shape[1] + K
 
         # first pass with an initial weighting matrix
+        S_mat = cast(np.ndarray, S_mat)
         first_coeffs, _ = compute_estimates(F_hat, S_mat, e0_hat)
         first_alpha = first_coeffs[:-K]
 

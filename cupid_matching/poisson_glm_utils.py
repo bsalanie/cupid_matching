@@ -142,6 +142,7 @@ class PoissonGLMResults:
 def prepare_data(
     muhat: Matching,
     var_muhat: VarianceMatching,
+    no_singles: bool = False,
 ) -> tuple[np.ndarray, VarianceMatching, int, int]:
     """Normalizes the matching patterns and stacks them.
     We rescale the data so that the total number of individuals is one.
@@ -149,15 +150,19 @@ def prepare_data(
     Args:
         muhat: the observed Matching
         var_muhat: the variance-covariance object for the observed matching
+        no_singles: if True, we do not observe singles
 
     Returns:
-        the stacked `muxy, mux0, mu0y`
+        the stacked, normalized `muxy, mux0, mu0y` (the latter two are zero if `no_singles`)
         the corresponding variance-covariance matrix
         the number of households
         the number of individuals
     """
-    muxy, mux0, mu0y, _, _ = muhat.unpack()
+    muxy = muhat.muxy
     n_couples = np.sum(muxy)
+    if no_singles:
+        mux0 = np.zeros(muhat.mux0.shape)
+        mu0y = np.zeros(muhat.mu0y.shape)
     n_households = n_couples + np.sum(mux0) + np.sum(mu0y)
     n_individuals = n_households + n_couples
     # rescale the data so that the total number of individuals is one

@@ -6,7 +6,6 @@ from math import sqrt
 
 import numpy as np
 import scipy.linalg as spla
-import scipy.sparse as spr
 from sklearn import linear_model
 
 from cupid_matching.matching_utils import Matching, variance_muhat
@@ -17,6 +16,7 @@ from cupid_matching.utils import make_XY_K_mat
 def choo_siow_poisson_glm(
     muhat: Matching,
     phi_bases: np.ndarray,
+    no_singles: bool = False,
     tol: float | None = 1e-12,
     max_iter: int | None = 10000,
     verbose: int | None = 1,
@@ -27,6 +27,7 @@ def choo_siow_poisson_glm(
     Args:
         muhat: the observed Matching
         phi_bases: an (X, Y, K) array of bases
+        no_singles: if True, we do not observe the singles
         tol: tolerance level for `linear_model.PoissonRegressor.fit`
         max_iter: maximum number of iterations
             for `linear_model.PoissonRegressor.fit`
@@ -74,54 +75,25 @@ def choo_siow_poisson_glm(
         ```
 
     """
-    try_sparse = False
     X, Y, K = phi_bases.shape
     XY = X * Y
-    n_rows = XY + X + Y
-    n_cols = X + Y + K
 
     # the vector of weights for the Poisson regression
-    w = np.concatenate((2 * np.ones(XY), np.ones(X + Y)))
+    w = np.ones(XY) if no_singles else np.concatenate((2 * np.ones(XY), np.ones(X + Y)))
     # reshape the bases
     phi_mat = make_XY_K_mat(phi_bases)
 
-    if try_sparse:
-        w_mat = spr.csr_matrix(
-            np.concatenate((2 * np.ones((XY, n_cols)), np.ones((X + Y, n_cols))))
-        )
-
-        # construct the Z matrix
-        ones_X = spr.csr_matrix(np.ones((X, 1)))
-        ones_Y = spr.csr_matrix(np.ones((Y, 1)))
-        zeros_XK = spr.csr_matrix(np.zeros((X, K)))
-        zeros_YK = spr.csr_matrix(np.zeros((Y, K)))
-        zeros_XY = spr.csr_matrix(np.zeros((X, Y)))
-        zeros_YX = spr.csr_matrix(np.zeros((Y, X)))
-        id_X = spr.csr_matrix(np.eye(X))
-        id_Y = spr.csr_matrix(np.eye(Y))
-        Z_unweighted = spr.vstack(
-            [
-                spr.hstack(
-                    [
-                        -spr.kron(id_X, ones_Y),
-                        -spr.kron(ones_X, id_Y),
-                        phi_mat,
-                    ]
-                ),
-                spr.hstack([-id_X, zeros_XY, zeros_XK]),
-                spr.hstack([zeros_YX, -id_Y, zeros_YK]),
-            ]
-        )
-        Z = Z_unweighted / w_mat
+    id_X = np.eye(X)
+    id_Y = np.eye(Y)
+    ones_X = np.ones((X, 1))
+    ones_Y = np.ones((Y, 1))
+    if no_singles:
+        Z = np.hstack([-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat])
     else:
-        ones_X = np.ones((X, 1))
-        ones_Y = np.ones((Y, 1))
         zeros_XK = np.zeros((X, K))
         zeros_YK = np.zeros((Y, K))
         zeros_XY = np.zeros((X, Y))
         zeros_YX = np.zeros((Y, X))
-        id_X = np.eye(X)
-        id_Y = np.eye(Y)
         Z_unweighted = np.vstack(
             [
                 np.hstack([-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat]),
@@ -131,14 +103,13 @@ def choo_siow_poisson_glm(
         )
         Z = Z_unweighted / w.reshape((-1, 1))
 
-    _, _, _, n, m = muhat.unpack()
     var_muhat = variance_muhat(muhat)
     (
         muxyhat_norm,
         var_muhat_norm,
         n_households,
         n_individuals,
-    ) = prepare_data(muhat, var_muhat)
+    ) = prepare_data(muhat, var_muhat, no_singles=no_singles)
 
     clf = linear_model.PoissonRegressor(
         fit_intercept=False,
@@ -147,13 +118,17 @@ def choo_siow_poisson_glm(
         alpha=0,
         max_iter=max_iter,
     )
-    clf.fit(Z, muxyhat_norm, sample_weight=w)
+    if no_singles:
+        clf.fit(Z, muxyhat_norm[:XY], sample_weight=w)
+    else:
+        clf.fit(Z, muxyhat_norm, sample_weight=w)
     gamma_est = clf.coef_
 
     # we compute_ the variance-covariance of the estimator
     var_allmus_norm = var_muhat_norm.var_allmus
+    var_norm = var_allmus_norm[:XY, :XY] if no_singles else var_allmus_norm
     nr, nc = Z.shape
-    exp_Zg = np.exp(Z @ gamma_est).reshape(n_rows)
+    exp_Zg = np.exp(Z @ gamma_est).reshape(nr)
     A_hat = np.zeros((nc, nc))
     B_hat = np.zeros((nc, nc))
     for i in range(nr):
@@ -162,7 +137,7 @@ def choo_siow_poisson_glm(
         A_hat += wi * exp_Zg[i] * np.outer(Zi, Zi)
         for j in range(nr):
             Zj = Z[j, :]
-            B_hat += wi * w[j] * var_allmus_norm[i, j] * np.outer(Zi, Zj)
+            B_hat += wi * w[j] * var_norm[i, j] * np.outer(Zi, Zj)
 
     A_inv = spla.inv(A_hat)
     varcov_gamma = A_inv @ B_hat @ A_inv
@@ -174,6 +149,7 @@ def choo_siow_poisson_glm(
     Phi_est = phi_bases @ beta_est
 
     # we correct for the effect of the normalization
+    _, _, _, n, m = muhat.unpack()
     n_norm = n / n_individuals
     m_norm = m / n_individuals
     u_est = gamma_est[:X] + np.log(n_norm)
@@ -191,7 +167,7 @@ def choo_siow_poisson_glm(
         A_inv_x = A_inv[x, :]
         var_log_nx = var_n_norm[x, x] / n_norm_x / n_norm_x
         slice_x = slice(x * Y, (x + 1) * Y)
-        covar_term = var_allmus_norm[:, ix] + np.sum(var_allmus_norm[:, slice_x], 1)
+        covar_term = var_norm[:, ix] + np.sum(var_norm[:, slice_x], 1)
         cov_a_lognx = (A_inv_x @ Z_unweighted_T @ covar_term) / n_norm_x
         ux_var = varcov_gamma[x, x] + var_log_nx + 2.0 * cov_a_lognx
         u_std[x] = sqrt(ux_var)
@@ -204,7 +180,7 @@ def choo_siow_poisson_glm(
         A_inv_y = A_inv[iy, :]
         var_log_my = var_m_norm[y, y] / m_norm_y / m_norm_y
         slice_y = slice(y, XY, Y)
-        covar_term = var_allmus_norm[:, jy] + np.sum(var_allmus_norm[:, slice_y], 1)
+        covar_term = var_norm[:, jy] + np.sum(var_norm[:, slice_y], 1)
         cov_b_logmy = (A_inv_y @ Z_unweighted_T @ covar_term) / m_norm_y
         vy_var = varcov_gamma[iy, iy] + var_log_my + 2.0 * cov_b_logmy
         v_std[y] = sqrt(vy_var)

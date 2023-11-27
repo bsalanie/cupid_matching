@@ -1,5 +1,7 @@
 """ example using the Choo and Siow homoskedastic model w/o singles"""
 
+from typing import cast
+
 import numpy as np
 from bs_python_utils.bsutils import print_stars
 
@@ -11,8 +13,7 @@ from cupid_matching.choo_siow_no_singles import (
 )
 from cupid_matching.example_choo_siow import mde_estimate
 from cupid_matching.model_classes import ChooSiowPrimitives
-
-# from cupid_matching.poisson_glm import choo_siow_poisson_glm
+from cupid_matching.poisson_glm import choo_siow_poisson_glm
 
 
 def create_choosiow_no_singles_population(
@@ -98,20 +99,20 @@ def demo_choo_siow_no_singles(
     )
 
     # we also estimate using Poisson GLM
-    # print_stars("    RESULTS FOR POISSON   ")
-    # poisson_results = choo_siow_poisson_glm(mus_sim, phi_bases)
-    # _, mux0_sim, mu0y_sim, n_sim, m_sim = mus_sim.unpack()
-    # poisson_discrepancy = poisson_results.print_results(
-    #     betas_true,
-    #     u_true=-np.log(mux0_sim / n_sim),
-    #     v_true=-np.log(mu0y_sim / m_sim),
-    # )
+    print_stars("    RESULTS FOR POISSON   ")
+    poisson_results = choo_siow_poisson_glm(mus_sim, phi_bases, no_singles=True)
+    _, mux0_sim, mu0y_sim, n_sim, m_sim = mus_sim.unpack()
+    poisson_discrepancy = poisson_results.print_results(
+        betas_true,
+        u_true=-np.log(mux0_sim / n_sim),
+        v_true=-np.log(mu0y_sim / m_sim),
+    )
     return (
         mde_discrepancy,
         mde_discrepancy_numeric,
         mde_discrepancy_corrected,
         mde_discrepancy_corrected_numeric,
-        # cast(float, poisson_discrepancy),
+        cast(float, poisson_discrepancy),
     )
 
 
@@ -125,7 +126,7 @@ if __name__ == "__main__":
         mde_discrepancy_numeric,
         mde_discrepancy_corrected,
         mde_discrepancy_corrected_numeric,
-        # poisson_discrepancy,
+        poisson_discrepancy,
     ) = demo_choo_siow_no_singles(n_households, X, Y, K, std_betas=std_betas)
 
     print_stars(
@@ -135,5 +136,4 @@ if __name__ == "__main__":
     print(f"MDE numeric:                    {mde_discrepancy_numeric: .2e}")
     print(f"MDE corrected:                  {mde_discrepancy_corrected: .2e}")
     print(f"MDE corrected numeric:          {mde_discrepancy_corrected_numeric: .2e}")
-    # print(f"Poisson:                        {poisson_discrepancy: .2e}")
-    # print(f"Poisson:                        {poisson_discrepancy: .2e}")
+    print(f"Poisson:                        {poisson_discrepancy: .2e}")

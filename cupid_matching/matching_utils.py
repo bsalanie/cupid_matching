@@ -103,10 +103,6 @@ MatchingFunction = (
     Callable[[Matching], np.ndarray] | Callable[[Matching, list], np.ndarray]
 )
 
-# MatchingFunctionParam = Callable[[Matching, list[Any]], np.ndarray]
-# """Same with a list of additional parameters
-# """
-
 
 def get_margins(mus: Matching) -> TwoArrays:
     """compute_s the numbers of each type from the matching patterns"""

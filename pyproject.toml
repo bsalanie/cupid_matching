@@ -13,11 +13,11 @@ scipy = "^1.8"
 matplotlib = "^3.6"
 seaborn = "^0.12"
 altair = "^4.2"
-pandas = "^1.4"
+pandas = "^2.1"
 scikit-learn = "^1.1"
 streamlit = "^1.20"
 watchdog = "^3.0"
-bs_python_utils = "^0.5.5"
+bs_python_utils = "^0.6"
 
 
 [tool.poetry.group.dev.dependencies]
