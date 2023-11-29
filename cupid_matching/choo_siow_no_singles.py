@@ -103,7 +103,7 @@ def _der_entropy_choo_siow_no_singles_corrected(
 
 def e0_fun_choo_siow_no_singles(
     muhat: Matching,
-    additional_parameters: list | None,
+    additional_parameters: list | None = None,
 ) -> np.ndarray:
     """Returns the values of $e_0$ for the Choo and Siow model w/o singles.
 
@@ -122,7 +122,7 @@ def e0_fun_choo_siow_no_singles(
 
 def e0_fun_choo_siow_no_singles_corrected(
     muhat: Matching,
-    additional_parameters: list | None,
+    additional_parameters: list | None = None,
 ) -> np.ndarray:
     """Returns the values of $e_0$ for the Choo and Siow model,
         using the finite-sample correction $\\log(p+(1-p)/(2N))$
@@ -140,7 +140,7 @@ def e0_fun_choo_siow_no_singles_corrected(
 
 def hessian_mumu_choo_siow_no_singles(
     muhat: Matching,
-    additional_parameters: list | None,
+    additional_parameters: list | None = None,
 ) -> ThreeArrays:
     """Returns the hessian of $e_0$ wrt $(\\mu,\\mu)$ for the Choo and Siow model w/o singles.
 
@@ -169,7 +169,7 @@ def hessian_mumu_choo_siow_no_singles(
 
 def hessian_mumu_choo_siow_no_singles_corrected(
     muhat: Matching,
-    additional_parameters: list | None,
+    additional_parameters: list | None = None,
 ) -> ThreeArrays:
     """Returns the derivatives of the hessian of $e_0$ wrt $(\\mu,\\mu)$
         for the Choo and Siow model w/o singles, with the small sample correction
@@ -198,7 +198,7 @@ def hessian_mumu_choo_siow_no_singles_corrected(
 
 def hessian_mur_choo_siow_no_singles(
     muhat: Matching,
-    additional_parameters: list | None,
+    additional_parameters: list | None = None,
 ) -> TwoArrays:
     """Returns the hessian of $e_0$ wrt $(\\mu,r)$ for the Choo and Siow model w/o singles.
 
@@ -217,7 +217,7 @@ def hessian_mur_choo_siow_no_singles(
 
 def hessian_mur_choo_siow_no_singles_corrected(
     muhat: Matching,
-    additional_parameters: list | None,
+    additional_parameters: list | None = None,
 ) -> TwoArrays:
     """Returns the hessian of $e_0$ wrt $(\\mu,r)$ for the Choo and Siow model w/o singles, with the small sample correction
 

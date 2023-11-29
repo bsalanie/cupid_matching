@@ -1,4 +1,4 @@
-""" example using the Choo and Siow homoskedastic model w/o singles"""
+""" example using the Choo and Siow homoskedastic model without singles"""
 
 from typing import cast
 
@@ -102,11 +102,16 @@ def demo_choo_siow_no_singles(
     print_stars("    RESULTS FOR POISSON   ")
     poisson_results = choo_siow_poisson_glm(mus_sim, phi_bases, no_singles=True)
     _, mux0_sim, mu0y_sim, n_sim, m_sim = mus_sim.unpack()
+    # we normalize u_1 = 0
+    u_true = -np.log(mux0_sim / n_sim)
+    v_true = -np.log(mu0y_sim / m_sim) + u_true[0]
+    u_true -= u_true[0]
     poisson_discrepancy = poisson_results.print_results(
         betas_true,
-        u_true=-np.log(mux0_sim / n_sim),
-        v_true=-np.log(mu0y_sim / m_sim),
+        u_true,
+        v_true,
     )
+    print("\n   (we normalized the utility u_1 at 0)\n")
     return (
         mde_discrepancy,
         mde_discrepancy_numeric,
@@ -119,7 +124,7 @@ def demo_choo_siow_no_singles(
 if __name__ == "__main__":
     n_households = 1_000_000
     X, Y = 10, 15
-    K = 80
+    K = 8
     std_betas = 0.5
     (
         mde_discrepancy,

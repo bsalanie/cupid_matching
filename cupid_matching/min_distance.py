@@ -99,8 +99,7 @@ def estimate_semilinear_mde(
         phi_mat = D2_mat @ phi_mat
         check_indep_phi_no_singles(phi_mat, X, Y)
 
-    e0_fun = cast(MatchingFunction, entropy.e0_fun)
-    e0_vals = e0_fun(muhat, additional_parameters)
+    e0_vals = entropy.e0_fun(muhat, additional_parameters)
     e0_hat = e0_vals.ravel()
 
     # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
@@ -126,7 +125,12 @@ def estimate_semilinear_mde(
         )
 
         # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
-        S_mat = get_optimal_weighting_matrix(muhat, hessians_both, no_singles, D2_mat)
+        if no_singles:
+            S_mat = get_optimal_weighting_matrix(
+                muhat, hessians_both, no_singles, D2_mat
+            )
+        else:
+            S_mat = get_optimal_weighting_matrix(muhat, hessians_both)
 
         estimated_coefficients, varcov_coefficients = compute_estimates(
             phi_mat, S_mat, e0_hat
@@ -147,8 +151,7 @@ def estimate_semilinear_mde(
         n_pars = e_hat.shape[1] + K
 
         # first pass with an initial weighting matrix
-        S_mat = cast(np.ndarray, S_mat)
-        first_coeffs, _ = compute_estimates(F_hat, S_mat, e0_hat)
+        first_coeffs, _ = compute_estimates(F_hat, cast(np.ndarray, S_mat), e0_hat)
         first_alpha = first_coeffs[:-K]
 
         if verbose:
@@ -196,7 +199,12 @@ def estimate_semilinear_mde(
         )
 
         # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
-        S_mat = get_optimal_weighting_matrix(muhat, hessians_both, no_singles, D2_mat)
+        if no_singles:
+            S_mat = get_optimal_weighting_matrix(
+                muhat, hessians_both, no_singles, D2_mat
+            )
+        else:
+            S_mat = get_optimal_weighting_matrix(muhat, hessians_both)
 
         # second pass with the efficient weighting matrix
         estimated_coefficients, varcov_coefficients = compute_estimates(

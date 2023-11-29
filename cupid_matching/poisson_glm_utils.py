@@ -158,11 +158,11 @@ def prepare_data(
         the number of households
         the number of individuals
     """
-    muxy = muhat.muxy
+    muxy, mux0, mu0y, *_ = muhat.unpack()
     n_couples = np.sum(muxy)
     if no_singles:
-        mux0 = np.zeros(muhat.mux0.shape)
-        mu0y = np.zeros(muhat.mu0y.shape)
+        mux0 = np.zeros(mux0.shape)
+        mu0y = np.zeros(mu0y.shape)
     n_households = n_couples + np.sum(mux0) + np.sum(mu0y)
     n_individuals = n_households + n_couples
     # rescale the data so that the total number of individuals is one

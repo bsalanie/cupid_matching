@@ -21,10 +21,11 @@ nav:
       - Choo-Siow Heteroskedastic: choo_siow_heteroskedastic.md
       - Nested Logit: nested_logit.md
       - IPFP solvers: ipfp_solvers.md
+      - General utliities: utils.md
       - Utilities for Matching: matching_utils.md
-      - General Utilities: utils.md
       - Classes used: model_classes.md
       - Example on the Choo and Siow model: example_choo_siow.md
+      - Example on the Choo and Siow model without singles: example_choo_siow_no_singles.md
       - Example on a nested logit model: example_nested_logit.md
       - Code for a Streamlit app: cupid_streamlit.md
       - Utilities for the Streamlit app: cupid_streamlit_utils.md

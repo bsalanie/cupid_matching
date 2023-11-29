@@ -8,9 +8,151 @@ import numpy as np
 import scipy.linalg as spla
 from sklearn import linear_model
 
-from cupid_matching.matching_utils import Matching, variance_muhat
+from cupid_matching.matching_utils import Matching, VarianceMatching, variance_muhat
 from cupid_matching.poisson_glm_utils import PoissonGLMResults, prepare_data
 from cupid_matching.utils import make_XY_K_mat
+
+
+def _stderrs_u(
+    varcov_gamma: np.ndarray,
+    n_norm: np.ndarray,
+    var_muhat_norm: VarianceMatching,
+    A_inv_Z: np.ndarray,
+    X: int,
+    Y: int,
+):
+    XY = X * Y
+    u_std = np.zeros(X)
+    var_allmus_norm = var_muhat_norm.var_allmus
+    var_munm_norm = var_muhat_norm.var_munm
+    var_n_norm = var_munm_norm[XY : (XY + X), XY : (XY + X)]
+
+    ix = XY
+    for x in range(X):
+        n_norm_x = n_norm[x]
+        A_inv_Zx = A_inv_Z[x, :]
+        var_log_nx = var_n_norm[x, x] / n_norm_x / n_norm_x
+        slice_x = slice(x * Y, (x + 1) * Y)
+        covar_nx = var_allmus_norm[:, ix] + np.sum(var_allmus_norm[:, slice_x], 1)
+        cov_a_lognx = (A_inv_Zx @ covar_nx) / n_norm_x
+        ux_var = varcov_gamma[x, x] + var_log_nx + 2.0 * cov_a_lognx
+        u_std[x] = sqrt(ux_var)
+        ix += 1
+    return u_std
+
+
+def _stderrs_v(
+    varcov_gamma: np.ndarray,
+    m_norm: np.ndarray,
+    var_muhat_norm: VarianceMatching,
+    A_inv_Z: np.ndarray,
+    X: int,
+    Y: int,
+):
+    XY = X * Y
+    v_std = np.zeros(Y)
+    var_allmus_norm = var_muhat_norm.var_allmus
+    var_munm_norm = var_muhat_norm.var_munm
+    var_m_norm = var_munm_norm[(XY + X) :, (XY + X) :]
+
+    iy, jy = X, XY + X
+    for y in range(Y):
+        m_norm_y = m_norm[y]
+        A_inv_Zy = A_inv_Z[iy, :]
+        var_log_my = var_m_norm[y, y] / m_norm_y / m_norm_y
+        slice_y = slice(y, XY, Y)
+        covar_b_my = var_allmus_norm[:, jy] + np.sum(var_allmus_norm[:, slice_y], 1)
+        cov_b_logmy = (A_inv_Zy @ covar_b_my) / m_norm_y
+        vy_var = varcov_gamma[iy, iy] + var_log_my + 2.0 * cov_b_logmy
+        v_std[y] = sqrt(vy_var)
+        iy += 1
+        jy += 1
+    return v_std
+
+
+def _stderrs_u_no_singles(
+    varcov_gamma: np.ndarray,
+    n_norm: np.ndarray,
+    var_muhat_norm: VarianceMatching,
+    A_inv_Z: np.ndarray,
+    X: int,
+    Y: int,
+):
+    XY = X * Y
+    var_muxy_norm = var_muhat_norm.var_allmus[:XY, :XY]
+    var_munm_norm = var_muhat_norm.var_munm
+    var_n_norm = var_munm_norm[XY : (XY + X), XY : (XY + X)]
+    n_norm1 = n_norm[0]
+    var_log_n1 = var_n_norm[0, 0] / n_norm1 / n_norm1
+
+    u_std = np.zeros(X)
+    u_std[0] = 0.0
+    slice_1 = slice(0, Y)
+    for x in range(1, X):
+        A_inv_Zx = A_inv_Z[x, :]
+        n_norm_x = n_norm[x]
+        var_log_nx = var_n_norm[x, x] / n_norm_x / n_norm_x
+        slice_x = slice(x * Y, (x + 1) * Y)
+        covar_nx = np.sum(var_muxy_norm[:, slice_x], 1)
+        covar_n1 = np.sum(var_muxy_norm[:, slice_1], 1)
+        covar_nx_n1 = var_n_norm[x, 0]
+        cov_a_lognx = (A_inv_Zx @ covar_nx) / n_norm_x
+        cov_a_logn1 = (A_inv_Zx @ covar_n1) / n_norm_x
+        cov_lognx_logn1 = covar_nx_n1 / n_norm_x / n_norm1
+        ux_var = (
+            varcov_gamma[x, x]
+            + var_log_nx
+            + var_log_n1
+            + 2.0 * cov_a_lognx
+            - 2.0 * cov_a_logn1
+            - 2.0 * cov_lognx_logn1
+        )
+        u_std[x - 1] = sqrt(ux_var)
+    return u_std
+
+
+def _stderrs_v_no_singles(
+    varcov_gamma: np.ndarray,
+    m_norm: np.ndarray,
+    n_norm: np.ndarray,
+    var_muhat_norm: VarianceMatching,
+    A_inv_Z: np.ndarray,
+    X: int,
+    Y: int,
+):
+    XY = X * Y
+    var_muxy_norm = var_muhat_norm.var_allmus[:XY, :XY]
+    var_munm_norm = var_muhat_norm.var_munm
+    var_n_norm = var_munm_norm[XY : (XY + X), XY : (XY + X)]
+    var_m_norm = var_munm_norm[(XY + X) :, (XY + X) :]
+    n_norm1 = n_norm[0]
+    var_log_n1 = var_n_norm[0, 0] / n_norm1 / n_norm1
+
+    v_std = np.zeros(Y)
+    iy, jy = X, XY + X
+    slice_1 = slice(0, Y)
+    for y in range(Y):
+        A_inv_Zy = A_inv_Z[iy, :]
+        m_norm_y = m_norm[y]
+        var_log_my = var_m_norm[y, y] / m_norm_y / m_norm_y
+        slice_y = slice(y, XY, Y)
+        covar_my = np.sum(var_muxy_norm[:, slice_y], 1)
+        cov_b_logmy = (A_inv_Zy @ covar_my) / m_norm_y
+        covar_n1 = np.sum(var_muxy_norm[:, slice_1], 1)
+        cov_b_logn1 = (A_inv_Zy @ covar_n1) / n_norm1
+        covar_my_n1 = var_munm_norm[jy, XY]
+        cov_logmy_logn1 = covar_my_n1 / m_norm_y / n_norm1
+        vy_var = (
+            varcov_gamma[iy, iy]
+            + var_log_my
+            + var_log_n1
+            + 2.0 * cov_b_logmy
+            + 2.0 * cov_b_logn1
+            + 2.0 * cov_logmy_logn1
+        )
+        v_std[y] = sqrt(vy_var)
+
+    return v_std
 
 
 def choo_siow_poisson_glm(
@@ -79,7 +221,11 @@ def choo_siow_poisson_glm(
     XY = X * Y
 
     # the vector of weights for the Poisson regression
-    w = np.ones(XY) if no_singles else np.concatenate((2 * np.ones(XY), np.ones(X + Y)))
+    w = (
+        2 * np.ones(XY)
+        if no_singles
+        else np.concatenate((2 * np.ones(XY), np.ones(X + Y)))
+    )
     # reshape the bases
     phi_mat = make_XY_K_mat(phi_bases)
 
@@ -88,7 +234,11 @@ def choo_siow_poisson_glm(
     ones_X = np.ones((X, 1))
     ones_Y = np.ones((Y, 1))
     if no_singles:
-        Z = np.hstack([-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat])
+        Z_unweighted = np.hstack(
+            [-np.kron(id_X, ones_Y), -np.kron(ones_X, id_Y), phi_mat]
+        )
+        # we need to normalize u_1 = 0, so we delete the first column
+        Z_unweighted = Z_unweighted[:, 1:]
     else:
         zeros_XK = np.zeros((X, K))
         zeros_YK = np.zeros((Y, K))
@@ -101,11 +251,11 @@ def choo_siow_poisson_glm(
                 np.hstack([zeros_YX, -id_Y, zeros_YK]),
             ]
         )
-        Z = Z_unweighted / w.reshape((-1, 1))
+    Z = Z_unweighted / w.reshape((-1, 1))
 
     var_muhat = variance_muhat(muhat)
     (
-        muxyhat_norm,
+        muhat_norm,
         var_muhat_norm,
         n_households,
         n_individuals,
@@ -119,9 +269,10 @@ def choo_siow_poisson_glm(
         max_iter=max_iter,
     )
     if no_singles:
-        clf.fit(Z, muxyhat_norm[:XY], sample_weight=w)
-    else:
+        muxyhat_norm = muhat_norm[:XY]
         clf.fit(Z, muxyhat_norm, sample_weight=w)
+    else:
+        clf.fit(Z, muhat_norm, sample_weight=w)
     gamma_est = clf.coef_
 
     # we compute_ the variance-covariance of the estimator
@@ -152,40 +303,29 @@ def choo_siow_poisson_glm(
     _, _, _, n, m = muhat.unpack()
     n_norm = n / n_individuals
     m_norm = m / n_individuals
-    u_est = gamma_est[:X] + np.log(n_norm)
-    v_est = gamma_est[X:-K] + np.log(m_norm)
+    if no_singles:
+        u_est = gamma_est[: (X - 1)]
+        v_est = gamma_est[(X - 1) : -K]
+        # normalize u_1 = 0
+        n_0 = n_norm[0]
+        u_est = np.concatenate((np.zeros(1), u_est + np.log(n_norm[1:] / n_0)))
+        v_est += np.log(m_norm * n_0)
+    else:
+        u_est = gamma_est[:X] + np.log(n_norm)
+        v_est = gamma_est[X:-K] + np.log(m_norm)
 
-    # since u = a + log(n_norm) we also need to adjust the estimated variance
-    var_munm_norm = var_muhat_norm.var_munm
-    var_n_norm = var_munm_norm[XY : (XY + X), XY : (XY + X)]
-    var_m_norm = var_munm_norm[(XY + X) :, (XY + X) :]
-    Z_unweighted_T = Z_unweighted.T
-    u_std = np.zeros(X)
-    ix = XY
-    for x in range(X):
-        n_norm_x = n_norm[x]
-        A_inv_x = A_inv[x, :]
-        var_log_nx = var_n_norm[x, x] / n_norm_x / n_norm_x
-        slice_x = slice(x * Y, (x + 1) * Y)
-        covar_term = var_norm[:, ix] + np.sum(var_norm[:, slice_x], 1)
-        cov_a_lognx = (A_inv_x @ Z_unweighted_T @ covar_term) / n_norm_x
-        ux_var = varcov_gamma[x, x] + var_log_nx + 2.0 * cov_a_lognx
-        u_std[x] = sqrt(ux_var)
-        ix += 1
-
-    v_std = stderrs_gamma[X:-K]
-    iy, jy = X, XY + X
-    for y in range(Y):
-        m_norm_y = m_norm[y]
-        A_inv_y = A_inv[iy, :]
-        var_log_my = var_m_norm[y, y] / m_norm_y / m_norm_y
-        slice_y = slice(y, XY, Y)
-        covar_term = var_norm[:, jy] + np.sum(var_norm[:, slice_y], 1)
-        cov_b_logmy = (A_inv_y @ Z_unweighted_T @ covar_term) / m_norm_y
-        vy_var = varcov_gamma[iy, iy] + var_log_my + 2.0 * cov_b_logmy
-        v_std[y] = sqrt(vy_var)
-        iy += 1
-        jy += 1
+    # since u and v are translated from gamma we need to adjust the estimated stderrs
+    A_inv_Z = A_inv @ Z_unweighted.T
+    if no_singles:
+        u_std = _stderrs_u_no_singles(
+            varcov_gamma, n_norm, var_muhat_norm, A_inv_Z, X, Y
+        )
+        v_std = _stderrs_v_no_singles(
+            varcov_gamma, m_norm, n_norm, var_muhat_norm, A_inv_Z, X, Y
+        )
+    else:
+        u_std = _stderrs_u(varcov_gamma, n_norm, var_muhat_norm, A_inv_Z, X, Y)
+        v_std = _stderrs_v(varcov_gamma, m_norm, var_muhat_norm, A_inv_Z, X, Y)
 
     results = PoissonGLMResults(
         X=X,

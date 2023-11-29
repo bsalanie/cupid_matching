@@ -1,15 +1,18 @@
 """Entropies and their derivatives. """
 
-from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
-from typing import Literal, cast
+from typing import Literal, Protocol, cast
 
 import numpy as np
 from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 from bs_python_utils.bsutils import bs_error_abort
 
-from cupid_matching.matching_utils import Matching, MatchingFunction
+from cupid_matching.matching_utils import (
+    Matching,
+    MatchingFunction,
+    get_evals,
+)
 from cupid_matching.utils import _EPS, _TWO_EPS
 
 
@@ -28,23 +31,31 @@ def check_additional_parameters(
     else:
         if additional_parameters is None:
             bs_error_abort("additional parameters should be passed.")
+        additional_parameters = cast(list, additional_parameters)
         if len(additional_parameters) != number_required:
             bs_error_abort(
                 f"additional parameters should be a list of {number_required} elements."
             )
 
 
-EntropyHessianMuMu = Callable[[Matching, list | None], ThreeArrays]
-"""The type of a function that takes in a `Matching` and possibly a list of additional parameters
-   and returns the three components of the hessian of the entropy
-   wrt $(\\mu,\\mu)$.
-"""
+class EntropyHessianMuMu(Protocol):
+    def __call__(self, mus: Matching, additional_parameters=..., /) -> ThreeArrays:
+        ...
 
-EntropyHessianMuR = Callable[[Matching, list | None], TwoArrays]
-"""The type of a function that takes in a `Matching` and possibly a list of additional parameters
-   and returns the two components of the hessian of the entropy
-   wrt $(\\mu,n)$ and $(\\mu, m))$.
-"""
+    """The type of a function that takes in a `Matching` and possibly a list of additional parameters
+    and returns the three components of the hessian of the entropy wrt $(\\mu,\\mu)$.
+    """
+
+
+class EntropyHessianMuR(Protocol):
+    def __call__(self, mus: Matching, additional_parameters=..., /) -> TwoArrays:
+        ...
+
+    """The type of a function that takes in a `Matching` and possibly a list of additional parameters
+    and returns the two components of the hessian of the entropy
+    wrt $(\\mu,n)$ and $(\\mu, m))$.
+    """
+
 
 EntropyHessianComponents = tuple[ThreeArrays, TwoArrays]
 """ combines the tuples of the values of the components of the hessians."""
@@ -133,21 +144,18 @@ def entropy_gradient(
         the derivative of the entropy wrt $\\mu$
         at $(\\mu, n, m, \\alpha, p)$.
     """
-    e0_fun = cast(MatchingFunction, entropy.e0_fun)
-    e0_vals = e0_fun(muhat, additional_parameters)
+    e0_vals = get_evals(entropy.e0_fun, muhat, additional_parameters)
     parameter_dependent = entropy.parameter_dependent
     if parameter_dependent:
         if alpha is None:
             bs_error_abort("alpha should be specified for this model")
-        e_fun = entropy.e_fun
-        if e_fun is None:
+        elif entropy.e_fun is None:
             bs_error_abort("we should have an e_fun in this model")
         else:
-            e_fun = cast(MatchingFunction, e_fun)
-            e_vals = e_fun(muhat, additional_parameters)
+            e_vals = get_evals(entropy.e_fun, muhat, additional_parameters)
         return cast(np.ndarray, e0_vals + e_vals @ alpha)
     else:
-        return e0_vals
+        return cast(np.ndarray, e0_vals)
 
 
 def _numeric_component(
@@ -182,33 +190,33 @@ def _numeric_component(
     if direction == "y":
         muxy1[x, t] += _EPS
         mus1 = Matching(muxy1, n, m)
-        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        der_entropy_plus = get_evals(entropy_deriv, mus1, additional_parameters)
         muxy1[x, t] -= _TWO_EPS
     elif direction == "x":
         muxy1[t, y] += _EPS
         mus1 = Matching(muxy1, n, m)
-        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        der_entropy_plus = get_evals(entropy_deriv, mus1, additional_parameters)
         muxy1[t, y] -= _TWO_EPS
     elif direction == "d":
         muxy1[x, y] += _EPS
         mus1 = Matching(muxy1, n, m)
-        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        der_entropy_plus = get_evals(entropy_deriv, mus1, additional_parameters)
         muxy1[x, y] -= _TWO_EPS
     elif direction == "n":
         n1[x] += _EPS
         mus1 = Matching(muxy, n1, m)
-        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        der_entropy_plus = get_evals(entropy_deriv, mus1, additional_parameters)
         n1[x] -= _TWO_EPS
     elif direction == "m":
         m1[y] += _EPS
         mus1 = Matching(muxy, n, m1)
-        der_entropy_plus = entropy_deriv(mus1, additional_parameters)
+        der_entropy_plus = get_evals(entropy_deriv, mus1, additional_parameters)
         m1[y] -= _TWO_EPS
     else:
         bs_error_abort("Wrong direction parameter.")
 
     mus1 = Matching(muxy1, n1, m1)
-    der_entropy_minus = entropy_deriv(mus1, additional_parameters)
+    der_entropy_minus = get_evals(entropy_deriv, mus1, additional_parameters)
     deriv_value = (der_entropy_plus[x, y] - der_entropy_minus[x, y]) / _TWO_EPS
     return cast(float, deriv_value)
 

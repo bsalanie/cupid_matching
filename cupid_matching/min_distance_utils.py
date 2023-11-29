@@ -76,12 +76,11 @@ def make_D2_matrix(X: int, Y: int) -> tuple[np.ndarray, int]:
         slice_y = slice(y, XY, Y)
         D2_mat[slice_y, slice_y] -= 1.0 / X
     rank_D2 = np.linalg.matrix_rank(D2_mat)
-    print(f"rank of D: {rank_D2}")
     rng = np.random.default_rng(453)
     A_mat = rng.uniform(size=(rank_D2, XY))
     D2_mat = A_mat @ D2_mat
     rank_D2 = np.linalg.matrix_rank(D2_mat)
-    print(f"new rank of D: {rank_D2}")
+    print(f"\nThe rank of the double difference matrix D2 is {rank_D2}.\n")
     return D2_mat, rank_D2
 
 
@@ -143,8 +142,6 @@ def get_optimal_weighting_matrix(
             bs_error_abort("D2_mat should not be None when no_singles is True")
         else:
             var_entropy_gradient = D2_mat @ var_entropy_gradient @ D2_mat.T
-            print("Eigenvalues of the variance after D2:")
-            print(spla.eigh(var_entropy_gradient)[0])
     S_mat = spla.inv(var_entropy_gradient)
     return cast(np.ndarray, S_mat)
 

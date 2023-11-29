@@ -1,6 +1,6 @@
 import numpy as np
 
-from cupid_matching.utils import _reshape4_to2, find_nest_of, make_XY_K_mat
+from cupid_matching.utils import find_nest_of, make_XY_K_mat, reshape4_to2
 
 
 def test_make_XY_K_mat():
@@ -25,7 +25,7 @@ def test_reshape4_to2():
     array2_th[3, :] = array4[1, 1, :, :].reshape(8)
     array2_th[4, :] = array4[2, 0, :, :].reshape(8)
     array2_th[5, :] = array4[2, 1, :, :].reshape(8)
-    array2 = _reshape4_to2(array4)
+    array2 = reshape4_to2(array4)
     assert np.allclose(array2, array2_th)
 
 

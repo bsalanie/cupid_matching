@@ -1,8 +1,7 @@
 """ matching-related utilities """
 
-from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Final
+from typing import Any, Final, Protocol, cast
 
 import numpy as np
 from bs_python_utils.bsnputils import TwoArrays, check_matrix, check_vector, npmaxabs
@@ -99,13 +98,23 @@ class Matching:
         return muxy, mux0, mu0y, self.n, self.m
 
 
-MatchingFunction = (
-    Callable[[Matching], np.ndarray] | Callable[[Matching, list], np.ndarray]
-)
+class MatchingFunction(Protocol):
+    def __call__(
+        self, mus: Matching, additional_parameters: list | None = ..., /
+    ) -> np.ndarray:
+        ...
+
+
+def get_evals(
+    fun: MatchingFunction, mus: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
+    """evaluates fun(mus, additional_parameters)"""
+    vals = fun(mus, additional_parameters)
+    return cast(np.ndarray, vals)
 
 
 def get_margins(mus: Matching) -> TwoArrays:
-    """compute_s the numbers of each type from the matching patterns"""
+    """computes the numbers of each type from the matching patterns"""
     _, _, _, n, m = mus.unpack()
     return n, m
 

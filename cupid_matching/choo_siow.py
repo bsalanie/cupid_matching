@@ -4,7 +4,7 @@
 from typing import cast
 
 import numpy as np
-from bs_python_utils.bsnputils import FourArrays, ThreeArrays, TwoArrays
+from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
 from bs_python_utils.bsutils import bs_error_abort
 
 from cupid_matching.entropy import (
@@ -14,21 +14,15 @@ from cupid_matching.entropy import (
 )
 from cupid_matching.matching_utils import Matching
 
-# @overload
-# def _entropy_choo_siow(muhat: Matching, deriv: Literal[0]) -> np.ndarray: ...
-
-
-# @overload
-# def _entropy_choo_siow(muhat: Matching, deriv: Literal[1]) -> TwoArrays: ...
-
-
-# @overload
-# def _entropy_choo_siow(muhat: Matching, deriv: Literal[2]) -> FourArrays: ...
-
 
 def _entropy_choo_siow(
     muhat: Matching, deriv: int | None = 0
-) -> None | np.ndarray | TwoArrays | FourArrays:
+) -> (
+    None
+    | float
+    | tuple[float, np.ndarray]
+    | tuple[float, np.ndarray, np.ndarray, np.ndarray]
+):
     """Returns the values of $\\mathcal{E}$
     and the first (if `deriv` is 1 or 2) and second (if `deriv` is 2) derivatives
     for the Choo and Siow model
@@ -61,7 +55,7 @@ def _entropy_choo_siow(
     )
 
     if deriv == 0:
-        return val_entropy
+        return cast(float, val_entropy)
     if deriv in [1, 2]:
         der_xy = -2.0 * logxy + log0y
         der_xy += logx0.reshape((-1, 1))
@@ -155,7 +149,7 @@ def e0_fun_choo_siow(
         the (X,Y) matrix of the first derivative of the entropy
     """
     check_additional_parameters(0, additional_parameters)
-    entropy_res = cast(TwoArrays, _entropy_choo_siow(muhat, deriv=1))
+    entropy_res = cast(tuple[float, np.ndarray], _entropy_choo_siow(muhat, deriv=1))
     return cast(np.ndarray, entropy_res[1])
 
 
@@ -189,7 +183,10 @@ def hessian_mumu_choo_siow(
         the three components of the hessian wrt $(\\mu,\\mu)$ of the entropy
     """
     check_additional_parameters(0, additional_parameters)
-    entropy_res = cast(FourArrays, _entropy_choo_siow(muhat, deriv=2))
+    entropy_res = cast(
+        tuple[float, np.ndarray, np.ndarray, np.ndarray],
+        _entropy_choo_siow(muhat, deriv=2),
+    )
     hessmumu = entropy_res[2]
     muxy, *_ = muhat.unpack()
     X, Y = muxy.shape
@@ -246,7 +243,10 @@ def hessian_mur_choo_siow(
         the two components of the hessian wrt $(\\mu,r)$ of the entropy
     """
     check_additional_parameters(0, additional_parameters)
-    entropy_res = cast(FourArrays, _entropy_choo_siow(muhat, deriv=2))
+    entropy_res = cast(
+        tuple[float, np.ndarray, np.ndarray, np.ndarray],
+        _entropy_choo_siow(muhat, deriv=2),
+    )
     hessmur = entropy_res[3]
     muxy, *_ = muhat.unpack()
     X, Y = muxy.shape
