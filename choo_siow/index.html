@@ -492,6 +492,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../choo_siow_no_singles/" class="md-nav__link">
+        Choo-Siow homoskedastic w/o singles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../choo_siow_gender_heteroskedastic/" class="md-nav__link">
         Choo-Siow Gender-heteroskedastic
       </a>
@@ -548,8 +562,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../matching_utils/" class="md-nav__link">
-        Utilities for Matching
+      <a href="../utils/" class="md-nav__link">
+        General utliities
       </a>
     </li>
   
@@ -562,8 +576,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../utils/" class="md-nav__link">
-        General Utilities
+      <a href="../matching_utils/" class="md-nav__link">
+        Utilities for Matching
       </a>
     </li>
   
@@ -592,6 +606,20 @@
     <li class="md-nav__item">
       <a href="../example_choo_siow/" class="md-nav__link">
         Example on the Choo and Siow model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_choo_siow_no_singles/" class="md-nav__link">
+        Example on the Choo and Siow model without singles
       </a>
     </li>
   
@@ -750,8 +778,7 @@
 <a id="cupid_matching.choo_siow"></a>
   <div class="doc doc-contents first">
   
-      <p>The components of the derivative of the entropy
-for the Choo and Siow homoskedastic model.</p>
+      <p>The components of the derivative of the entropy for the Choo and Siow homoskedastic model.</p>
 
   
 
@@ -771,7 +798,7 @@ for the Choo and Siow homoskedastic model.</p>
 
 
 <h2 id="cupid_matching.choo_siow.e0_fun_choo_siow" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">e0_fun_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">e0_fun_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.choo_siow.e0_fun_choo_siow" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -836,7 +863,12 @@ for the Choo and Siow homoskedastic model.</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
 <span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
@@ -844,9 +876,9 @@ for the Choo and Siow homoskedastic model.</p>
 <span class="normal">150</span>
 <span class="normal">151</span>
 <span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">e0_fun_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">e0_fun_choo_siow</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the values of $e_0$ for the Choo and Siow model.</span>
 
 <span class="sd">    Args:</span>
@@ -855,7 +887,8 @@ for the Choo and Siow homoskedastic model.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        the (X,Y) matrix of the first derivative of the entropy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">check_additional_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">)</span>
+    <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">entropy_res</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
           </details>
@@ -869,7 +902,7 @@ for the Choo and Siow homoskedastic model.</p>
 
 
 <h2 id="cupid_matching.choo_siow.e0_fun_choo_siow_corrected" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">e0_fun_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">e0_fun_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.choo_siow.e0_fun_choo_siow_corrected" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -935,7 +968,9 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
 <span class="normal">159</span>
 <span class="normal">160</span>
 <span class="normal">161</span>
@@ -946,7 +981,10 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
-<span class="normal">169</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">e0_fun_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal">169</span>
+<span class="normal">170</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">e0_fun_choo_siow_corrected</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the values of $e_0$ for the Choo and Siow model,</span>
 <span class="sd">    using the finite-sample correction log(p+(1-p)/(2N))</span>
 
@@ -956,6 +994,7 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        the (X,Y) matrix of the first derivative of the entropy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_additional_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">)</span>
     <span class="n">e0_val_corrected</span> <span class="o">=</span> <span class="n">_der_entropy_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">hessian</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">e0_val_corrected</span>
 </code></pre></div></td></tr></table></div>
@@ -970,7 +1009,7 @@ using the finite-sample correction log(p+(1-p)/(2N))</p>
 
 
 <h2 id="cupid_matching.choo_siow.hessian_mumu_choo_siow" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">hessian_mumu_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">hessian_mumu_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.choo_siow.hessian_mumu_choo_siow" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1036,8 +1075,7 @@ for the Choo and Siow model.</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
-<span class="normal">173</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span>
@@ -1059,7 +1097,16 @@ for the Choo and Siow model.</p>
 <span class="normal">192</span>
 <span class="normal">193</span>
 <span class="normal">194</span>
-<span class="normal">195</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mumu_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ThreeArrays</span><span class="p">:</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mumu_choo_siow</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ThreeArrays</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the derivatives of $e_0$ in $\\mu$</span>
 <span class="sd">    for the Choo and Siow model.</span>
 
@@ -1069,7 +1116,11 @@ for the Choo and Siow model.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        the three components of the hessian wrt $(\\mu,\\mu)$ of the entropy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">check_additional_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">)</span>
+    <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">hessmumu</span> <span class="o">=</span> <span class="n">entropy_res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">muxy</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">muhat</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">muxy</span><span class="o">.</span><span class="n">shape</span>
@@ -1095,7 +1146,7 @@ for the Choo and Siow model.</p>
 
 
 <h2 id="cupid_matching.choo_siow.hessian_mumu_choo_siow_corrected" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">hessian_mumu_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">hessian_mumu_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.choo_siow.hessian_mumu_choo_siow_corrected" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1161,14 +1212,7 @@ for the Choo and Siow model, with the small sample correction</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">205</span>
 <span class="normal">206</span>
 <span class="normal">207</span>
 <span class="normal">208</span>
@@ -1183,7 +1227,19 @@ for the Choo and Siow model, with the small sample correction</p>
 <span class="normal">217</span>
 <span class="normal">218</span>
 <span class="normal">219</span>
-<span class="normal">220</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mumu_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ThreeArrays</span><span class="p">:</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mumu_choo_siow_corrected</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ThreeArrays</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the derivatives of $e_0$ in $\\mu$</span>
 <span class="sd">    for the Choo and Siow model, with the small sample correction</span>
 
@@ -1193,6 +1249,7 @@ for the Choo and Siow model, with the small sample correction</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        the three components of the hessian wrt $(\\mu,\\mu)$ of the entropy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_additional_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">hessmumu</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_der_entropy_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">hessian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">muxy</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">muhat</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">muxy</span><span class="o">.</span><span class="n">shape</span>
@@ -1218,7 +1275,7 @@ for the Choo and Siow model, with the small sample correction</p>
 
 
 <h2 id="cupid_matching.choo_siow.hessian_mur_choo_siow" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">hessian_mur_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">hessian_mur_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.choo_siow.hessian_mur_choo_siow" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1284,17 +1341,7 @@ for the Choo and Siow model.</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">233</span>
 <span class="normal">234</span>
 <span class="normal">235</span>
 <span class="normal">236</span>
@@ -1305,7 +1352,25 @@ for the Choo and Siow model.</p>
 <span class="normal">241</span>
 <span class="normal">242</span>
 <span class="normal">243</span>
-<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mur_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TwoArrays</span><span class="p">:</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mur_choo_siow</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TwoArrays</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the derivatives of $e_0$ in $r$</span>
 <span class="sd">    for the Choo and Siow model.</span>
 
@@ -1315,7 +1380,11 @@ for the Choo and Siow model.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        the two components of the hessian wrt $(\\mu,r)$ of the entropy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">check_additional_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">)</span>
+    <span class="n">entropy_res</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="n">_entropy_choo_siow</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">deriv</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">hessmur</span> <span class="o">=</span> <span class="n">entropy_res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">muxy</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">muhat</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">muxy</span><span class="o">.</span><span class="n">shape</span>
@@ -1339,7 +1408,7 @@ for the Choo and Siow model.</p>
 
 
 <h2 id="cupid_matching.choo_siow.hessian_mur_choo_siow_corrected" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">hessian_mur_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">hessian_mur_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.choo_siow.hessian_mur_choo_siow_corrected" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1405,27 +1474,32 @@ for the Choo and Siow model, with the small sample correction</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">263</span>
 <span class="normal">264</span>
 <span class="normal">265</span>
 <span class="normal">266</span>
-<span class="normal">267</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mur_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TwoArrays</span><span class="p">:</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">hessian_mur_choo_siow_corrected</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TwoArrays</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the derivatives of $e_0$ in $r$</span>
 <span class="sd">    for the Choo and Siow model, with the small sample correction</span>
 
@@ -1435,6 +1509,7 @@ for the Choo and Siow model, with the small sample correction</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        the two components of the hessian wrt $(\\mu,r)$ of the entropy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_additional_parameters</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">additional_parameters</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">hessmur</span> <span class="o">=</span> <span class="n">_der_entropy_choo_siow_corrected</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">hessian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">muxy</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">muhat</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">muxy</span><span class="o">.</span><span class="n">shape</span>
@@ -1495,13 +1570,13 @@ for the Choo and Siow model, with the small sample correction</p>
       
       
         
-        <a href="../choo_siow_gender_heteroskedastic/" class="md-footer__link md-footer__link--next" aria-label="Next: Choo-Siow Gender-heteroskedastic" rel="next">
+        <a href="../choo_siow_no_singles/" class="md-footer__link md-footer__link--next" aria-label="Next: Choo-Siow homoskedastic w/o singles" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Choo-Siow Gender-heteroskedastic
+              Choo-Siow homoskedastic w/o singles
             </div>
           </div>
           <div class="md-footer__button md-icon">

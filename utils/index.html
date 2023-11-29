@@ -19,7 +19,7 @@
     
     
       
-        <title>General Utilities - cupid-matching</title>
+        <title>General utliities - cupid-matching</title>
       
     
     
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              General Utilities
+              General utliities
             
           </span>
         </div>
@@ -409,6 +409,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../choo_siow_no_singles/" class="md-nav__link">
+        Choo-Siow homoskedastic w/o singles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../choo_siow_gender_heteroskedastic/" class="md-nav__link">
         Choo-Siow Gender-heteroskedastic
       </a>
@@ -463,20 +477,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../matching_utils/" class="md-nav__link">
-        Utilities for Matching
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -489,12 +489,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          General Utilities
+          General utliities
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        General Utilities
+        General utliities
       </a>
       
         
@@ -519,10 +519,52 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.change_indices" class="md-nav__link">
+    change_indices()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.find_nest_of" class="md-nav__link">
+    find_nest_of()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.make_XY_K_mat" class="md-nav__link">
+    make_XY_K_mat()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.reshape4_to2" class="md-nav__link">
+    reshape4_to2()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matching_utils/" class="md-nav__link">
+        Utilities for Matching
+      </a>
     </li>
   
 
@@ -550,6 +592,20 @@
     <li class="md-nav__item">
       <a href="../example_choo_siow/" class="md-nav__link">
         Example on the Choo and Siow model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_choo_siow_no_singles/" class="md-nav__link">
+        Example on the Choo and Siow model without singles
       </a>
     </li>
   
@@ -637,6 +693,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.change_indices" class="md-nav__link">
+    change_indices()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.find_nest_of" class="md-nav__link">
+    find_nest_of()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.make_XY_K_mat" class="md-nav__link">
+    make_XY_K_mat()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.utils.reshape4_to2" class="md-nav__link">
+    reshape4_to2()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -681,6 +765,441 @@
 
 
 
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.change_indices" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">change_indices</span><span class="p">(</span><span class="n">nests</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.change_indices" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>subtracts 1 from the indices within the nest structure</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>nests</code></td>
+          <td>
+                <code><span title="cupid_matching.utils.NestsList">NestsList</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the nest structure</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a similar list</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">change_indices</span><span class="p">(</span><span class="n">nests</span><span class="p">:</span> <span class="n">NestsList</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;subtracts 1 from the indices within the nest structure</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nests: the nest structure</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a similar list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="n">nest_i</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">nest_i</span> <span class="ow">in</span> <span class="n">nest</span><span class="p">]</span> <span class="k">for</span> <span class="n">nest</span> <span class="ow">in</span> <span class="n">nests</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.find_nest_of" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">find_nest_of</span><span class="p">(</span><span class="n">nests</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.find_nest_of" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>find the index of the nest that contains y, or return -1</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>nests</code></td>
+          <td>
+                <code><span title="cupid_matching.utils.NestsList">NestsList</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>a nest structure</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the type we are looking for</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the nest of y, or -1 if not found</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">find_nest_of</span><span class="p">(</span><span class="n">nests</span><span class="p">:</span> <span class="n">NestsList</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;find the index of the nest that contains y, or return -1</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nests: a nest structure</span>
+<span class="sd">        y: the type we are looking for</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the nest of y, or -1 if not found</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i_n</span><span class="p">,</span> <span class="n">nest</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nests</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">nest</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">i_n</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># if not found</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.make_XY_K_mat" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">make_XY_K_mat</span><span class="p">(</span><span class="n">xyk_array</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.make_XY_K_mat" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reshapes an (X,Y,K) array to an (XY,K) matrix.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>xyk_array</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an (X, Y, K) array of bases</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the same,  (XY, K)-reshaped</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">make_XY_K_mat</span><span class="p">(</span><span class="n">xyk_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reshapes an (X,Y,K) array to an (XY,K) matrix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        xyk_array: an (X, Y, K) array of bases</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the same,  (XY, K)-reshaped</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span> <span class="o">=</span> <span class="n">xyk_array</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">XY</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Y</span>
+    <span class="n">xy_k_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">XY</span><span class="p">,</span> <span class="n">K</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+        <span class="n">xy_k_mat</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">xyk_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">xy_k_mat</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.utils.reshape4_to2" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">reshape4_to2</span><span class="p">(</span><span class="n">array4</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.utils.reshape4_to2" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reshapes an array (X,Y,Z,T) to a matrix (XY,ZT).</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>array4</code></td>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an (X, Y, Z, T) array</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the same,  (XY, ZT)-reshaped</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/utils.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reshape4_to2</span><span class="p">(</span><span class="n">array4</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reshapes an array (X,Y,Z,T) to a matrix (XY,ZT).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        array4: an (X, Y, Z, T) array</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the same,  (XY, ZT)-reshaped</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">array4</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;array4 should have 4 dimensions not </span><span class="si">{</span><span class="n">array4</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">array4</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">XY</span><span class="p">,</span> <span class="n">ZT</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span> <span class="o">*</span> <span class="n">T</span>
+    <span class="n">array2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">XY</span><span class="p">,</span> <span class="n">ZT</span><span class="p">))</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Y</span><span class="p">):</span>
+            <span class="n">array2</span><span class="p">[</span><span class="n">xy</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array4</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+            <span class="n">xy</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">array2</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
 
   </div>
 
@@ -707,7 +1226,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="../matching_utils/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Utilities for Matching" rel="prev">
+        <a href="../ipfp_solvers/" class="md-footer__link md-footer__link--prev" aria-label="Previous: IPFP solvers" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -716,20 +1235,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Utilities for Matching
+              IPFP solvers
             </div>
           </div>
         </a>
       
       
         
-        <a href="../model_classes/" class="md-footer__link md-footer__link--next" aria-label="Next: Classes used" rel="next">
+        <a href="../matching_utils/" class="md-footer__link md-footer__link--next" aria-label="Next: Utilities for Matching" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Classes used
+              Utilities for Matching
             </div>
           </div>
           <div class="md-footer__button md-icon">

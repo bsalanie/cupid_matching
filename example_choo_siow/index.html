@@ -409,6 +409,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../choo_siow_no_singles/" class="md-nav__link">
+        Choo-Siow homoskedastic w/o singles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../choo_siow_gender_heteroskedastic/" class="md-nav__link">
         Choo-Siow Gender-heteroskedastic
       </a>
@@ -465,8 +479,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../matching_utils/" class="md-nav__link">
-        Utilities for Matching
+      <a href="../utils/" class="md-nav__link">
+        General utliities
       </a>
     </li>
   
@@ -479,8 +493,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../utils/" class="md-nav__link">
-        General Utilities
+      <a href="../matching_utils/" class="md-nav__link">
+        Utilities for Matching
       </a>
     </li>
   
@@ -572,6 +586,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_choo_siow_no_singles/" class="md-nav__link">
+        Example on the Choo and Siow model without singles
+      </a>
     </li>
   
 
@@ -737,7 +765,7 @@
   
       <p>we simulate a Choo and Siow population
 with equal numbers of men and women of each type
-and random bases dunctions and coefficients</p>
+and random bases functions and coefficients</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -754,7 +782,7 @@ and random bases dunctions and coefficients</p>
              with this standard deviation
 
 Returns:
-    a ChooSiowPrimitives instance, the basis functions, and the coefficients
+    a `ChooSiowPrimitives` instance, the basis functions, and the coefficients
 </code></pre></div></td></tr></table></div>
 
           <details class="quote">
@@ -789,7 +817,7 @@ Returns:
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    we simulate a Choo and Siow population</span>
 <span class="sd">    with equal numbers of men and women of each type</span>
-<span class="sd">    and random bases dunctions and coefficients</span>
+<span class="sd">    and random bases functions and coefficients</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">         X: number of types of men</span>
@@ -799,7 +827,7 @@ Returns:
 <span class="sd">                     with this standard deviation</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            a ChooSiowPrimitives instance, the basis functions, and the coefficients</span>
+<span class="sd">            a `ChooSiowPrimitives` instance, the basis functions, and the coefficients</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">betas_true</span> <span class="o">=</span> <span class="n">std_betas</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
     <span class="n">phi_bases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
@@ -942,16 +970,7 @@ on randomly generated data</p>
 
           <details class="quote">
             <summary>Source code in <code>cupid_matching/example_choo_siow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -1008,7 +1027,16 @@ on randomly generated data</p>
 <span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span>
-<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">demo_choo_siow</span><span class="p">(</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">demo_choo_siow</span><span class="p">(</span>
     <span class="n">n_households</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">std_betas</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;run four MDE estimators and the Poisson estimator</span>
@@ -1035,28 +1063,28 @@ on randomly generated data</p>
         <span class="n">phi_bases</span><span class="p">,</span>
         <span class="n">betas_true</span><span class="p">,</span>
         <span class="n">entropy_choo_siow</span><span class="p">,</span>
-        <span class="s2">&quot;RESULTS FOR MDE WITH ANALYTICAL GRADIENT&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;RESULTS FOR MDE WITH ANALYTICAL GRADIENT&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">mde_discrepancy_numeric</span> <span class="o">=</span> <span class="n">mde_estimate</span><span class="p">(</span>
         <span class="n">mus_sim</span><span class="p">,</span>
         <span class="n">phi_bases</span><span class="p">,</span>
         <span class="n">betas_true</span><span class="p">,</span>
         <span class="n">entropy_choo_siow_numeric</span><span class="p">,</span>
-        <span class="s2">&quot;RESULTS FOR MDE WITH NUMERICAL GRADIENT&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;RESULTS FOR MDE WITH NUMERICAL GRADIENT&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">mde_discrepancy_corrected</span> <span class="o">=</span> <span class="n">mde_estimate</span><span class="p">(</span>
         <span class="n">mus_sim</span><span class="p">,</span>
         <span class="n">phi_bases</span><span class="p">,</span>
         <span class="n">betas_true</span><span class="p">,</span>
         <span class="n">entropy_choo_siow_corrected</span><span class="p">,</span>
-        <span class="s2">&quot;RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;RESULTS FOR THE CORRECTED MDE WITH ANALYTICAL GRADIENT&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">mde_discrepancy_corrected_numeric</span> <span class="o">=</span> <span class="n">mde_estimate</span><span class="p">(</span>
         <span class="n">mus_sim</span><span class="p">,</span>
         <span class="n">phi_bases</span><span class="p">,</span>
         <span class="n">betas_true</span><span class="p">,</span>
         <span class="n">entropy_choo_siow_corrected_numeric</span><span class="p">,</span>
-        <span class="s2">&quot;RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;RESULTS FOR THE CORRECTED MDE WITH NUMERICAL GRADIENT&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># we also estimate using Poisson GLM</span>
@@ -1087,7 +1115,7 @@ on randomly generated data</p>
 
 
 <h2 id="cupid_matching.example_choo_siow.mde_estimate" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">mde_estimate</span><span class="p">(</span><span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">betas_true</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">mde_estimate</span><span class="p">(</span><span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">betas_true</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">no_singles</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 <a href="#cupid_matching.example_choo_siow.mde_estimate" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1166,9 +1194,23 @@ on randomly generated data</p>
           </td>
         </tr>
         <tr>
+          <td><code>no_singles</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>if <code>True</code>, we use the no-singles version of the model</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
           <td><code>title</code></td>
           <td>
-                <code>str</code>
+                <code>str | None</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1176,7 +1218,7 @@ on randomly generated data</p>
             </div>
           </td>
           <td>
-              <em>required</em>
+                <code>None</code>
           </td>
         </tr>
     </tbody>
@@ -1230,12 +1272,23 @@ on randomly generated data</p>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
-<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mde_estimate</span><span class="p">(</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mde_estimate</span><span class="p">(</span>
     <span class="n">mus_sim</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span>
     <span class="n">phi_bases</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">betas_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">entropy</span><span class="p">:</span> <span class="n">EntropyFunctions</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">no_singles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;we estimate the parameters using the minimum distance estimator</span>
 
@@ -1244,13 +1297,20 @@ on randomly generated data</p>
 <span class="sd">        phi_bases: the basis functions</span>
 <span class="sd">        betas_true: their true coefficients</span>
 <span class="sd">        entropy: the entropy functions we use</span>
+<span class="sd">        no_singles: if `True`, we use the no-singles version of the model</span>
 <span class="sd">        title: the name of the estimator</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        the largest absolute difference between the true and estimated coefficients</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">print_stars</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">mde_results</span> <span class="o">=</span> <span class="n">estimate_semilinear_mde</span><span class="p">(</span><span class="n">mus_sim</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">,</span> <span class="n">entropy</span><span class="p">)</span>
+    <span class="n">mde_results</span> <span class="o">=</span> <span class="n">estimate_semilinear_mde</span><span class="p">(</span>
+        <span class="n">mus_sim</span><span class="p">,</span>
+        <span class="n">phi_bases</span><span class="p">,</span>
+        <span class="n">entropy</span><span class="p">,</span>
+        <span class="n">no_singles</span><span class="o">=</span><span class="n">no_singles</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">mde_discrepancy</span> <span class="o">=</span> <span class="n">mde_results</span><span class="o">.</span><span class="n">print_results</span><span class="p">(</span><span class="n">true_coeffs</span><span class="o">=</span><span class="n">betas_true</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">mde_discrepancy</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -1302,13 +1362,13 @@ on randomly generated data</p>
       
       
         
-        <a href="../example_nested_logit/" class="md-footer__link md-footer__link--next" aria-label="Next: Example on a nested logit model" rel="next">
+        <a href="../example_choo_siow_no_singles/" class="md-footer__link md-footer__link--next" aria-label="Next: Example on the Choo and Siow model without singles" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Example on a nested logit model
+              Example on the Choo and Siow model without singles
             </div>
           </div>
           <div class="md-footer__button md-icon">

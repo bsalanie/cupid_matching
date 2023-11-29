@@ -414,6 +414,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#cupid_matching.poisson_glm_utils.prepare_data" class="md-nav__link">
+    prepare_data()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -445,6 +452,20 @@
     <li class="md-nav__item">
       <a href="../choo_siow/" class="md-nav__link">
         Choo-Siow homoskedastic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../choo_siow_no_singles/" class="md-nav__link">
+        Choo-Siow homoskedastic w/o singles
       </a>
     </li>
   
@@ -513,8 +534,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../matching_utils/" class="md-nav__link">
-        Utilities for Matching
+      <a href="../utils/" class="md-nav__link">
+        General utliities
       </a>
     </li>
   
@@ -527,8 +548,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../utils/" class="md-nav__link">
-        General Utilities
+      <a href="../matching_utils/" class="md-nav__link">
+        Utilities for Matching
       </a>
     </li>
   
@@ -557,6 +578,20 @@
     <li class="md-nav__item">
       <a href="../example_choo_siow/" class="md-nav__link">
         Example on the Choo and Siow model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example_choo_siow_no_singles/" class="md-nav__link">
+        Example on the Choo and Siow model without singles
       </a>
     </li>
   
@@ -647,6 +682,13 @@
         <li class="md-nav__item">
   <a href="#cupid_matching.poisson_glm_utils.PoissonGLMResults" class="md-nav__link">
     PoissonGLMResults
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cupid_matching.poisson_glm_utils.prepare_data" class="md-nav__link">
+    prepare_data()
   </a>
   
 </li>
@@ -1229,6 +1271,213 @@
 
 </div>
 
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="cupid_matching.poisson_glm_utils.prepare_data" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">prepare_data</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">var_muhat</span><span class="p">,</span> <span class="n">no_singles</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#cupid_matching.poisson_glm_utils.prepare_data" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Normalizes the matching patterns and stacks them.
+We rescale the data so that the total number of individuals is one.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>muhat</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.Matching" href="../matching_utils/#cupid_matching.matching_utils.Matching">Matching</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the observed Matching</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>var_muhat</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.VarianceMatching" href="../matching_utils/#cupid_matching.matching_utils.VarianceMatching">VarianceMatching</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the variance-covariance object for the observed matching</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>no_singles</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>if True, we do not observe singles</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the stacked, normalized <code>muxy, mux0, mu0y</code> (the latter two are zero if <code>no_singles</code>)</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="cupid_matching.matching_utils.VarianceMatching" href="../matching_utils/#cupid_matching.matching_utils.VarianceMatching">VarianceMatching</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the corresponding variance-covariance matrix</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of households</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of individuals</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>cupid_matching/poisson_glm_utils.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span>
+    <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span>
+    <span class="n">var_muhat</span><span class="p">:</span> <span class="n">VarianceMatching</span><span class="p">,</span>
+    <span class="n">no_singles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">VarianceMatching</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalizes the matching patterns and stacks them.</span>
+<span class="sd">    We rescale the data so that the total number of individuals is one.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        muhat: the observed Matching</span>
+<span class="sd">        var_muhat: the variance-covariance object for the observed matching</span>
+<span class="sd">        no_singles: if True, we do not observe singles</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        the stacked, normalized `muxy, mux0, mu0y` (the latter two are zero if `no_singles`)</span>
+<span class="sd">        the corresponding variance-covariance matrix</span>
+<span class="sd">        the number of households</span>
+<span class="sd">        the number of individuals</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">muxy</span><span class="p">,</span> <span class="n">mux0</span><span class="p">,</span> <span class="n">mu0y</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">muhat</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
+    <span class="n">n_couples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">muxy</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">no_singles</span><span class="p">:</span>
+        <span class="n">mux0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">mux0</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">mu0y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">mu0y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">n_households</span> <span class="o">=</span> <span class="n">n_couples</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mux0</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mu0y</span><span class="p">)</span>
+    <span class="n">n_individuals</span> <span class="o">=</span> <span class="n">n_households</span> <span class="o">+</span> <span class="n">n_couples</span>
+    <span class="c1"># rescale the data so that the total number of individuals is one</span>
+    <span class="n">muhat_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">muxy</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">mux0</span><span class="p">,</span> <span class="n">mu0y</span><span class="p">])</span> <span class="o">/</span> <span class="n">n_individuals</span>
+    <span class="n">n_indivs2</span> <span class="o">=</span> <span class="n">n_individuals</span> <span class="o">*</span> <span class="n">n_individuals</span>
+    <span class="n">var_muhat_norm</span> <span class="o">=</span> <span class="n">var_divide</span><span class="p">(</span><span class="n">var_muhat</span><span class="p">,</span> <span class="n">n_indivs2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">muhat_norm</span><span class="p">,</span>
+        <span class="n">var_muhat_norm</span><span class="p">,</span>
+        <span class="n">n_households</span><span class="p">,</span>
+        <span class="n">n_individuals</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
 
 
 
