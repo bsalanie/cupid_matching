@@ -44,16 +44,21 @@ build-and-publish: build publish ## Build and publish.
 docs-test: ## Test if documentation can be built without warnings or errors
 	@cp README.md docs/index.md
 	@poetry run mkdocs build -s
+	@quarto render CupidMatchingDoc.qmd --to pdf
 
 .PHONY: docs
 docs: ## Build and serve the documentation
 	@cp README.md docs/index.md
+	@quarto render CupidMatchingDoc.qmd --to pdf
 	@poetry run mkdocs serve
+
 
 .PHONY: docs-deploy
 docs-deploy: ## Build and deploy the documentation on Github pages
 	@cp README.md docs/index.md
+	@quarto render CupidMatchingDoc.qmd --to pdf
 	@poetry run mkdocs gh-deploy
+
 
 .PHONY: help
 help:
