@@ -11,10 +11,21 @@ from typing import cast
 
 import numpy as np
 from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
+from bs_python_utils.bsutils import bs_error_abort
 
 from cupid_matching.entropy import EntropyFunctions, EntropyHessians
 from cupid_matching.matching_utils import Matching
 from cupid_matching.utils import NestsList, change_indices
+
+
+def _get_params(
+    additional_parameters: list | None,
+) -> tuple[NestsList, NestsList]:
+    if additional_parameters is None:
+        bs_error_abort("additional_parameters must be specified for the nested logit.")
+    else:
+        nests_for_each_x, nests_for_each_y = additional_parameters
+    return nests_for_each_x, nests_for_each_y
 
 
 def e0_nested_logit(
@@ -31,7 +42,7 @@ def e0_nested_logit(
         the (X,Y) matrix of the parameter-independent part
         of the first derivative of the entropy.
     """
-    nests_for_each_x, nests_for_each_y = additional_parameters
+    nests_for_each_x, nests_for_each_y = _get_params(additional_parameters)
     nests_x = change_indices(nests_for_each_x)
     nests_y = change_indices(nests_for_each_y)
     muxy, mux0, mu0y, *_ = muhat.unpack()
@@ -65,7 +76,7 @@ def e0_derivative_mu_nested_logit(
         the parameter-independent part of the hessian of the entropy
         wrt $(\\mu,\\mu)$.
     """
-    nests_for_each_x, nests_for_each_y = additional_parameters
+    nests_for_each_x, nests_for_each_y = _get_params(additional_parameters)
     nests_x = change_indices(nests_for_each_x)
     nests_y = change_indices(nests_for_each_y)
     muxy, mux0, mu0y, *_ = muhat.unpack()
@@ -114,7 +125,7 @@ def e0_derivative_r_nested_logit(
         the parameter-independent part of the hessian of the entropy
         wrt $(\\mu,r)$.
     """
-    nests_for_each_x, nests_for_each_y = additional_parameters
+    nests_for_each_x, nests_for_each_y = _get_params(additional_parameters)
     nests_x = change_indices(nests_for_each_x)
     nests_y = change_indices(nests_for_each_y)
     muxy, mux0, mu0y, n, m = muhat.unpack()
@@ -159,7 +170,7 @@ def e_nested_logit(
         the (X,Y,n_alpha) array of the parameter-dependent part
         of the first derivative of the entropy.
     """
-    nests_for_each_x, nests_for_each_y = additional_parameters
+    nests_for_each_x, nests_for_each_y = _get_params(additional_parameters)
     nests_x = change_indices(nests_for_each_x)
     nests_y = change_indices(nests_for_each_y)
     n_rhos = len(nests_for_each_x)
@@ -200,7 +211,7 @@ def e_derivative_mu_nested_logit(
         the parameter-dependent part of the hessian of the entropy
         wrt $(\\mu,\\mu)$.
     """
-    nests_for_each_x, nests_for_each_y = additional_parameters
+    nests_for_each_x, nests_for_each_y = _get_params(additional_parameters)
     nests_x = change_indices(nests_for_each_x)
     nests_y = change_indices(nests_for_each_y)
     n_rhos = len(nests_for_each_x)
@@ -251,7 +262,7 @@ def e_derivative_r_nested_logit(
         the parameter-dependent part of the hessian of the entropy
         wrt $(\\mu,r)$.
     """
-    nests_for_each_x, nests_for_each_y = additional_parameters
+    nests_for_each_x, nests_for_each_y = _get_params(additional_parameters)
     n_rhos = len(nests_for_each_x)
     n_deltas = len(nests_for_each_y)
     n_alpha = n_rhos + n_deltas
