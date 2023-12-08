@@ -4,6 +4,7 @@ for the Choo and Siow gender-heteroskedastic model.
 We normalize the standard error for the X side at 1,
 and we estimate the standard error on the Y side.
 """
+
 from typing import cast
 
 import numpy as np
@@ -13,7 +14,9 @@ from cupid_matching.entropy import EntropyFunctions, EntropyHessians
 from cupid_matching.matching_utils import Matching
 
 
-def e0_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
+def e0_choo_siow_gender_heteroskedastic(
+    muhat: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
     """Returns the values of the parameter-independent part $e_0$
     for the Choo and Siow gender-heteroskedastic model; we normalized $\\sigma=1$.
 
@@ -30,7 +33,7 @@ def e0_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
 
 
 def e0_derivative_mu_gender_heteroskedastic(
-    muhat: Matching,
+    muhat: Matching, additional_parameters: list | None = None
 ) -> ThreeArrays:
     """Returns the derivatives of the parameter-independent part $e_0$ in $\\mu$.
     for the Choo and Siow gender-heteroskedastic model; we normalized $\\sigma=1$.
@@ -58,7 +61,7 @@ def e0_derivative_mu_gender_heteroskedastic(
 
 
 def e0_derivative_r_gender_heteroskedastic(
-    muhat: Matching,
+    muhat: Matching, additional_parameters: list | None = None
 ) -> TwoArrays:
     """Returns the derivatives of the parameter-independent part $e_0$ wrt $r$
     for the Choo and Siow gender-heteroskedastic model; we normalized $\\sigma=1$.
@@ -88,7 +91,9 @@ e0_derivative_choo_siow_gender_heteroskedastic = (
 )
 
 
-def e_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
+def e_choo_siow_gender_heteroskedastic(
+    muhat: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
     """Returns the values of the parameter-dependent part  $e$
     for the Choo and Siow gender-heteroskedastic model; we normalized $\\sigma=1$.
 
@@ -109,7 +114,7 @@ def e_choo_siow_gender_heteroskedastic(muhat: Matching) -> np.ndarray:
 
 
 def e_derivative_mu_gender_heteroskedastic(
-    muhat: Matching,
+    muhat: Matching, additional_parameters: list | None = None
 ) -> ThreeArrays:
     """Returns the derivatives of the parameter-dependent part $e$
      wrt $\\mu$ for the Choo and Siow gender-heteroskedastic model;
@@ -140,7 +145,7 @@ def e_derivative_mu_gender_heteroskedastic(
 
 
 def e_derivative_r_gender_heteroskedastic(
-    muhat: Matching,
+    muhat: Matching, additional_parameters: list | None = None
 ) -> TwoArrays:
     """Returns the derivatives of the parameter-dependent part $e$
      wrt $r$ for the Choo and Siow gender-heteroskedastic model;

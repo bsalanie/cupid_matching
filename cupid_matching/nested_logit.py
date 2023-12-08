@@ -7,7 +7,7 @@ On each side, the nests are the same for each type, with the same parameters.
 """
 
 from math import log
-from typing import Any, cast
+from typing import cast
 
 import numpy as np
 from bs_python_utils.bsnputils import ThreeArrays, TwoArrays
@@ -17,7 +17,9 @@ from cupid_matching.matching_utils import Matching
 from cupid_matching.utils import NestsList, change_indices
 
 
-def e0_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndarray:
+def e0_nested_logit(
+    muhat: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
     """Returns the values of the parameter-independent part $e_0$
     for the nested logit.
 
@@ -50,7 +52,7 @@ def e0_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.nda
 
 
 def e0_derivative_mu_nested_logit(
-    muhat: Matching, additional_parameters: list[Any]
+    muhat: Matching, additional_parameters: list | None = None
 ) -> ThreeArrays:
     """Returns the derivatives of the parameter-independent part $e_0$
     wrt $\\mu$ for the nested logit.
@@ -99,7 +101,7 @@ def e0_derivative_mu_nested_logit(
 
 
 def e0_derivative_r_nested_logit(
-    muhat: Matching, additional_parameters: list[Any]
+    muhat: Matching, additional_parameters: list | None = None
 ) -> TwoArrays:
     """Returns the derivatives of the parameter-independent part $e_0$
     wrt $r$ for the nested logit.
@@ -143,7 +145,9 @@ e0_derivative_nested_logit = (
 )
 
 
-def e_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndarray:
+def e_nested_logit(
+    muhat: Matching, additional_parameters: list | None = None
+) -> np.ndarray:
     """Returns the values of the parameter-dependent part  $e$
     for the nested logit.
 
@@ -183,7 +187,7 @@ def e_nested_logit(muhat: Matching, additional_parameters: list[Any]) -> np.ndar
 
 
 def e_derivative_mu_nested_logit(
-    muhat: Matching, additional_parameters: list[Any]
+    muhat: Matching, additional_parameters: list | None = None
 ) -> ThreeArrays:
     """Returns the derivatives of the parameter-dependent part $e$
      wrt $\\mu$ for the nested logit.
@@ -234,7 +238,7 @@ def e_derivative_mu_nested_logit(
 
 
 def e_derivative_r_nested_logit(
-    muhat: Matching, additional_parameters: list[Any]
+    muhat: Matching, additional_parameters: list | None = None
 ) -> TwoArrays:
     """Returns the derivatives of the parameter-dependent part $e$
      wrt $r$ for the nested logit.
