@@ -52,7 +52,7 @@ def reshape4_to2(array4: np.ndarray) -> np.ndarray:
     return array2
 
 
-def change_indices(nests: NestsList):
+def change_indices(nests: NestsList) -> NestsList:
     """subtracts 1 from the indices within the nest structure
 
     Args:
