@@ -6,7 +6,7 @@ from typing import cast
 
 import numpy as np
 import scipy.stats as sts
-from bs_python_utils.bsutils import print_stars
+from bs_python_utils.bsutils import bs_error_abort, print_stars
 
 from cupid_matching.entropy import (
     EntropyFunctions,
@@ -86,6 +86,7 @@ def estimate_semilinear_mde(
     """
     X, Y, K = check_args_mde(muhat, phi_bases)
     XY = X * Y
+    X1Y1 = (X - 1) * (Y - 1)
     parameterized_entropy = entropy.parameter_dependent
     S_mat = get_initial_weighting_matrix(
         parameterized_entropy, initial_weighting_matrix, XY
@@ -96,6 +97,8 @@ def estimate_semilinear_mde(
     # if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$
     if no_singles:
         D2_mat, rank_D2 = make_D2_matrix(X, Y)
+        if rank_D2 != X1Y1:
+            bs_error_abort(f"The D2 matrix should have rank {X1Y1} not {rank_D2}")
         phi_mat = D2_mat @ phi_mat
         check_indep_phi_no_singles(phi_mat, X, Y)
 
@@ -219,7 +222,7 @@ def estimate_semilinear_mde(
         residuals = est_Phi + e0_hat + e_hat @ est_alpha
 
     value_obj = residuals.T @ S_mat @ residuals
-    ndf = rank_D2 - n_pars if no_singles else XY - n_pars
+    ndf = X1Y1 - n_pars if no_singles else XY - n_pars
     test_stat = value_obj
     muxyhat, *_, nhat, mhat = muhat.unpack()
     n_individuals = np.sum(nhat) + np.sum(mhat)
