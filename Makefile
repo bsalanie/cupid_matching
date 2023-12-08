@@ -2,7 +2,7 @@
 install: ## Install the poetry environment and install the pre-commit hooks
 	@echo "🚀 Creating virtual environment using pyenv and poetry"
 	@poetry install	
-	@ poetry run pre-commit install
+	@poetry run pre-commit install
 	@poetry shell
 
 .PHONY: check
@@ -43,8 +43,9 @@ build-and-publish: build publish ## Build and publish.
 .PHONY: docs-test
 docs-test: ## Test if documentation can be built without warnings or errors
 	@cp README.md docs/index.md
-	@poetry run mkdocs build -s
 	@quarto render CupidMatchingDoc.qmd --to pdf
+	@poetry run mkdocs build -s
+
 
 .PHONY: docs
 docs: ## Build and serve the documentation

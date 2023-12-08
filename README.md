@@ -34,7 +34,7 @@ from cupid_matching.min_distance import estimate_semilinear_mde
 
 ## How it works
 
-The following only describes the general ideas. See   [here](https://github.com/bsalanie/cupid_matching/CupidMatchingDoc.pdf) for more background and the API reference on this site for the technical documentation.
+The following only describes the general ideas. See   [here](https://github.com/bsalanie/cupid_matching/blob/main/CupidMatchingDoc.pdf) for more background and the API reference on this site for the technical documentation.
 
 The `cupid_matching` package has code 
 

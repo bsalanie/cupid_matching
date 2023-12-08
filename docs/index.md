@@ -34,7 +34,7 @@ from cupid_matching.min_distance import estimate_semilinear_mde
 
 ## How it works
 
-The following only describes the general ideas. The full documentation is [here](https://bsalanie.github.io/cupid_matching).
+The following only describes the general ideas. See   [here](https://github.com/bsalanie/cupid_matching/blob/main/CupidMatchingDoc.pdf) for more background and the API reference on this site for the technical documentation.
 
 The `cupid_matching` package has code 
 
@@ -58,6 +58,9 @@ The primitives of this class of matching models are
 $$
 \Phi_{xy}+\varepsilon_{my} +\eta_{xw}.
 $$ 
+I will only describe here the case when the data also has singles, i.e., when $x=y=0$ is a possible type. The [fuller documentation](#) explains how to deal with the case when singles are not observed.
+
+
 A single man has utility $\varepsilon_{m0}$ and a single woman has utility $\eta_{0w}$.
 
 The modeler chooses the distributions of the vectors $(\varepsilon_{m0},\varepsilon_{m1},\ldots, \varepsilon_{mY})$ and $(\eta_{0w},\eta_{1w},\ldots,\eta_{Xw})$.
@@ -129,7 +132,7 @@ $$
 
 where the *basis functions* $(\phi^1,\ldots,\phi^K)$ are imposed by the analyst. 
 
-The file `example_choosiow.py` has a demo of minimum distance and Poisson estimators on the Choo and Siow 2006 model. For other models, the minimum distance estimator works as follows, given 
+The minimum distance estimator works as follows, given 
 
 - an observed matching stored in a `Matching` object `mus`
 - an `EntropyFunction` object `entropy_model` that allows for `p` parameters in $\alpha$
@@ -142,14 +145,24 @@ mde_results.print_results(n_alpha=p)
 ```
 The `mde_results` object contains the estimated $\alpha$ and $\beta$, their estimated variance-covariance, and a specification test.
 
+The Poisson-GLM estimator of the Choo and Siow homoskedastic model takes as input the obserrved matching and the basis functions, and returns the estimated $\beta$ and its estimated variance-covariance.
+```py
+poisson_results = choo_siow_poisson_glm(mus_sim, phi_bases)
+    _, mux0_sim, mu0y_sim, n_sim, m_sim = mus_sim.unpack()
+poisson_results.print_results()
+```
+The `poisson_results` object contains the estimated  $\beta$, the expected utilities $u_x$ and $v_y$, and their estimated variance-covariance.
 
-## Examples
 
--   `example_choosiow.py` shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model.
--   `example_nestedlogit.py` shows how to run minimum distance estimators on a two-layer nested logit model.
+
+## Examples 
+The following can be found in the Github repository and in the source code on PyPI:
+
+-   [example_choosiow.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_choo_siow.py) shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model.
+- [example_choosiow_no_singles.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_choo_siow_no_singles.py) does the same for a model without singles.
+-   [example_nested_logit.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_nested_logit.py) shows how to run minimum distance estimators on a two-layer nested logit model.
 
 ## Warnings
-
 -   many of these models (including all variants of Choo and Siow) rely heavily on logarithms and exponentials. It is easy to generate examples where numeric instability sets in.
 -   as a consequence, the `numeric` versions of the minimum distance estimator (which use numerical derivatives) are not recommended.
 -   the bias-corrected minimum distance estimator (`corrected`) may have a larger mean-squared error and/or introduce numerical instabilities.
@@ -157,36 +170,4 @@ The `mde_results` object contains the estimated $\alpha$ and $\beta$, their esti
 
 ## Release notes
 
-### version 1.2 (November 29, 2023)
-- incorporates models without singles for both MDE and Poisson; example in `example_choo_siow_no_singles.py`.
-
-### version 1.1.3 (November 8, 2023)
-- fixed URL of Streamlit app.
-
-### version 1.1.2 (November 7, 2023)
--  improved the Streamlit app, now in two files: `cupid_streamlit.py` and  `cupid_streamlit_utils.py`.
-
-### version 1.1.1
--  improved documentation
--  the package now relies on my utilities package `bs_python_utils`.  The `VarianceMatching` class in `matching_utils,py` is new; this should be transparent for the user.
-
-### version 1.0.8
-
--   deleted spurious print statement.
-
-### version 1.0.7
-
--   fixed error in bias-correction term.
-
-### version 1.0.6
-
--   corrected typo.
-
-### version 1.0.5
-
--   simplified the bias-correction for the minimum distance estimator in the Choo and Siow homoskedastic model.
-
-### version 1.0.4
-
--   added an optional bias-correction for the minimum distance estimator in the Choo and Siow homoskedastic model, to help with cases when the matching patterns vary a lot across cells.
--   added two complete examples: `example_choosiow.py` and `example_nestedlogit.py`.
+{{< include releases.md >}}

@@ -1,5 +1,6 @@
 ---
 title: "Documentation for  `cupid_matching`"
+author: "Bernard Salanie"
 format:
   pdf:
     toc: true
@@ -8,11 +9,11 @@ format:
 ---
 ## Introduction
 
-`cupid_matching` is a Python-based package that solves, simulates, and estimates separable matching problems with perfectly transferable utility. **_At this stage, it only allows for bipartite, one-to-one matching (e.g., the heterosexual marriage market)._**
+`cupid_matching` is a Python-based package that solves, simulates, and estimates separable matching problems with perfectly transferable utility. **_At this stage, it only allows for bipartite, one-to-one matching (e.g., the heterosexual marriage market)._**[^1]
 
 `cupid_matching` has four central functionalities:
 
-1.  to solve for the stable matching using our Iterative Projection Fitting Procedure (IPFP) in variants of the  [Choo and Siow (2006)](https://www.jstor.org/stable/10.1086/498585?seq=1) model[^1]: 
+1.  to solve for the stable matching using our Iterative Projection Fitting Procedure (IPFP) in variants of the  [Choo and Siow (2006)](https://www.jstor.org/stable/10.1086/498585?seq=1) model[^2]: 
 
 with or without singles, homoskedastic or heteroskedastic; and for a class of nested logit models;
 
@@ -22,7 +23,9 @@ with or without singles, homoskedastic or heteroskedastic; and for a class of ne
 
 4.  to demonstrate solving and estimating the Choo and Siow model with a Streamlit interactive app (see [a demo version here](http://3.84.215.135:8501/)).
 
-[^1]: See also [here](https://www.github.com/bsalanie/ipfp_R.git) for a package in R that solves for equilibrium in the basic version of the Choo and Siow model.
+[^1]: I thank Isabella Giancola-Schieda for her precious help in writing this document.
+
+[^2]: See also [here](https://www.github.com/bsalanie/ipfp_R.git) for a package in R that solves for equilibrium in the basic version of the Choo and Siow model.
 
 The package builds on Choo and Siow's  pioneering paper   ([_Journal of Political Economy_ 2006](https://www.jstor.org/stable/10.1086/498585?seq=1)) and on my joint  work with Alfred Galichon  (especially our 2022 [_Review of Economic Studies_ paper](https://academic.oup.com/restud/article-abstract/89/5/2600/6478301) and a [forthcoming paper](https://bsalanie.github.io/files/estimating_separable_models.pdf) in the _Journal of Applied Econometrics_).
 
