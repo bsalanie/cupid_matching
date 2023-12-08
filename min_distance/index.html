@@ -1143,7 +1143,10 @@ for the first step when <code>entropy.param_dependent</code> is <code>True</code
 <span class="normal">241</span>
 <span class="normal">242</span>
 <span class="normal">243</span>
-<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_semilinear_mde</span><span class="p">(</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_semilinear_mde</span><span class="p">(</span>
     <span class="n">muhat</span><span class="p">:</span> <span class="n">Matching</span><span class="p">,</span>
     <span class="n">phi_bases</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">entropy</span><span class="p">:</span> <span class="n">EntropyFunctions</span><span class="p">,</span>
@@ -1200,6 +1203,7 @@ for the first step when <code>entropy.param_dependent</code> is <code>True</code
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">K</span> <span class="o">=</span> <span class="n">check_args_mde</span><span class="p">(</span><span class="n">muhat</span><span class="p">,</span> <span class="n">phi_bases</span><span class="p">)</span>
     <span class="n">XY</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Y</span>
+    <span class="n">X1Y1</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">parameterized_entropy</span> <span class="o">=</span> <span class="n">entropy</span><span class="o">.</span><span class="n">parameter_dependent</span>
     <span class="n">S_mat</span> <span class="o">=</span> <span class="n">get_initial_weighting_matrix</span><span class="p">(</span>
         <span class="n">parameterized_entropy</span><span class="p">,</span> <span class="n">initial_weighting_matrix</span><span class="p">,</span> <span class="n">XY</span>
@@ -1210,6 +1214,8 @@ for the first step when <code>entropy.param_dependent</code> is <code>True</code
     <span class="c1"># if there are no singles, we need to premultiply by the randomized double differencing matrix $D_2$</span>
     <span class="k">if</span> <span class="n">no_singles</span><span class="p">:</span>
         <span class="n">D2_mat</span><span class="p">,</span> <span class="n">rank_D2</span> <span class="o">=</span> <span class="n">make_D2_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rank_D2</span> <span class="o">!=</span> <span class="n">X1Y1</span><span class="p">:</span>
+            <span class="n">bs_error_abort</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The D2 matrix should have rank </span><span class="si">{</span><span class="n">X1Y1</span><span class="si">}</span><span class="s2"> not </span><span class="si">{</span><span class="n">rank_D2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">phi_mat</span> <span class="o">=</span> <span class="n">D2_mat</span> <span class="o">@</span> <span class="n">phi_mat</span>
         <span class="n">check_indep_phi_no_singles</span><span class="p">(</span><span class="n">phi_mat</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
 
@@ -1333,7 +1339,7 @@ for the first step when <code>entropy.param_dependent</code> is <code>True</code
         <span class="n">residuals</span> <span class="o">=</span> <span class="n">est_Phi</span> <span class="o">+</span> <span class="n">e0_hat</span> <span class="o">+</span> <span class="n">e_hat</span> <span class="o">@</span> <span class="n">est_alpha</span>
 
     <span class="n">value_obj</span> <span class="o">=</span> <span class="n">residuals</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">S_mat</span> <span class="o">@</span> <span class="n">residuals</span>
-    <span class="n">ndf</span> <span class="o">=</span> <span class="n">rank_D2</span> <span class="o">-</span> <span class="n">n_pars</span> <span class="k">if</span> <span class="n">no_singles</span> <span class="k">else</span> <span class="n">XY</span> <span class="o">-</span> <span class="n">n_pars</span>
+    <span class="n">ndf</span> <span class="o">=</span> <span class="n">X1Y1</span> <span class="o">-</span> <span class="n">n_pars</span> <span class="k">if</span> <span class="n">no_singles</span> <span class="k">else</span> <span class="n">XY</span> <span class="o">-</span> <span class="n">n_pars</span>
     <span class="n">test_stat</span> <span class="o">=</span> <span class="n">value_obj</span>
     <span class="n">muxyhat</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="n">nhat</span><span class="p">,</span> <span class="n">mhat</span> <span class="o">=</span> <span class="n">muhat</span><span class="o">.</span><span class="n">unpack</span><span class="p">()</span>
     <span class="n">n_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">nhat</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mhat</span><span class="p">)</span>
