@@ -35,7 +35,7 @@ If `cupid_matching` is a significant contributor to your research, the following
 
 - **Salanié, Bernard (2023):** "_cupid_matching:_ solving and estimating separable matching models", https://pypi.org/project/cupid_matching.
 
-### Installation
+### Installation{#install}
 
 `cupid_matching` works with Python versions $\geq$ 3.10. To install \[or update\] it, run the following code:
 
@@ -43,22 +43,20 @@ If `cupid_matching` is a significant contributor to your research, the following
 pip install [-U] cupid_matching
 ```
 
-The source code is available on [GitHub](https://github.com/bsalanie/cupid_matching).
+The source code is available on [GitHub](https://github.com/bsalanie/cupid_matching) and [on PyPI](https://pypi.org/project/cupid_matching/#files).
 
-### Using teh package
+### Using the package
 To import functions or classes from `cupid_matching`, use e.g.
 
 ```py
 from cupid_matching.min_distance import estimate_semilinear_mde
 ```
 ### Examples
-To get a feel for what the package can do, you can download the source [here](https://pypi.org/project/cupid_matching/#files) or from Github by
+To get a feel for what the package can do, you can download the source [here](https://pypi.org/project/cupid_matching/#files), or from Github by
 ```sh
 git clone https://github.com/bsalanie/cupid_matching.git
 ```
 and run the `example_choo_siow.py` script. It estimates the parameters of the Choo and Siow homoskedastic model using the minimum distance estimator and the Poisson-GLM estimator.
-
-To run the Streamlit app, run  `streamlit run cupid_streamlit.py` in the folder where the file `cupid_streamlit.py` is. The app will open in your browser at `http://localhost:8501/`. *Make sure that  you are using the version of `streamlit`  that you installed with `pip install cupid_matching`*. Alternatively, try the [demo version here](http://3.84.215.135:8501).
 
 ### Features
 
@@ -84,6 +82,11 @@ To run the Streamlit app, run  `streamlit run cupid_streamlit.py` in the folder 
 - The bias-corrected minimum distance estimator, `corrected``, may have a larger mean-squared error and/or introduce numerical instabilities.
 
 - The estimated variance of the estimators assumes that the observed matching was sampled at the household level, and that all sampling weights are equal.
+
+
+### The Streanlit app
+To run the Streamlit app, download [cupid_streamlit.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/cupid_streamlit.py) and run  `streamlit run cupid_streamlit.py` in the folder where you downloaded the file. The app will open in your browser at `http://localhost:8501/`. *Make sure that  you are using the version of `streamlit`  that you installed with `pip install cupid_matching`*. Alternatively, try the [demo version here](http://3.84.215.135:8501).
+
 
 ## Background
 
@@ -207,7 +210,7 @@ The `mus` above is an instance of a `Matching` object (defined in `matching_util
 
 The vectors `error_x` and `error_y` are estimates of the precision of the solution (see the code in `ipfp_solvers.py`).
 
-### Estimating the joint utility matrix
+### Estimating the joint utility matrix{#estimating}
 
 Given observed matching patterns $\mu$, a class of generalized entropy functions $\mathcal{E}^{\alpha}$, and a class of joint surplus functions $(\Phi^{\beta})$, one would like to estimate the parameter vector $\lambda=(\alpha,\beta)$.
 
@@ -300,13 +303,26 @@ The Poisson-GLM estimator is easily adapted to the Choo and Siow homoskedastic m
 
 
 
----
 
 ## Tutorials
+The following can be downloaded with the source code (see [installation](#install)).
 
 * `example_choosiow.py` shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model.
 * `example_choosiow_no_singles.py` shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model without singles.
 * `example_nestedlogit.py` shows how to run minimum distance estimators on a two-layer nested logit model.
+
+## User-defined models
+If you want to estimate a model that does not belong to any of the classes
+in the package, and the mnodel is separable with linear surplus $\Phi=\phi\cdot\beta$, you need to:
+
+* create an `EntropyFunctions` object that defines:
+  *  the derivative of the generalized entropy of your model with respect to $\mu$
+  *  the second derivatives with respect to $(\mu,\mu)$ and with respect to $(\mu,r)$ --- where $r=(n,m)$ collects the margins.
+* if the entropy depends on unknown parameters $\alpha$, the definition of the `EntropyFunctions` object requires both functions `e0` and `e` (see [definition](#estimating)) to be specified.
+-  pass this `EntropyFunctions` argument to the `estimate_linear_mde` function.
+- if the entropy depends on additional parameters *that are known/assumed* (for instance the configuration of the nests in a nested logit), you need to pass them in the `additional_parameters` argument.
+
+ See [nested_logit.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/nested_logit.py) for an example.
 
 ## Release Notes
 {{< include releases.md >}}

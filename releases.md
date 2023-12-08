@@ -1,4 +1,7 @@
 
+### version 1.3 (December 8, 2023)
+- added `CupidMatchingDoc.pdf` on Github, with detailed explanations of the methods. 
+
 ### version 1.2 (November 29, 2023)
 - incorporates models without singles for both MDE and Poisson; example in `example_choo_siow_no_singles.py`.
 
