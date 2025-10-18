@@ -160,9 +160,9 @@ The `poisson_results` object contains the estimated  $\beta$, the expected utili
 ## Examples 
 The following can be found in the `examples` folder of the package:
 
--   [example_choosiow.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_choo_siow.py) shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model.
-- [example_choosiow_no_singles.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_choo_siow_no_singles.py) does the same for a model without singles.
--   [example_nested_logit.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_nested_logit.py) shows how to run minimum distance estimators on a two-layer nested logit model.
+-   [example_choosiow.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/examples/example_choo_siow.py) shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model.
+- [example_choosiow_no_singles.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/examples/example_choo_siow_no_singles.py) does the same for a model without singles.
+- [example_nested_logit.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/examples/example_nested_logit.py) shows how to run minimum distance estimators on a two-layer nested logit model.
 
 ## Warnings
 -   many of these models (including all variants of Choo and Siow) rely heavily on logarithms and exponentials. It is easy to generate examples where numeric instability sets in.
