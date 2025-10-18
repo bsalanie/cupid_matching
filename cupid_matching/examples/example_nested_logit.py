@@ -9,7 +9,7 @@ On each side, the nests are the same for each type, with the same parameters.
 from typing import cast
 
 import numpy as np
-from bs_python_utils.bsutils import print_stars
+from bs_python_utils.bsutils import print_stars, bs_error_abort
 
 from cupid_matching.entropy import EntropyFunctions
 from cupid_matching.min_distance import estimate_semilinear_mde
@@ -115,27 +115,29 @@ def mde_estimate(
     return cast(float, mde_discrepancy)
 
 
-(
-    nested_logit_instance,
-    phi_bases,
-    true_coeffs,
-    entropy_nested_logit,
-    entropy_nested_logit_numeric,
-) = create_nestedlogit_population(20, 18, 6)
-seed = 6475788
-n_households = 1_000_000
-mus_sim = nested_logit_instance.simulate(n_households, seed)
-mde_discrepancy = mde_estimate(
-    mus_sim,
-    phi_bases,
-    true_coeffs,
-    entropy_nested_logit,
-    "RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
-)
-mde_discrepancy_numeric = mde_estimate(
-    mus_sim,
-    phi_bases,
-    true_coeffs,
-    entropy_nested_logit_numeric,
-    "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
-)
+if __name__ == "__main__":
+    bs_error_abort("The nested logit example is buggy.")
+    (
+        nested_logit_instance,
+        phi_bases,
+        true_coeffs,
+        entropy_nested_logit,
+        entropy_nested_logit_numeric,
+    ) = create_nestedlogit_population(20, 18, 6)
+    seed = 6475788
+    n_households = 1_000_000
+    mus_sim = nested_logit_instance.simulate(n_households, seed)
+    mde_discrepancy = mde_estimate(
+        mus_sim,
+        phi_bases,
+        true_coeffs,
+        entropy_nested_logit,
+        "RESULTS FOR MDE WITH ANALYTICAL GRADIENT",
+    )
+    mde_discrepancy_numeric = mde_estimate(
+        mus_sim,
+        phi_bases,
+        true_coeffs,
+        entropy_nested_logit_numeric,
+        "RESULTS FOR MDE WITH NUMERICAL GRADIENT",
+    )

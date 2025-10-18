@@ -12,7 +12,7 @@ check: ## Run code quality tools.
 	@uv run pre-commit run -a
 	@echo "🚀 Static type checking: Running mypy"
 	@uv run mypy cupid_matching/*.py
-	@uv run mypy cupid_matchingy/examples/*.py
+	@uv run mypy cupid_matching/examples/*.py
 
 
 .PHONY: test

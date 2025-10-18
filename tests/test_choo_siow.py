@@ -1,4 +1,4 @@
-from cupid_matching.example_choo_siow import demo_choo_siow
+from cupid_matching.examples.example_choo_siow import demo_choo_siow
 
 
 def test_choo_siow():

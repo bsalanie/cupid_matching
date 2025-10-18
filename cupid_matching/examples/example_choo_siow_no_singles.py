@@ -11,7 +11,7 @@ from cupid_matching.choo_siow_no_singles import (
     entropy_choo_siow_no_singles_corrected_numeric,
     entropy_choo_siow_no_singles_numeric,
 )
-from cupid_matching.example_choo_siow import mde_estimate
+from cupid_matching.examples.example_choo_siow import mde_estimate
 from cupid_matching.model_classes import ChooSiowPrimitives
 from cupid_matching.poisson_glm import choo_siow_poisson_glm
 

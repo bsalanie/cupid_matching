@@ -37,6 +37,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+tests/__pycache__/
+cupid_matching/__pycache__/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

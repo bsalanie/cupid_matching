@@ -1,4 +1,6 @@
-from cupid_matching.example_choo_siow_no_singles import demo_choo_siow_no_singles
+from cupid_matching.examples.example_choo_siow_no_singles import (
+    demo_choo_siow_no_singles,
+)
 
 
 def test_choo_siow_no_singles():
