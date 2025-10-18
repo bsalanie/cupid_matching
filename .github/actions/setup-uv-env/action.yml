@@ -16,7 +16,7 @@ runs:
         python-version: ${{ inputs.python-version }}
 
     - name: Install uv
-      uses: yuzutech/install-uv@v0.1.5
+      uses: astral-sh/setup-uv@v6
       with:
         version: latest
 
