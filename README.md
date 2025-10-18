@@ -24,6 +24,8 @@
 pip install [-U] cupid_matching
 ```
 
+The package relies on utilities from `bs_python_utils`; installing with `pip` pulls it in automatically, but you will need it available locally when running the test suite.
+
 ## Importing functions from the package
 
 For instance:

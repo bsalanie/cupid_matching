@@ -1,0 +1,33 @@
+name: "setup-uv-env"
+description: "Composite action to setup the Python and uv environment."
+
+inputs:
+   python-version:
+     required: false
+     description: "The python version to use"
+     default: "3.12"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install uv
+      uses: yuzutech/install-uv@v0.1.5
+      with:
+        version: latest
+
+    - name: Load cached venv
+      id: cached-uv-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ inputs.python-version }}-${{ hashFiles('uv.lock') }}
+
+    - name: Install dependencies
+      if: steps.cached-uv-dependencies.outputs.cache-hit != 'true'
+      run: uv sync --no-interaction
+      shell: bash

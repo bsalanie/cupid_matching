@@ -354,7 +354,7 @@ class NestedLogitPrimitives:
                             evec_n = ephi_y[nest_x]
                             delta_n = deltas[i_nest_x]
                             sum_rd = rho_y + delta_n
-                            mun_term = nppow(mu_n, (rho_n - 1.0) / sum_rd)
+                            mun_term = nppow(mu_n, (rho_y - 1.0) / sum_rd)
                             mu0_term = nppow(mu0_n, 1.0 / sum_rd)
                             gbar[y, i_nest_x] = np.sum(mun_term * mu0_term * evec_n)
                             gbar_pow[y, i_nest_x] = nppow(
