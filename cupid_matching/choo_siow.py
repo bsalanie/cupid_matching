@@ -1,5 +1,4 @@
-"""The components of the derivative of the entropy for the Choo and Siow homoskedastic model.
-"""
+"""The components of the derivative of the entropy for the Choo and Siow homoskedastic model."""
 
 from typing import cast
 

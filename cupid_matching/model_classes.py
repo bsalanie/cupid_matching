@@ -208,8 +208,8 @@ class NestedLogitPrimitives:
         else:
             alpha_vals = self.true_alphas
             repr_str += "     with respective nests parameters:\n"
-            repr_str += f"    {alpha_vals[:self.n_nests_over_Y]}\n"
-            repr_str += f" and {alpha_vals[self.n_nests_over_Y:]}\n"
+            repr_str += f"    {alpha_vals[: self.n_nests_over_Y]}\n"
+            repr_str += f" and {alpha_vals[self.n_nests_over_Y :]}\n"
         print_stars(repr_str)
 
     def ipfp_nested_logit_solver(

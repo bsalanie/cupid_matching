@@ -1,30 +1,30 @@
+TOKEN=${PYPI_TOKEN}
+
 .PHONY: install
-install: ## Install the poetry environment and install the pre-commit hooks
-	@echo "🚀 Creating virtual environment using pyenv and poetry"
-	@poetry install	
-	@poetry run pre-commit install
-	@poetry shell
+install: ## Install the uv environment and install the pre-commit hooks
+	@echo "🚀 Creating virtual environment using uv"
+	@uv sync
+	@uv run pre-commit install
 
 .PHONY: check
 check: ## Run code quality tools.
-	@echo "🚀 Checking Poetry lock file consistency with 'pyproject.toml': Running poetry check --lock"
-	@poetry check --lock
 	@echo "🚀 Linting code: Running pre-commit"
-	@poetry run pre-commit run -a
+	@uv run pre-commit run -a
 	@echo "🚀 Static type checking: Running mypy"
-	@poetry run mypy cupid_matching/*.py
+	@uv run mypy cupid_matching/*.py
+	@uv run mypy cupid_matchingy/examples/*.py
 
 
 .PHONY: test
 test: ## Test the code with pytest
 	@echo "🚀 Testing code: Running pytest"
-	@poetry run pytest --doctest-modules tests/test*.py
+	@uv run pytest --doctest-modules tests/test*.py
 
 
 .PHONY: build
-build: clean-build ## Build wheel file using poetry
+build: clean-build ## Build wheel file using uv
 	@echo "🚀 Creating wheel file"
-	@poetry build
+	@uv build
 
 .PHONY: clean-build
 clean-build: ## clean build artifacts
@@ -33,9 +33,9 @@ clean-build: ## clean build artifacts
 .PHONY: publish
 publish: ## publish a release to pypi.
 	@echo "🚀 Publishing: Dry run."
-	@poetry publish --dry-run -u __token__ -p pypi-${PYPI_TOKEN}
+	@uv publish --dry-run -u __token__ -p pypi-${TOKEN}
 	@echo "🚀 Publishing."
-	@poetry publish -u __token__ -p pypi-${PYPI_TOKEN}
+	@uv publish -u __token__ -p pypi-${TOKEN}
 
 .PHONY: build-and-publish
 build-and-publish: build publish ## Build and publish.
@@ -43,23 +43,17 @@ build-and-publish: build publish ## Build and publish.
 .PHONY: docs-test
 docs-test: ## Test if documentation can be built without warnings or errors
 	@cp README.md docs/index.md
-	@quarto render CupidMatchingDoc.qmd --to pdf
-	@poetry run mkdocs build -s
-
+	@uv run mkdocs build -s
 
 .PHONY: docs
 docs: ## Build and serve the documentation
 	@cp README.md docs/index.md
-	@quarto render CupidMatchingDoc.qmd --to pdf
-	@poetry run mkdocs serve
-
+	@uv run mkdocs serve
 
 .PHONY: docs-deploy
 docs-deploy: ## Build and deploy the documentation on Github pages
 	@cp README.md docs/index.md
-	@quarto render CupidMatchingDoc.qmd --to pdf
-	@poetry run mkdocs gh-deploy
-
+	@uv run mkdocs gh-deploy
 
 .PHONY: help
 help:

@@ -1,5 +1,4 @@
-"""Utilities for Poisson GLM.
-"""
+"""Utilities for Poisson GLM."""
 
 from dataclasses import dataclass
 from typing import cast

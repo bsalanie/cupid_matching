@@ -156,7 +156,7 @@ else:
     st.subheader("Choose the numbers of men and women in each category")
     for iman in range(ncat_men):
         nx[iman] = st.slider(
-            f"Number of men in category {iman+1}",
+            f"Number of men in category {iman + 1}",
             min_value=1,
             max_value=10,
             step=1,
@@ -164,7 +164,7 @@ else:
         )
     for iwoman in range(ncat_women):
         my[iwoman] = st.slider(
-            f"Number of women in category {iwoman+1}",
+            f"Number of women in category {iwoman + 1}",
             min_value=1,
             max_value=10,
             step=1,
@@ -174,7 +174,7 @@ else:
     for iman in range(ncat_men):
         for iwoman in range(ncat_women):
             Phi[iman, iwoman] = st.slider(
-                f"Joint surplus in cell ({iman+1}, {iwoman+1})",
+                f"Joint surplus in cell ({iman + 1}, {iwoman + 1})",
                 min_value=-10.0,
                 max_value=10.0,
                 value=0.0,

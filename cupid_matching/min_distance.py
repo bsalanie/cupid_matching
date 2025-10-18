@@ -1,4 +1,4 @@
-""" Estimates semilinear separable models with a given entropy function.
+"""Estimates semilinear separable models with a given entropy function.
 The entropy function and the surplus matrix must both be linear in the parameters.
 """
 

@@ -281,14 +281,14 @@ def download_parameters_results(
         )
         results_str += (
             f"    and {n_households} households with a proportion of"
-            f" {100*proportion_men:.1f} percent of men.\n\n"
+            f" {100 * proportion_men:.1f} percent of men.\n\n"
         )
         results_str += "The numbers of men in each category are:\n"
         for x in range(ncat_men):
-            results_str += f"{x+1}: {n_sim[x]: d}\n"
+            results_str += f"{x + 1}: {n_sim[x]: d}\n"
         results_str += "\n  the numbers of women in each category are:\n"
         for y in range(ncat_women):
-            results_str += f"{y+1}: {m_sim[y]: d}\n"
+            results_str += f"{y + 1}: {m_sim[y]: d}\n"
         results_str += "\nYou chose the following coefficients:\n"
         for coeff, value in zip(coeff_names, true_coeffs, strict=True):
             results_str += f"{coeff}:  {value: >10.3f}\n"
@@ -301,11 +301,11 @@ def download_parameters_results(
         results_str += "\n\n"
         results_str += "The numbers of single men are:\n"
         for x in range(ncat_men):
-            results_str += f"{x+1}: {mux0_sim[x]: d}\n"
+            results_str += f"{x + 1}: {mux0_sim[x]: d}\n"
         results_str += "\n\n"
         results_str += "The numbers of single women are:\n"
         for y in range(ncat_women):
-            results_str += f"{y+1}: {mu0y_sim[y]: d}\n"
+            results_str += f"{y + 1}: {mu0y_sim[y]: d}\n"
         results_str += "\n\n Minimum distance estimation gives\n"
         results_str += df_mde.to_string()
         specif_test_ndf, specif_test_stat, specif_test_pval = mde_test_results
@@ -333,10 +333,10 @@ def download_parameters_results(
         )
         results_str += "\n  the numbers of men in each category are:\n"
         for x in range(ncat_men):
-            results_str += f"{x+1}: {n_sim[x]: d}\n"
+            results_str += f"{x + 1}: {n_sim[x]: d}\n"
         results_str += "\n  the numbers of women in each category are:\n"
         for y in range(ncat_women):
-            results_str += f"{y+1}: {m_sim[y]: d}\n"
+            results_str += f"{y + 1}: {m_sim[y]: d}\n"
         results_str += "\nYou chose the following joint surplus matrix:\n"
         for x in range(ncat_men):
             for y in range(ncat_women):
@@ -351,11 +351,11 @@ def download_parameters_results(
         results_str += "\n\n"
         results_str += "The numbers of single men are:\n"
         for x in range(ncat_men):
-            results_str += f"{x+1}: {mux0_sim[x]: d}\n"
+            results_str += f"{x + 1}: {mux0_sim[x]: d}\n"
         results_str += "\n\n"
         results_str += "The numbers of single women are:\n"
         for y in range(ncat_women):
-            results_str += f"{y+1}: {mu0y_sim[y]: d}\n"
+            results_str += f"{y + 1}: {mu0y_sim[y]: d}\n"
 
     _ = st.download_button(
         label=f"Download summary to {file_name}",

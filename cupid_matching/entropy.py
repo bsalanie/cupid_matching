@@ -1,4 +1,4 @@
-"""Entropies and their derivatives. """
+"""Entropies and their derivatives."""
 
 from dataclasses import dataclass
 from functools import partial
@@ -39,8 +39,7 @@ def check_additional_parameters(
 
 
 class EntropyHessianMuMu(Protocol):
-    def __call__(self, mus: Matching, additional_parameters=..., /) -> ThreeArrays:
-        ...
+    def __call__(self, mus: Matching, additional_parameters=..., /) -> ThreeArrays: ...
 
     """The type of a function that takes in a `Matching` and possibly a list of additional parameters
     and returns the three components of the hessian of the entropy wrt $(\\mu,\\mu)$.
@@ -48,8 +47,7 @@ class EntropyHessianMuMu(Protocol):
 
 
 class EntropyHessianMuR(Protocol):
-    def __call__(self, mus: Matching, additional_parameters=..., /) -> TwoArrays:
-        ...
+    def __call__(self, mus: Matching, additional_parameters=..., /) -> TwoArrays: ...
 
     """The type of a function that takes in a `Matching` and possibly a list of additional parameters
     and returns the two components of the hessian of the entropy

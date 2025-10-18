@@ -1,5 +1,4 @@
-"""Utility programs used in `min_distance.py`.
-"""
+"""Utility programs used in `min_distance.py`."""
 
 from dataclasses import dataclass
 from typing import cast

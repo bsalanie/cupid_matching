@@ -1,4 +1,4 @@
-""" matching-related utilities """
+"""matching-related utilities"""
 
 from dataclasses import dataclass, field
 from typing import Any, Final, Protocol, cast
@@ -101,8 +101,7 @@ class Matching:
 class MatchingFunction(Protocol):
     def __call__(
         self, mus: Matching, additional_parameters: list | None = ..., /
-    ) -> np.ndarray:
-        ...
+    ) -> np.ndarray: ...
 
 
 def get_evals(

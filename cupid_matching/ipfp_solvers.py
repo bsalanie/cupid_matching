@@ -352,8 +352,7 @@ def ipfp_gender_heteroskedastic_solver(
     gr: Literal[False],
     verbose: bool,
     maxiter: int,
-) -> IPFPNoGradientResults:
-    ...
+) -> IPFPNoGradientResults: ...
 
 
 @overload
@@ -366,8 +365,7 @@ def ipfp_gender_heteroskedastic_solver(
     gr: Literal[True],
     verbose: bool,
     maxiter: int,
-) -> IPFPGradientResults:
-    ...
+) -> IPFPGradientResults: ...
 
 
 def ipfp_gender_heteroskedastic_solver(
@@ -478,8 +476,7 @@ def ipfp_heteroskedastic_solver(
     gr: Literal[False],
     verbose: bool,
     maxiter: int,
-) -> IPFPNoGradientResults:
-    ...
+) -> IPFPNoGradientResults: ...
 
 
 @overload
@@ -493,8 +490,7 @@ def ipfp_heteroskedastic_solver(
     gr: Literal[True],
     verbose: bool,
     maxiter: int,
-) -> IPFPGradientResults:
-    ...
+) -> IPFPGradientResults: ...
 
 
 def ipfp_heteroskedastic_solver(
