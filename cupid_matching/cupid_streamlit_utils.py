@@ -1,6 +1,8 @@
 from math import pow
 from typing import Any, cast
 
+from altair import ConcatChart, LayerChart, VConcatChart
+
 import altair as alt
 import numpy as np
 import pandas as pd
@@ -11,7 +13,7 @@ from bs_python_utils.bsutils import bs_error_abort
 from cupid_matching.matching_utils import Matching
 
 
-def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
+def _make_profile(lambda_val: float, n: float, ncat: int) -> np.ndarray:
     """
     Creates a profile of numbers of individuals by type
     that changes exponentially
@@ -29,7 +31,7 @@ def _make_profile(lambda_val: float, n: int, ncat: int) -> np.ndarray:
     return n_types
 
 
-def make_margins(n: int, ncat: int, scenario: str = "Constant") -> np.ndarray:
+def make_margins(n: float, ncat: int, scenario: str = "Constant") -> np.ndarray:
     """generates the numbers by type on one side of the market
 
     Args:
@@ -85,7 +87,7 @@ def table_estimates(
 
 def plot_heatmap(
     mat: np.ndarray, str_format: str, str_tit: str | None = None
-) -> alt.Chart:
+) -> LayerChart:
     """Plots a heatmap of the matrix
 
     Args:
@@ -124,7 +126,7 @@ def plot_heatmap(
         both = (mat_map + text).properties(width=500, height=500)
     else:
         both = (mat_map + text).properties(title=str_tit, width=400, height=400)
-    return both
+    return cast(LayerChart, both)
 
 
 def _gender_singles(xvals: np.ndarray, str_gender: str) -> alt.Chart:
@@ -150,10 +152,10 @@ def _gender_singles(xvals: np.ndarray, str_gender: str) -> alt.Chart:
         .mark_bar(color=color_bar)
         .encode(y=str_cat + ":O", x=str_val + ":Q")
     )
-    return g_bars.properties(width=300, height=300)
+    return cast(alt.Chart, g_bars.properties(width=300, height=300))
 
 
-def _plot_bars(mux0: np.ndarray, mu0y: np.ndarray) -> alt.Chart:
+def _plot_bars(mux0: np.ndarray, mu0y: np.ndarray) -> VConcatChart:
     """concatenates the two gender singles histograms
 
     Args:
@@ -168,7 +170,7 @@ def _plot_bars(mux0: np.ndarray, mu0y: np.ndarray) -> alt.Chart:
     return (men_bars & women_bars).properties(title="Singles")
 
 
-def plot_matching(mus: Matching) -> alt.Chart:
+def plot_matching(mus: Matching) -> ConcatChart:
     """generates the complete plot of matching patterns
 
     Args:
@@ -180,7 +182,7 @@ def plot_matching(mus: Matching) -> alt.Chart:
     muxy, mux0, mu0y, _, _ = mus.unpack()
     plotxy = plot_heatmap(muxy, "d", str_tit="Marriages")
     plotsingles = _plot_bars(mux0, mu0y)
-    return plotxy | plotsingles
+    return cast(ConcatChart, plotxy | plotsingles)
 
 
 def _convert_dataframe_to_csv(df: pd.DataFrame) -> str:

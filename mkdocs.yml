@@ -36,7 +36,7 @@ plugins:
       handlers:
         python:
           paths:
-            - cupid_matching
+            # - cupid_matching
 
 # theme:
 #   palette:
