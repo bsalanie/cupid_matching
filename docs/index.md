@@ -24,6 +24,8 @@
 pip install [-U] cupid_matching
 ```
 
+The package relies on utilities from `bs_python_utils`; installing with `pip` pulls it in automatically, but you will need it available locally when running the test suite.
+
 ## Importing functions from the package
 
 For instance:
@@ -156,7 +158,7 @@ The `poisson_results` object contains the estimated  $\beta$, the expected utili
 
 
 ## Examples 
-The following can be found in the Github repository and in the source code on PyPI:
+The following can be found in the `examples` folder of the package:
 
 -   [example_choosiow.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_choo_siow.py) shows how to run minimum distance and Poisson estimators on a Choo and Siow homoskedastic model.
 - [example_choosiow_no_singles.py](https://github.com/bsalanie/cupid_matching/blob/main/cupid_matching/example_choo_siow_no_singles.py) does the same for a model without singles.

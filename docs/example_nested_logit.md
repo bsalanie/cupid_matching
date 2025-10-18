@@ -1,2 +1,2 @@
-# `example_nestedlogit` module
-::: cupid_matching.example_nested_logit
+# `examples/example_nestedlogit` module
+::: cupid_matching.examples.example_nested_logit

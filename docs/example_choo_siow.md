@@ -1,2 +1,2 @@
-# `example_choosiow` module
-::: cupid_matching.example_choo_siow
+# `examples/example_choosiow` module
+::: cupid_matching.examples.example_choo_siow
