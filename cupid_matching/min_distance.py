@@ -188,7 +188,7 @@ def estimate_semilinear_mde(
             )
             hessian_components_mur = (
                 hessian_components_mur_e0[i] + hessian_components_mur_e[i] @ first_alpha
-                for i in range(3)
+                for i in range(2)
             )
         else:  # we use a numeric hessian
             hessian_components_mumu, hessian_components_mur = numeric_hessian(

@@ -9,7 +9,7 @@ On each side, the nests are the same for each type, with the same parameters.
 from typing import cast
 
 import numpy as np
-from bs_python_utils.bsutils import print_stars, bs_error_abort
+from bs_python_utils.bsutils import print_stars
 
 from cupid_matching.entropy import EntropyFunctions
 from cupid_matching.min_distance import estimate_semilinear_mde
@@ -116,7 +116,7 @@ def mde_estimate(
 
 
 if __name__ == "__main__":
-    bs_error_abort("The nested logit example is buggy.")
+    # bs_error_abort("The nested logit example is buggy.")
     (
         nested_logit_instance,
         phi_bases,

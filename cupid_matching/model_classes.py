@@ -446,7 +446,7 @@ class NestedLogitPrimitives:
             bs_error_abort(
                 "true_alphas must be specified to solve the nested logit by IPFP."
             )
-        self.mus, err_x, err_y = self.ipfp_nested_logit_solver(verbose=False)
+        self.mus, *_ = self.ipfp_nested_logit_solver(verbose=False)
         return self.mus
 
     def simulate(self, n_households: int, seed: int | None = None) -> Matching:
